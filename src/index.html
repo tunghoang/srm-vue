@@ -4,9 +4,47 @@
     <title>Student Research Management</title>
   </head>
   <body>
-    <h1 class='title'>Hello world</h1>
-    <div id="vue-app">
-      <h3 class='subtitle'>{{message}}</h3>
+    <div id="vue-app" class="tile is-ancestor" style='height: 100vh'>
+      <div class='tile is-parent is-vertical debug' style='height:100%'>
+        <div v-if="!isLogingIn()" class='tile is-child debug' style='flex:0'>
+          <nav class='navbar is-info debug'>
+            <div class='navbar-brand'>
+              <a class='navbar-item subtitle'>SRM</a>
+            </div>
+            <div class='navbar-menu'>
+              <div class='navbar-end'>
+                <router-link class='navbar-item' to="/login">
+                  <span class='icon'>
+                    <ion-icon name="log-in-outline"></ion-icon>
+                  </span>
+                </router-link>
+              </div>
+            </div>
+          </nav>
+        </div>
+        <div class='tile is-parent debug'>
+          <aside v-if="!isLogingIn()" class='tile is-child menu' style='flex:0 1 20%'>
+            <p class="menu-label">
+              Administration
+            </p>
+            <ul class='menu-list'>
+              <li><router-link to="/staff"><span>Staff Management</span></router-link></li>
+              <li><router-link to="/student">
+                <span class='icon is-medium'>
+                  <ion-icon size='small' name="people-outline"></ion-icon>
+                </span>
+                <span>Student Management</span>
+              </router-link></li>
+            </ul>
+          </aside>
+          <div class='tile is-parent'>
+            <div class='tile is-child'>
+              <router-view></router-view>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+    <script src="https://unpkg.com/ionicons@5.2.1/dist/ionicons.js"></script>
   </body>
 </html>

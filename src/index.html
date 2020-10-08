@@ -22,19 +22,59 @@
             </div>
           </nav>
         </div>
-        <div class='tile is-parent debug'>
-          <aside v-if="!isLogingIn()" class='tile is-child menu' style='flex:0 1 20%'>
+        <div class='tile is-parent debug '>
+          <aside v-if="!isLogingIn()" class='tile is-child menu is-active' style='flex:0 1 20%'>
             <p class="menu-label">
               Administration
             </p>
             <ul class='menu-list'>
-              <li><router-link to="/staff"><span>Staff Management</span></router-link></li>
-              <li><router-link to="/student">
+              <li>
+                <router-link to="/staff">
+                  <span class='icon is-medium'>
+                    <ion-icon name="ribbon-outline"></ion-icon>
+                  </span>
+                  <span>Staff Management</span>
+                </router-link>
+              </li>
+              
+              <li>
+                <router-link to="/student">
                 <span class='icon is-medium'>
-                  <ion-icon size='small' name="people-outline"></ion-icon>
+                  <ion-icon size='small' name="person-add-outline"></ion-icon>
                 </span>
                 <span>Student Management</span>
-              </router-link></li>
+                </router-link>
+              </li>
+
+              <li>
+                <router-link to="/advisor">
+                <span class='icon is-medium'>
+                  <ion-icon size='small' name="eye-outline"></ion-icon>
+                </span>
+                <span>Advisor Management</span>
+                </router-link>
+              </li>
+              
+
+              <li>
+                <router-link to="/semester">
+                <span class='icon is-medium'>
+                  <ion-icon size='small' name="school-outline"></ion-icon>
+                </span>
+                <span>Semester Management</span>
+                </router-link>
+              </li>
+
+              <li>
+                <router-link to="/project">
+                <span class='icon is-medium'>
+                  <ion-icon size='small' name="briefcase-outline"></ion-icon>
+                </span>
+                <span>Project Management</span>
+                </router-link>
+              </li>
+
+
             </ul>
           </aside>
           <div class='tile is-parent'>

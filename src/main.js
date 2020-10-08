@@ -7,7 +7,8 @@ Vue.use(VueRouter);
 import Pages from './pages';
 
 const router = new VueRouter({
-  routes: Pages
+  routes: Pages,
+  linkActiveClass: 'is-active',
 })
 new Vue({
   el: '#vue-app',
@@ -19,10 +20,13 @@ new Vue({
   },
   methods: {
     doClick: function() {
+
       console.log('do click', this.$router.currentRoute );
+
       if (this.$router.currentRoute.path !== '/staff') {
         this.$router.push('/staff');
       }
+      
     },
     isLogingIn: function() {
       return this.$router.currentRoute.path === '/login';

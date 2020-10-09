@@ -11,7 +11,7 @@ let component = {
       this.$router.push('/student');
     }
   },
-  template
+  template 
 };
 
 export default { path:"/login", component:component }

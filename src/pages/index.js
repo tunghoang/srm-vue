@@ -4,6 +4,7 @@ import Student from './student';
 import Advisor from './advisor';
 import Project from './project';
 import Semester from './semester';
+import Quota from './quota';
 
 
-export default [{path:'/', redirect: '/student'}, Login, Staff, Student, Advisor,Project,Semester];
+export default [{path:'/', redirect: '/student'}, Login, Staff, Student, Advisor,Project,Semester,Quota];

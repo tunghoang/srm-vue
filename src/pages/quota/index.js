@@ -12,7 +12,7 @@ let component = {
   },
   async created(){
     try{
-      const res = await axios.get(config.SEMESTERS_URL);
+      const res = await axios.get(config.QUOTAS_URL);
       this.contents = res.data;
     }catch(err){
       console.log(err);
@@ -32,4 +32,4 @@ let component = {
 };
 
 
-export default { path:"/semester", component: component }
+export default { path:"/quota", component: component }

@@ -1,0 +1,81 @@
+<div class="rows">
+    <div class="tabs is-medium">
+        <ul>
+            <li>
+                <a @click="tabIdx = 0;">List Quota </a>
+            </li>
+            <li>
+                <a class="link" href="#" @click="tabIdx = 1;">
+                    <span>New Quota</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div v-if="tabIdx == 0">
+        <div v-for="content in contents" class="column" :key="content.idQuota">
+            <div class="card">
+                <div class="card-content ">
+                    <span class="is-pulled-left">
+                        <b>idQuota: {{content.idQuota}}</b> <br>
+                        name: {{content.name}}. <br>
+                        description: {{content.description}} <br>
+                        n_kltn: {{content.n_kltn}} <br>
+                        n_dakh: {{content.n_dakh}}
+                    </span>
+                    <ion-icon class="is-pulled-right" name="trash-outline" @click=""></ion-icon>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div v-if="tabIdx === 1">
+        <div class='column '>
+            <div class='panel'>
+                <div class='panel-heading'>
+                    New Quota
+                </div>
+                <div class='panel-block'>
+                    <div class='container'>
+                        <div class=field>
+                            <label class='label'>idQuota</label>
+                            <div class='control'>
+                                <input class='input' type='text' placeholder='idQuota'>
+                            </div>
+                        </div>
+                        <div class=field>
+                            <label class='label'>name</label>
+                            <div class='control'>
+                                <input class='input' type='text' placeholder='name'>
+                            </div>
+                        </div>
+                        <div class=field>
+                            <label class='label'>description</label>
+                            <div class='control'>
+                                <input class='input' type='text' placeholder='description'>
+                            </div>
+                        </div>
+                        <div class=field>
+                            <label class='label'>n_kltn</label>
+                            <div class='control'>
+                                <input class='input' type='text' placeholder='n_kltn'>
+                            </div>
+                        </div>
+                        <div class=field>
+                            <label class='label'>n_datn</label>
+                            <div class='control'>
+                                <input class='input' type='text' placeholder='n_datn'>
+                            </div>
+                        </div>
+                        <div class='field is-grouped'>
+                            <div class='control'>
+                                <button @click="" class='button is-link'>Submit</button>
+                            </div>
+                            <div class='control'>
+                                <button class='button is-link is-light'>Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

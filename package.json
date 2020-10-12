@@ -2,6 +2,7 @@
   "name": "srm-vue",
   "version": "1.0.0",
   "dependencies": {
+    "axios": "^0.20.0",
     "vue": "^2.6.12",
     "vue-router": "^3.4.6"
   },

@@ -1,0 +1,65 @@
+<div class="rows">
+    <div class="tabs is-medium">
+        <ul>
+            <li>
+                <a @click="tabIdx = 0; getContent();">List Semester </a>
+            </li>
+            <li>
+                <a class="link" href="#" @click="tabIdx = 1;">
+                    <span>New Semester</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div v-if="tabIdx == 0">
+        <div  v-for="content in contents" class="column" :key="content.idSemester">
+            <div class="card">
+                <div class="card-content">
+                    <p><b>Mã môn học: {{content.idSemester}}</b></p>
+                    <p>Năm học: {{content.year}}. &nbsp; Học kỳ: {{content.semesterIndex}}</p>
+                    <ion-icon name="trash-outline"></ion-icon>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div v-if="tabIdx === 1">
+        <div class='column '>
+            <div class='panel'>
+                <div class='panel-heading'>
+                    New semester
+                </div>
+                <div class='panel-block'>
+                    <div class='container'>
+                        <div class=field>
+                            <label class='label'>IdSemester</label>
+                            <div class='control'>
+                                <input class='input' type='text' placeholder='IdSemester'>
+                            </div>
+                        </div>
+                        <div class=field>
+                            <label class='label'>Year</label>
+                            <div class='control'>
+                                <input class='input' type='text' placeholder='Year'>
+                            </div>
+                        </div>
+                        <div class=field>
+                            <label class='label'>Semester index</label>
+                            <div class='control'>
+                                <input class='input' type='text' placeholder='SemesterIndex'>
+                            </div>
+                        </div>
+                        <div class='field is-grouped'>
+                            <div class='control'>
+                                <button @click="onClick()" class='button is-link'>Submit</button>
+                            </div>
+                            <div class='control'>
+                                <button class='button is-link is-light'>Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

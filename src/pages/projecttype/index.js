@@ -10,11 +10,11 @@ let component = {
     return {
       contents: [],
       tabIdx: 0,
-      quotaData: {},
-      currentQuotaId: null,
-      editQuotaId:null,
-      editQuotaName:null,
-      editQuotaDescription:null,
+      projecttypeData: {},
+      currentProjecttypeId: null,
+      editPprojecttypeId:null,
+      editPpojecttypeYear:null,
+      editProjecttypeIndex:null,
     };
   },
   created: function() {
@@ -22,41 +22,41 @@ let component = {
   },
   methods: {
     loadData: function() {
-      axios.get(config.QUOTAS_URL).then(res => {
-        this.contents = res.data.sort((item1, item2) => (item2.idQuota - item1.idQuota));
+      axios.get(config.PROJECTTYPE_URL).then(res => {
+        this.contents = res.data.sort((item1, item2) => (item2.idProjecttype - item1.idProjecttype));
       }).catch(err => console.error(err));
     },
 
-    createQuota: function(quotaData) {
+    createProjecttype: function(projecttypeData) {
       console.log('click');
       axios({
         method:"post",
-        url:config.QUOTAS_URL,
+        url:config.PROJECTTYPE_URL,
         headers:{
           'Content-Type':'application/json'
         },
-        data: quotaData
+        data: projecttypeData
       }).then((res)=>{
         console.log(res.data);
         this.tabIdx = 0;
         this.loadData();
       }).catch((err)=>{console.log(err)});
     },
-    editQuota: function(idquota){
+    editProjecttype: function(idprojecttype){
       console.log("edit")
       axios({
         method:"put",
-        url:config.QUOTAS_URL + idquota,
+        url:config.PROJECTTYPE_URL + idprojecttype,
       }).then(res=>{
         console.log(res.data);
       }).catch()
     },
 
-    deleteQuota: function(idQuota) {
+    deleteProjecttype: function(idProjecttype) {
       console.log('delete');
       axios({
         method: 'delete',
-        url: config.QUOTAS_URL + idQuota
+        url: config.PROJECTTYPE_URL + idProjecttype
       }).then(res => {
         console.log(res.data);
         this.loadData();
@@ -68,7 +68,7 @@ let component = {
     
     selectChanged: function(selectedItem, selectedIdx) {
       console.log(selectedItem);
-      this.quotaData.quotaIndex = selectedIdx
+      this.projecttypeData.projecttypeIndex = selectedIdx
     }
 
   },
@@ -78,4 +78,4 @@ let component = {
     DropdownList
   }
 };
-export default { path: "/quota", component: component }
+export default { path: "/projecttype", component: component }

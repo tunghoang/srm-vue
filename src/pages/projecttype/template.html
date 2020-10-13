@@ -1,33 +1,34 @@
+  
 <div class="rows">
     <div class="tabs is-medium">
         <ul>
             <li>
-                <a @click="tabIdx = 0;">List Semester</a>
+                <a @click="tabIdx = 0;">List projecttype</a>
             </li>
             <li>
-                <a @click="tabIdx = 1;">New Semester</a> 
+                <a @click="tabIdx = 1;">New projecttype</a> 
             </li>
         </ul>
     </div>
     <div v-if="tabIdx == 0">
-        <div  v-for="content in contents" class="column" :key="content.idSemester">
+        <div  v-for="content in contents" class="column" :key="content.idProjecttype">
             <div class="card">
                 <div class="card-content ">
                     <div>
-                        <h4 class='is-size-7 is-lightgray'>Mã học kỳ: {{content.idSemester}}</h4> 
+                        <h4 class='is-size-7 is-lightgray mb-3'>Mã học kỳ: {{content.idProjecttype}}</h4> 
                         <strong>
-                            <span>Học kỳ: {{content.semesterIndex + 1}}</span>
-                            <span>Năm học: {{content.year}}</span>
+                            <p class="mb-3">Học kỳ: {{content.name}}</p>
+                            <p>Năm học: {{content.description}}</p>
                         </strong>
                     </div>
                     <div class="has-text-right">
-                        <span class="Edit" @click="tabIdx=2; editSemesterId = content.idSemester; editSemesterYear = content.year; editSemesterIndex = content.semesterIndex + 1">
+                        <span class="Edit" @click="tabIdx=2; editProjecttypeId = content.idProjecttype; editProjecttypeName = content.name; editProjecttypeDescription = content.description">
                             <a href="#">
                                 <ion-icon name="create-outline"></ion-icon>
                                 <span>Edit</span>
                             </a>
                         </span>
-                        <span class="Delete ml-4" @click="currentSemesterId = content.idSemester;tabIdx = 3;">
+                        <span class="Delete ml-4" @click="currentProjecttypeId = content.idProjecttype;tabIdx = 3;">
                             <a href="#" class="has-text-danger" >
                                 <ion-icon name="trash-outline"></ion-icon>
                                 <span >Delete</span>
@@ -41,7 +42,7 @@
     <div class="card m-4 p-4 border-redish" v-if="tabIdx === 3">
         <h2 class="is-size-5 has-text-danger">Are you sure?</h2>
         <div class="field is-grouped is-grouped-right">
-            <button class="button has-text-danger" @click="deleteSemester(currentSemesterId)">
+            <button class="button has-text-danger" @click="deleteProjecttype(currentProjecttypeId)">
                 <span class="icon">
                     <ion-icon name="shield-checkmark"></ion-icon>
                 </span>
@@ -59,23 +60,25 @@
         <div class='column '>
             <div class='panel'>
                 <div class='panel-heading'>
-                    New semester
+                    New Projecttype
                 </div>
                 <div class='panel-block'>
                     <div class='container'>
                         <div class=field>
-                            <label class='label'>Year</label>
+                            <label class='label'>Name</label>
                             <div class='control'>
-                                <input class='input' type='text' v-model="semesterData.year" placeholder='Year'>
+                                <input class='input' type='text' v-model="projecttypeData.name" placeholder='Name'>
                             </div>
                         </div>
                         <div class=field>
-                            <label class='label'>Semester</label>
-                            <dropdown-list :items="['Fall', 'Spring']" :on-select-changed='selectChanged'></dropdown-list>
+                            <label class='label'>Description</label>
+                            <div class='control'>
+                                <input class='input' type='text' v-model="projecttypeData.description" placeholder='description'>
+                            </div>
                         </div>
                         <div class='field is-grouped'>
                             <div class='control'>
-                                <button @click="createSemester(semesterData)" class='button is-link'>Submit</button>
+                                <button @click="createProjecttype(projecttypeData)" class='button is-link'>Submit</button>
                             </div>
                             <div class='control'>
                                 <button class='button is-link is-light'>Cancel</button>
@@ -91,31 +94,31 @@
         <div class='column '>
             <div class='panel'>
                 <div class='panel-heading'>
-                    Edit Semester
+                    Edit Projecttype
                 </div>
                 <div class='panel-block'>
                     <div class='container'>
                         <div class=field>
                             <label class='label'>Mã môn học</label>
                             <div class='control'>
-                                <input class='input' type='text' v-model='editSemesterId'>
+                                <input class='input' type='text' v-model='editProjecttypeId'>
                             </div>
                         </div>
                         <div class=field>
                             <label class='label'>Năm học</label>
                             <div class='control'>
-                                <input class='input' type='text' v-model='editSemesterYear'>
+                                <input class='input' type='text' v-model='editProjecttypeName'>
                             </div>
                         </div>
                         <div class=field>
                             <label class='label'>Học kỳ</label>
                             <div class='control'>
-                                <input class='input' type='text' v-model='editSemesterIndex'>
+                                <input class='input' type='text' v-model='editProjecttypeDescription'>
                             </div>
                         </div>
                         <div class='field is-grouped'>
                             <div class='control'>
-                                <button @click="editSemester()" class='button is-link'>Submit</button>
+                                <button @click="editProjecttype()" class='button is-link'>Submit</button>
                             </div>
                             <div class='control'>
                                 <button class='button is-link is-light' @click="tabIdx = 0;">Cancel</button>
@@ -126,6 +129,4 @@
             </div>
         </div>
     </div>
-
-    
 </div>

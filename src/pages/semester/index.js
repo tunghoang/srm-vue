@@ -1,3 +1,4 @@
+  
 import Vue from 'vue';
 import template from './template.html';
 import style from './style.scss';

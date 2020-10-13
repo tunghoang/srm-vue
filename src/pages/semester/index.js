@@ -9,6 +9,7 @@ let component = {
     return {
       contents: [],
       tabIdx: 0,
+      semesterData: {}
     };
   },
   created: async function() {
@@ -21,7 +22,7 @@ let component = {
     }
   },
   methods: {
-    onClick: function() {
+    createSemester: function(semesterData) {
       console.log('click');
       axios({
         method:"post",
@@ -29,14 +30,23 @@ let component = {
         headers:{
           'Content-Type':'application/json'
         },
-        data:{
-          year: 2017,
-          semesterIndex: 0
-        }
+        data: semesterData
       }).then((res)=>{console.log(res.data)}).catch((err)=>{console.log(err)});
     },
-    selectChanged: function(selectedItem) {
+    deleteSemester: function(idSemester) {
+      console.log('delete');
+      axios({
+        method: 'delete',
+        url: config.SEMESTERS_URL + idSemester
+      }).then(
+        res => console.log(res.data)
+      ).catch(
+        e => console.error(e)
+      );
+    },
+    selectChanged: function(selectedItem, selectedIdx) {
       console.log(selectedItem);
+      this.semesterData.semeterIndex = selectedIdx
     }
   },
   template,

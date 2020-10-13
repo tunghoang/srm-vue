@@ -30,7 +30,7 @@ let component = {
     },
     selectItem: function(oldIdx, newIdx) {
       if (oldIdx !== newIdx) {
-        this.onSelectChanged && this.onSelectChanged(this.dataItems[newIdx]);
+        this.onSelectChanged && this.onSelectChanged(this.dataItems[newIdx], newIdx);
       }
     }
   },

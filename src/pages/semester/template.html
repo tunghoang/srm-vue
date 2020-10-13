@@ -15,13 +15,13 @@
                 <div class="card-content ">
                     <div>
                         <h4 class='is-size-7 is-lightgray'>Mã học kỳ: {{content.idSemester}}</h4> 
-                        <h3>
-                            <span>Năm học: {{content.year}}</span>
+                        <strong>
                             <span>Học kỳ: {{content.semesterIndex + 1}}</span>
-                        </h3>
+                            <span>Năm học: {{content.year}}</span>
+                        </strong>
                     </div>
                     <div class="has-text-right">
-                        <span class="Edit" @click="tabIdx=2">
+                        <span class="Edit" @click="tabIdx=2; editSemesterId = content.idSemester; editSemesterYear = content.year; editSemesterIndex = content.semesterIndex + 1">
                             <a href="#">
                                 <ion-icon name="create-outline"></ion-icon>
                                 <span>Edit</span>
@@ -98,24 +98,24 @@
                         <div class=field>
                             <label class='label'>Mã môn học</label>
                             <div class='control'>
-                                <input class='input' type='text'>
+                                <input class='input' type='text' v-model='editSemesterId'>
                             </div>
                         </div>
                         <div class=field>
                             <label class='label'>Năm học</label>
                             <div class='control'>
-                                <input class='input' type='text' >
+                                <input class='input' type='text' v-model='editSemesterYear'>
                             </div>
                         </div>
                         <div class=field>
                             <label class='label'>Học kỳ</label>
                             <div class='control'>
-                                <input class='input' type='text' >
+                                <input class='input' type='text' v-model='editSemesterIndex'>
                             </div>
                         </div>
                         <div class='field is-grouped'>
                             <div class='control'>
-                                <button @click="onClick()" class='button is-link'>Submit</button>
+                                <button @click="editSemester()" class='button is-link'>Submit</button>
                             </div>
                             <div class='control'>
                                 <button class='button is-link is-light' @click="tabIdx = 0;">Cancel</button>

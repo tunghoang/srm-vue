@@ -6,14 +6,16 @@ import config from '../../config';
 import axios from 'axios';
 console.log(config);
 
-
 let component = {
-  data: function () {
+  data: function (){
     return {
       contents: [],
       tabIdx: 0,
       semesterData: {},
-      currentSemesterId: null
+      currentSemesterId: null,
+      editSemesterId:null,
+      editSemesterYear:null,
+      editSemesterIndex:null,
     };
   },
   created: function() {
@@ -25,6 +27,7 @@ let component = {
         this.contents = res.data.sort((item1, item2) => (item2.idSemester - item1.idSemester));
       }).catch(err => console.error(err));
     },
+
     createSemester: function(semesterData) {
       console.log('click');
       axios({
@@ -40,6 +43,16 @@ let component = {
         this.loadData();
       }).catch((err)=>{console.log(err)});
     },
+    editSemester: function(idsemester){
+      console.log("edit")
+      axios({
+        method:"put",
+        url:config.SEMESTERS_URL + idsemester,
+      }).then(res=>{
+        console.log(res.data);
+      }).catch()
+    },
+
     deleteSemester: function(idSemester) {
       console.log('delete');
       axios({
@@ -53,6 +66,7 @@ let component = {
         e => console.error(e)
       );
     },
+    
     selectChanged: function(selectedItem, selectedIdx) {
       console.log(selectedItem);
       this.semesterData.semesterIndex = selectedIdx

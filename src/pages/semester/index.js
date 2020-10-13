@@ -46,7 +46,7 @@ let component = {
     },
     selectChanged: function(selectedItem, selectedIdx) {
       console.log(selectedItem);
-      this.semesterData.semeterIndex = selectedIdx
+      this.semesterData.semesterIndex = selectedIdx
     }
   },
   template,

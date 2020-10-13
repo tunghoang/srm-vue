@@ -5,9 +5,7 @@
                 <a @click="tabIdx = 0;">List Semester</a>
             </li>
             <li>
-                <a class="link" href="#" @click="tabIdx = 1;">
-                    <span>New Semester</span>
-                </a>
+                <a @click="tabIdx = 1;">New Semester</a> 
             </li>
         </ul>
     </div>
@@ -16,7 +14,7 @@
             <div class="card">
                 <div class="card-content ">
                         <span class="is-pulled-left"><b>Mã môn học: {{content.idSemester}}</b> <br> Năm học: {{content.year}}. &nbsp; Học kỳ: {{content.semesterIndex}}</span>
-                        <ion-icon  class="is-pulled-right" name="trash-outline" @click="deleteSemester(content.idSemester)"></ion-icon>
+                        <ion-icon  class="is-pulled-right" name="trash-outline" @click="deleteContent(content.idSemester)"></ion-icon>
                 </div>
             </div>
         </div>

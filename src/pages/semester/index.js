@@ -5,10 +5,10 @@ import config from '../../config';
 import axios from 'axios';
 console.log(config);
 let component = {
-  data: function() {
+  data: function () {
     return {
-      contents:[],
-      tabIdx : 0,
+      contents: [],
+      tabIdx: 0,
     };
   },
   created: async function() {
@@ -23,6 +23,17 @@ let component = {
   methods: {
     onClick: function() {
       console.log('click');
+      axios({
+        method:"post",
+        url:config.SEMESTERS_URL,
+        headers:{
+          'Content-Type':'application/json'
+        },
+        data:{
+          year: 2017,
+          semesterIndex: 0
+        }
+      }).then((res)=>{console.log(res.data)}).catch((err)=>{console.log(err)});
     },
     selectChanged: function(selectedItem) {
       console.log(selectedItem);
@@ -33,6 +44,4 @@ let component = {
     DropdownList
   }
 };
-
-
-export default { path:"/semester", component: component }
+export default { path: "/semester", component: component }

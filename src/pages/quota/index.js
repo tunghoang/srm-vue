@@ -19,13 +19,17 @@ let component = {
     }
   },
   methods: {
-    // onClick: function() {
-    //   console.log('click');
-    //   this.$router.push('/student');
-    // },
-    // deleteSemester(id){
-    //   this.axios.delete(config.SEMESTERS_URL+id).then((result)=>{this.contents=result.data}),
-    //   console.log('delete')
+    deleteContent: async function(id){
+      try{
+        axios.delete(config.QUOTAS_URL)
+      }catch(err){
+        console.log(err);
+      }
+    },
+    // addContent: async function() {
+    //   const res = await axios.post(config.QUOTAS_URL, { name: this.contents })
+    //   this.contents = [...this.contents, res.data]
+    //   this.contents = ''
     // }
   },
   template,

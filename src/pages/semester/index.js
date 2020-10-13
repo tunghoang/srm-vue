@@ -1,27 +1,30 @@
 import Vue from 'vue';
 import template from './template.html';
+import style from './style.scss';
 import DropdownList from '../../components/dropdown-list';
 import config from '../../config';
 import axios from 'axios';
 console.log(config);
+
+
 let component = {
   data: function () {
     return {
       contents: [],
       tabIdx: 0,
-      semesterData: {}
+      semesterData: {},
+      currentSemesterId: null
     };
   },
-  created: async function() {
-    try {
-      const res = await axios.get(config.SEMESTERS_URL);
-      this.contents = res.data;
-    }
-    catch(err){
-      console.log(err);
-    }
+  created: function() {
+    this.loadData();
   },
   methods: {
+    loadData: function() {
+      axios.get(config.SEMESTERS_URL).then(res => {
+        this.contents = res.data.sort((item1, item2) => (item2.idSemester - item1.idSemester));
+      }).catch(err => console.error(err));
+    },
     createSemester: function(semesterData) {
       console.log('click');
       axios({
@@ -31,16 +34,22 @@ let component = {
           'Content-Type':'application/json'
         },
         data: semesterData
-      }).then((res)=>{console.log(res.data)}).catch((err)=>{console.log(err)});
+      }).then((res)=>{
+        console.log(res.data);
+        this.tabIdx = 0;
+        this.loadData();
+      }).catch((err)=>{console.log(err)});
     },
     deleteSemester: function(idSemester) {
       console.log('delete');
       axios({
         method: 'delete',
         url: config.SEMESTERS_URL + idSemester
-      }).then(
-        res => console.log(res.data)
-      ).catch(
+      }).then(res => {
+        console.log(res.data);
+        this.loadData();
+        this.tabIdx = 0;
+      }).catch(
         e => console.error(e)
       );
     },
@@ -48,7 +57,9 @@ let component = {
       console.log(selectedItem);
       this.semesterData.semesterIndex = selectedIdx
     }
+
   },
+  
   template,
   components: {
     DropdownList

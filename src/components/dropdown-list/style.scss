@@ -1,0 +1,29 @@
+.dropdown-list {
+  .selected-item {
+    width: 100%;
+    div {
+      width: 100%;
+    }
+    cursor: pointer;
+  }
+  .selected-item:after {
+    content: ' ';
+    float: right;
+    width: 0.625em;
+    height: 0.625em;
+    border: 2px solid blue;
+    border-top: none;
+    border-left: none;
+    transform: rotate(45deg);
+  }
+  .item-list {
+    position: absolute;
+    z-index: 1;
+    background: white;
+    width: 100%;
+    max-height: 100px;
+    overflow: auto;
+    user-select: none;
+    cursor: pointer;
+  }
+}

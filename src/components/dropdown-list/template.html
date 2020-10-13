@@ -1,0 +1,12 @@
+<div class="dropdown-list">
+  <div class='selected-item input' @click="showDropdown = ! showDropdown">
+    <div>{{selectedItemLabel}}</div>
+  </div>
+  <ul v-show="showDropdown" class='item-list card'>
+    <li :class='"item input " + ((idx === selectedIdx)?"is-info":"")' 
+      v-for='(item,idx) in dataItems' 
+      :key="idx" @click="selectItem(selectedIdx, idx);selectedIdx = idx; showDropdown=false;">
+      {{itemLabel(item)}}
+    </li>
+  </ul>
+</div>

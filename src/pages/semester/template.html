@@ -2,7 +2,7 @@
     <div class="tabs is-medium">
         <ul>
             <li>
-                <a @click="tabIdx = 0; getContent();">List Semester </a>
+                <a @click="tabIdx = 0">List Semester</a>
             </li>
             <li>
                 <a class="link" href="#" @click="tabIdx = 1;">
@@ -32,22 +32,14 @@
                 <div class='panel-block'>
                     <div class='container'>
                         <div class=field>
-                            <label class='label'>IdSemester</label>
-                            <div class='control'>
-                                <input class='input' type='text' placeholder='IdSemester'>
-                            </div>
-                        </div>
-                        <div class=field>
                             <label class='label'>Year</label>
                             <div class='control'>
                                 <input class='input' type='text' placeholder='Year'>
                             </div>
                         </div>
                         <div class=field>
-                            <label class='label'>Semester index</label>
-                            <div class='control'>
-                                <input class='input' type='text' placeholder='SemesterIndex'>
-                            </div>
+                            <label class='label'>Semester</label>
+                            <dropdown-list :items="['Fall', 'Spring']" :on-select-changed='selectChanged'></dropdown-list>
                         </div>
                         <div class='field is-grouped'>
                             <div class='control'>

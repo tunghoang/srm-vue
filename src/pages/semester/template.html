@@ -14,10 +14,10 @@
             <div class="card">
                 <div class="card-content ">
                     <div>
-                        <h4 class='is-size-7 is-lightgray'>ID: {{content.idSemester}}</h4> 
+                        <h4 class='is-size-7 is-lightgray'>Mã học kỳ: {{content.idSemester}}</h4> 
                         <strong>
-                            <p class="mb-3">Semester: {{content.semesterIndex + 1}}</p>
-                            <p>Year: {{content.year}}-{{content.year+1}}</p>
+                            <span>Học kỳ: {{content.semesterIndex + 1}}</span>
+                            <span>Năm học: {{content.year}}</span>
                         </strong>
                     </div>
                     <div class="has-text-right">
@@ -41,17 +41,17 @@
     <div class="card m-4 p-4 border-redish" v-if="tabIdx === 3">
         <h2 class="is-size-5 has-text-danger">Are you sure?</h2>
         <div class="field is-grouped is-grouped-right">
-            <button class="button has-text-danger" @click="deleteSemester(currentSemesterId)">
+            <button class="button is-link is-danger" @click="deleteSemester(currentSemesterId)">
                 <span class="icon">
                     <ion-icon name="shield-checkmark"></ion-icon>
                 </span>
-                <span>Yes</span>
+                <span>Sure</span>
             </button>
-            <button class="button ml-2 has-text-success" @click="tabIdx = 0;">
+            <button class="button ml-2 is-link" @click="tabIdx = 0;">
                 <span class="icon">
                     <ion-icon name="arrow-back-circle"></ion-icon>
                 </span>
-                <span>No</span>
+                <span>Back</span>
             </button>
         </div>
     </div>
@@ -66,7 +66,7 @@
                         <div class=field>
                             <label class='label'>Year</label>
                             <div class='control'>
-                                <input class='input' type='text' v-model="semesterData.year" placeholder='Year'>
+                                <input class='input' type='text' v-model="semesterData.year" placeholder='Year' value="">
                             </div>
                         </div>
                         <div class=field>
@@ -75,10 +75,16 @@
                         </div>
                         <div class='field is-grouped'>
                             <div class='control'>
-                                <button @click="createSemester(semesterData)" class='button is-link'>Submit</button>
+                                <button @click="createSemester(semesterData)" class='button is-link'>
+                                    <span class = "icon"><ion-icon name="checkmark-circle"></ion-icon></span>
+                                    <span>Submit</span>
+                                </button>
                             </div>
                             <div class='control'>
-                                <button class='button is-link is-light' @click='tabIdx=0;'>Cancel</button>
+                                <button class='button is-link' @click="tabIdx = 0;">
+                                    <span class = "icon"><ion-icon name="arrow-back-circle"></ion-icon></span>
+                                    <span>Back</span> 
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -96,29 +102,32 @@
                 <div class='panel-block'>
                     <div class='container'>
                         <div class=field>
-                            <label class='label'>ID</label>
-                            <div class='control'>
-                                <input class='input' type='text' v-model='contentEdit.idSemester'>
-                            </div>
+                            <label class='label is-size-7 is-lightgray'>Mã học kỳ: {{contentEdit.idSemester}}</label>
                         </div>
                         <div class=field>
-                            <label class='label'>Year</label>
+                            <label class='label'>Năm học</label>
                             <div class='control'>
                                 <input class='input' type='text' v-model='contentEdit.year'>
                             </div>
                         </div>
                         <div class=field>
-                            <label class='label'>Semester</label>
+                            <label class='label'>Học kỳ</label>
                             <div class='control'>
-                                <input class='input' type='text' v-model='contentEdit.semesterIndex'>
+                                <dropdown-list :items="['Fall','Spring']" :on-select-changed="(selectedItem, selectedIndex) => contentEdit.semesterIndex = selectedIndex" :selected-index="contentEdit.semesterIndex"></dropdown-list>
                             </div>
                         </div>
                         <div class='field is-grouped'>
                             <div class='control'>
-                                <button @click="editSemester(contentEdit.idSemester)" class='button is-link'>Submit</button>
+                                <button @click="editSemester(contentEdit.idSemester,contentEdit.year,contentEdit.semesterIndex)" class='button is-link'>
+                                    <span class="icon"><ion-icon name="checkmark-circle"></ion-icon></span>
+                                    <span>Submit</span>
+                                </button>
                             </div>
                             <div class='control'>
-                                <button class='button is-link is-light' @click="tabIdx = 0;">Cancel</button>
+                                <button class='button is-link' @click="tabIdx = 0;">
+                                    <span class = "icon"><ion-icon name="arrow-back-circle"></ion-icon></span>
+                                    <span>Back</span> 
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -126,4 +135,6 @@
             </div>
         </div>
     </div>
+
+    
 </div>

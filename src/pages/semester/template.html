@@ -21,7 +21,7 @@
                         </strong>
                     </div>
                     <div class="has-text-right">
-                        <span class="Edit" @click="tabIdx=2; editSemesterId = content.idSemester; editSemesterYear = content.year; editSemesterIndex = content.semesterIndex + 1">
+                        <span class="Edit" @click="tabIdx=2; contentEdit = content">
                             <a href="#">
                                 <ion-icon name="create-outline"></ion-icon>
                                 <span>Edit</span>
@@ -98,24 +98,24 @@
                         <div class=field>
                             <label class='label'>Mã môn học</label>
                             <div class='control'>
-                                <input class='input' type='text' v-model='editSemesterId'>
+                                <input class='input' type='text' v-model='contentEdit.idSemester'>
                             </div>
                         </div>
                         <div class=field>
                             <label class='label'>Năm học</label>
                             <div class='control'>
-                                <input class='input' type='text' v-model='editSemesterYear'>
+                                <input class='input' type='text' v-model='contentEdit.year'>
                             </div>
                         </div>
                         <div class=field>
                             <label class='label'>Học kỳ</label>
                             <div class='control'>
-                                <input class='input' type='text' v-model='editSemesterIndex'>
+                                <input class='input' type='text' v-model='contentEdit.semesterIndex'>
                             </div>
                         </div>
                         <div class='field is-grouped'>
                             <div class='control'>
-                                <button @click="editSemester()" class='button is-link'>Submit</button>
+                                <button @click="editSemester(contentEdit.idSemester)" class='button is-link'>Submit</button>
                             </div>
                             <div class='control'>
                                 <button class='button is-link is-light' @click="tabIdx = 0;">Cancel</button>

@@ -22,7 +22,7 @@
                         </strong>
                     </div>
                     <div class="has-text-right">
-                        <span class="Edit" @click="tabIdx=2; editProjecttypeId = content.idProjecttype; editProjecttypeName = content.name; editProjecttypeDescription = content.description">
+                        <span class="Edit" @click="tabIdx=2; editProjecttype = content">
                             <a href="#">
                                 <ion-icon name="create-outline"></ion-icon>
                                 <span>Edit</span>
@@ -101,24 +101,24 @@
                         <div class=field>
                             <label class='label'>Mã môn học</label>
                             <div class='control'>
-                                <input class='input' type='text' v-model='editProjecttypeId'>
+                                <input class='input' type='text' v-model='editProjecttype.idProjecttype'>
                             </div>
                         </div>
                         <div class=field>
                             <label class='label'>Năm học</label>
                             <div class='control'>
-                                <input class='input' type='text' v-model='editProjecttypeName'>
+                                <input class='input' type='text' v-model='editProjecttype.name'>
                             </div>
                         </div>
                         <div class=field>
                             <label class='label'>Học kỳ</label>
                             <div class='control'>
-                                <input class='input' type='text' v-model='editProjecttypeDescription'>
+                                <input class='input' type='text' v-model='editProjecttype.description'>
                             </div>
                         </div>
                         <div class='field is-grouped'>
                             <div class='control'>
-                                <button @click="editProjecttype()" class='button is-link'>Submit</button>
+                                <button @click="editProjecttype(editProjecttype.idProjecttype)" class='button is-link'>Submit</button>
                             </div>
                             <div class='control'>
                                 <button class='button is-link is-light' @click="tabIdx = 0;">Cancel</button>

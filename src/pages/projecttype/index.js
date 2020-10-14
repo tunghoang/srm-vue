@@ -12,9 +12,7 @@ let component = {
       tabIdx: 0,
       projecttypeData: {},
       currentProjecttypeId: null,
-      editPprojecttypeId:null,
-      editPpojecttypeYear:null,
-      editProjecttypeIndex:null,
+      editProjecttype:{},
     };
   },
   created: function() {
@@ -42,14 +40,18 @@ let component = {
         this.loadData();
       }).catch((err)=>{console.log(err)});
     },
-    editProjecttype: function(idprojecttype){
+    editProjecttype: function(id){
       console.log("edit")
       axios({
         method:"put",
-        url:config.PROJECTTYPE_URL + idprojecttype,
+        url:config.PROJECTTYPE_URL + id,
+        data: id,
       }).then(res=>{
-        console.log(res.data);
-      }).catch()
+        this.tabIdx=0;
+        this.loadData();
+      }).catch(
+        e => console.error(e)
+      );
     },
 
     deleteProjecttype: function(idProjecttype) {

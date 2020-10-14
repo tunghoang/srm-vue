@@ -13,10 +13,7 @@ let component = {
       contents: [],
       tabIdx: 0,
       semesterData: {},
-      currentSemesterId: null,
-      editSemesterId:null,
-      editSemesterYear:null,
-      editSemesterIndex:null,
+      contentEdit:{}
     };
   },
   created: function() {
@@ -44,14 +41,19 @@ let component = {
         this.loadData();
       }).catch((err)=>{console.log(err)});
     },
-    editSemester: function(idsemester){
+    editSemester: function(id){
       console.log("edit")
       axios({
         method:"put",
-        url:config.SEMESTERS_URL + idsemester,
+        url:config.SEMESTERS_URL + id,
+        data:id
       }).then(res=>{
         console.log(res.data);
-      }).catch()
+        this.tabIdx = 0;
+        this.loadData();
+      }).catch(
+        e => console.error(e)
+      );
     },
 
     deleteSemester: function(idSemester) {

@@ -12,9 +12,7 @@ let component = {
       tabIdx: 0,
       quotaData: {},
       currentQuotaId: null,
-      editQuotaId:null,
-      editQuotaName:null,
-      editQuotaDescription:null,
+      editQuota:{},
     };
   },
   created: function() {
@@ -42,14 +40,18 @@ let component = {
         this.loadData();
       }).catch((err)=>{console.log(err)});
     },
-    editQuota: function(idquota){
+    editQuota: function(id){
       console.log("edit")
       axios({
         method:"put",
-        url:config.QUOTAS_URL + idquota,
+        url:config.QUOTAS_URL + id,
+        data: id,
       }).then(res=>{
-        console.log(res.data);
-      }).catch()
+        this.tabIdx=0;
+        this.loadData();
+      }).catch(
+        e => console.error(e)
+      );
     },
 
     deleteQuota: function(idQuota) {

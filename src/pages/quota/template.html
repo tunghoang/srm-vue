@@ -17,8 +17,10 @@
                     <div>
                         <h4 class='is-size-7 is-lightgray mb-3'>Mã : {{content.idQuota}}</h4> 
                         <strong>
-                            <p class="mb-3">Tên: {{content.name}}</p>
+                            <p>Tên: {{content.name}}</p>
                             <p>Mô tả: {{content.description}}</p>
+                            <p>Number of kltn: {{content.n_kltn}}</p>
+                            <p>Number of dakh: {{content.n_dakh}}</p>
                         </strong>
                     </div>
                     <div class="has-text-right">
@@ -76,6 +78,18 @@
                                 <input class='input' type='text' v-model="quotaData.description" placeholder='description'>
                             </div>
                         </div>
+                        <div class=field>
+                            <label class='label'>Number of kltn</label>
+                            <div class='control'>
+                                <input class='input' type='text' v-model="quotaData.n_kltn" placeholder='number of kltn'>
+                            </div>
+                        </div>
+                        <div class=field>
+                            <label class='label'>Number of dakh</label>
+                            <div class='control'>
+                                <input class='input' type='text' v-model="quotaData.n_dakh" placeholder='number of dakh'>
+                            </div>
+                        </div>
                         <div class='field is-grouped'>
                             <div class='control'>
                                 <button @click="createQuota(quotaData)" class='button is-link'>Submit</button>
@@ -98,18 +112,30 @@
                 <div class='panel-block'>
                     <div class='container'>
                         <div class=field>
-                            <label class='is-size-7 is-lightgray'>Mã: {{contentEdit.idQuota}}</label>
+                            <label class='is-size-7 is-lightgray'>ID: {{contentEdit.idQuota}}</label>
                         </div>
                         <div class=field>
-                            <label class='label'>Tên:</label>
+                            <label class='label'>Name:</label>
                             <div class='control'>
                                 <input class='input' type='text' v-model='contentEdit.name'>
                             </div>
                         </div>
                         <div class=field>
-                            <label class='label'>Mô tả:</label>
+                            <label class='label'>Description:</label>
                             <div class='control'>
                                 <input class='input' type='text' v-model='contentEdit.description'>
+                            </div>
+                        </div>
+                        <div class=field>
+                            <label class='label'>Number of kltn:</label>
+                            <div class='control'>
+                                <input class='input' type='text' v-model='contentEdit.n_kltn'>
+                            </div>
+                        </div>
+                        <div class=field>
+                            <label class='label'>Number of dakh:</label>
+                            <div class='control'>
+                                <input class='input' type='text' v-model='contentEdit.n_dakh'>
                             </div>
                         </div>
                         <div class='field is-grouped'>

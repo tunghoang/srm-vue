@@ -15,12 +15,10 @@
             <div class="card">
                 <div class="card-content ">
                     <div>
-                        <h4 class='is-size-7 is-lightgray mb-3'>Mã: {{content.idProjecttype}}</h4> 
+                        <h4 class='is-size-7 is-lightgray mb-3'>ID: {{content.idProjecttype}}</h4> 
                         <strong>
-                            <p>Tên: {{content.name}}</p>
-                            <p>Mô tả: {{content.description}}</p>
-                            <p>Số lượng khóa luận tốt nghiệp: {{content.n_kltn || 'N/A'}}</p>
-                            <p>Số lượng đồ án khoa học: {{content.n_dakh || 'N/A'}}</p>
+                            <p>Name: {{content.name}}</p>
+                            <p>Description: {{content.description}}</p>
                         </strong>
                     </div>
                     <div class="has-text-right">
@@ -67,27 +65,15 @@
                 <div class='panel-block'>
                     <div class='container'>
                         <div class=field>
-                            <label class='label'>Tên</label>
+                            <label class='label'>Name</label>
                             <div class='control'>
-                                <input class='input' type='text' v-model="contentEdit.name" placeholder='Nhập tên'>
+                                <input class='input' type='text' v-model="contentEdit.name" placeholder='name'>
                             </div>
                         </div>
                         <div class=field>
-                            <label class='label'>Mô tả</label>
+                            <label class='label'>Description</label>
                             <div class='control'>
-                                <input class='input' type='text' v-model="contentEdit.description" placeholder='Nhập mô tả'>
-                            </div>
-                        </div>
-                        <div class="field">
-                            <label class='label'>Số lượng khóa luận tốt nghiệp</label>
-                            <div class='control'>
-                                <input class='input' type='text' v-model="contentEdit.n_kltn" placeholder='Nhập số lượng'>
-                            </div>
-                        </div>
-                        <div class="field">
-                            <label class='label'>Số lượng dự án khoa học</label>
-                            <div class='control'>
-                                <input class='input' type='text' v-model="contentEdit.n_dakh" placeholder='Nhập số lượng'>
+                                <input class='input' type='text' v-model="contentEdit.description" placeholder='description'>
                             </div>
                         </div>
                         <div class='field is-grouped'>
@@ -113,30 +99,18 @@
                 <div class='panel-block'>
                     <div class='container'>
                         <div class=field>
-                            <label class='is-size-7 is-lightgray'>Mã:{{contentEdit.idProjecttype}}</label>
+                            <label class='is-size-7 is-lightgray'>ID:{{contentEdit.idProjecttype}}</label>
                         </div>
                         <div class=field>
-                            <label class='label'>Tên:</label>
+                            <label class='label'>Name</label>
                             <div class='control'>
                                 <input class='input' type='text' v-model='contentEdit.name'>
                             </div>
                         </div>
                         <div class=field>
-                            <label class='label'>Mô tả:</label>
+                            <label class='label'>Description</label>
                             <div class='control'>
                                 <input class='input' type='text' v-model='contentEdit.description'>
-                            </div>
-                        </div>
-                        <div class=field>
-                            <label class='label'>Số lượng khóa luận tốt nghiệp:</label>
-                            <div class='control'>
-                                <input class='input' type='text' v-model='contentEdit.n_kltn'>
-                            </div>
-                        </div>
-                        <div class=field>
-                            <label class='label'>Số lượng dự án khoa học:</label>
-                            <div class='control'>
-                                <input class='input' type='text' v-model='contentEdit.n_dakh'>
                             </div>
                         </div>
                         <div class='field is-grouped'>

@@ -74,7 +74,6 @@ let component = {
       console.log(selectedItem);
       this.semesterData.semesterIndex = selectedIdx
     }
-
   },
   
   template,

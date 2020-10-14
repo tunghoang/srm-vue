@@ -2,24 +2,132 @@
     <div class="tabs is-medium">
         <ul>
             <li>
-                <a href="tabIdx = 0">List Staff</a>
+                <a @click="tabIdx = 0;">List Staff</a>
             </li>
             <li>
-                <a href="#" @click="tabIdx = 1;">New Staff</a>
+                <a @click="tabIdx = 1;">New Staff</a> 
             </li>
         </ul>
     </div>
-    <div v-if="tabIdx===0">
-        <div v-for="content in contents" :key="content.idStaff">
+    <div v-if="tabIdx == 0">
+        <div  v-for="content in contents" class="column" :key="content.idStaff">
             <div class="card">
                 <div class="card-content ">
-                        <h4 class='is-size-7 is-lightgray'>Mã:{{content.idStaff}}</h4>
-                        <strong></strong>
+                    <div>
+                        <h4 class='is-size-7 is-lightgray'>Mã: {{content.idStaff}}</h4> 
+                        <strong>
+                            <p class="mb-3">Tên: {{content.email}}</p>
+                            <p>Mô tả: {{content.fullname}}</p>
+                        </strong>
+                    </div>
+                    <div class="has-text-right">
+                        <span class="Edit" @click="tabIdx=2; contentEdit = content">
+                            <a href="#">
+                                <ion-icon name="create-outline"></ion-icon>
+                                <span>Edit</span>
+                            </a>
+                        </span>
+                        <span class="Delete ml-4" @click="currentStaffId = content.idStaff;tabIdx = 3;">
+                            <a href="#" class="has-text-danger" >
+                                <ion-icon name="trash-outline"></ion-icon>
+                                <span >Delete</span>
+                            </a>
+                        </span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <div v-if="tabIdx === 1">
-        
+    <div class="card m-4 p-4 border-redish" v-if="tabIdx === 3">
+        <h2 class="is-size-5 has-text-danger">Are you sure?</h2>
+        <div class="field is-grouped is-grouped-right">
+            <button class="button has-text-danger" @click="deleteStaff(currentStaffId)">
+                <span class="icon">
+                    <ion-icon name="shield-checkmark"></ion-icon>
+                </span>
+                <span>Yes</span>
+            </button>
+            <button class="button ml-2 has-text-success" @click="tabIdx = 0;">
+                <span class="icon">
+                    <ion-icon name="arrow-back-circle"></ion-icon>
+                </span>
+                <span>No</span>
+            </button>
+        </div>
     </div>
+    <div v-if="tabIdx === 1">
+        <div class='column '>
+            <div class='panel'>
+                <div class='panel-heading'>
+                    New Staff
+                </div>
+                <div class='panel-block'>
+                    <div class='container'>
+                        <div class=field>
+                            <label class='label'>Email</label>
+                            <div class='control'>
+                                <input class='input' type='text' v-model="staffData.email" placeholder='email'>
+                            </div>
+                        </div>
+                        <div class=field>
+                            <label class='label'>Fullname</label>
+                            <div class='control'>
+                                <input class='input' type='text' v-model="staffData.fullname" placeholder='fullname'>
+                            </div>
+                        </div>
+                        <div class='field is-grouped'>
+                            <div class='control'>
+                                <button @click="createStaff(saffData)" class='button is-link'>Submit</button>
+                            </div>
+                            <div class='control'>
+                                <button class='button is-link is-light' @click='tabIdx=0;'>Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div v-if="tabIdx === 2">
+        <div class='column '>
+            <div class='panel'>
+                <div class='panel-heading'>
+                    Edit Staff
+                </div>
+                <div class='panel-block'>
+                    <div class='container'>
+                        <div class=field>
+                            <label class='label'>Mã</label>
+                            <div class='control'>
+                                <input class='input' type='text' v-model='contentEdit.idStaff'>
+                            </div>
+                        </div>
+                        <div class=field>
+                            <label class='label'>Email</label>
+                            <div class='control'>
+                                <input class='input' type='text' v-model='contentEdit.name'>
+                            </div>
+                        </div>
+                        <div class=field>
+                            <label class='label'>Fullname</label>
+                            <div class='control'>
+                                <input class='input' type='text' v-model='contentEdit.fullname'>
+                            </div>
+                        </div>
+                        <div class='field is-grouped'>
+                            <div class='control'>
+                                <button @click="editStaff(contentEdit.idStafff)" class='button is-link'>Submit</button>
+                            </div>
+                            <div class='control'>
+                                <button class='button is-link is-light' @click="tabIdx = 0;">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
 </div>

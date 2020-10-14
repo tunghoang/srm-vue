@@ -40,14 +40,20 @@ let component = {
         this.loadData();
       }).catch((err)=>{console.log(err)});
     },
-    editQuota: function(id){
+    editQuota: function(idQuota,name,description, n_kltn, n_dakh){
       console.log("edit")
       axios({
-        method:"put",
-        url:config.QUOTAS_URL + id,
-        data: id,
+        method:"PUT",
+        url:config.QUOTAS_URL + idQuota,
+        data:{
+          name:name,
+          description: description,
+          n_kltn: n_kltn,
+          n_dakh: n_dakh
+        }
       }).then(res=>{
-        this.tabIdx=0;
+        console.log(res.data);
+        this.tabIdx = 0;
         this.loadData();
       }).catch(
         e => console.error(e)

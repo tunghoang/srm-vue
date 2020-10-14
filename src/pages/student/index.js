@@ -4,7 +4,7 @@ let component = {
     data: function() {
         return {};
     },
-    template : '<h2> day la student</h2>'
+    template : '<h2> this is student</h2>'
 }
 
 export default { path:"/student", component:component }

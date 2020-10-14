@@ -14,10 +14,10 @@
             <div class="card">
                 <div class="card-content ">
                     <div>
-                        <h4 class='is-size-7 is-lightgray'>Mã: {{content.idStaff}}</h4> 
+                        <h4 class='is-size-7 is-lightgray'>ID: {{content.idStaff}}</h4> 
                         <strong>
-                            <p class="mb-3">Tên: {{content.email}}</p>
-                            <p>Mô tả: {{content.fullname}}</p>
+                            <p class="mb-3">Email: {{content.email}}</p>
+                            <p>Fullname: {{content.fullname}}</p>
                         </strong>
                     </div>
                     <div class="has-text-right">
@@ -98,7 +98,7 @@
                 <div class='panel-block'>
                     <div class='container'>
                         <div class=field>
-                            <label class='label'>Mã</label>
+                            <label class='label'>ID</label>
                             <div class='control'>
                                 <input class='input' type='text' v-model='contentEdit.idStaff'>
                             </div>
@@ -117,7 +117,7 @@
                         </div>
                         <div class='field is-grouped'>
                             <div class='control'>
-                                <button @click="editStaff(contentEdit.idStafff)" class='button is-link'>Submit</button>
+                                <button @click="editStaff(contentEdit.idStaff,contentEdit.email,contentEdit.fullname)" class='button is-link'>Submit</button>
                             </div>
                             <div class='control'>
                                 <button class='button is-link is-light' @click="tabIdx = 0;">Cancel</button>

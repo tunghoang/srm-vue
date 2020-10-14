@@ -41,19 +41,20 @@ let component = {
         this.loadData();
       }).catch((err)=>{console.log(err)});
     },
-    editSemester: function(id){
-      console.log("edit")
+    editStaff:function(idStaff,email,description){
+      console.log('editStaff');
       axios({
-        method:"put",
-        url:config.STAFF_URL + id,
-        data:id
+        method:'PUT',
+        url:config.STAFF_URL = idStaff,
+        data:{
+          email:email,
+          description:description
+        }
       }).then(res=>{
         console.log(res.data);
         this.tabIdx = 0;
         this.loadData();
-      }).catch(
-        e => console.error(e)
-      );
+      }).catch(err=>console.log(err))
     },
     
     deleteSemester: function(idStaff) {

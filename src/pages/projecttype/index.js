@@ -40,18 +40,22 @@ let component = {
         this.loadData();
       }).catch((err)=>{console.log(err)});
     },
-    editProjecttype: function(id){
-      console.log("edit")
+    editProjecttype:function(idProjecttype,name,description){
+      console.log('edit');
       axios({
-        method:"put",
-        url:config.PROJECTTYPE_URL + id,
-        data: id,
+        method:'PUT',
+        url: config.PROJECTTYPE_URL + idProjecttype,
+        data:{
+          name:name,
+          description:description
+        }
       }).then(res=>{
-        this.tabIdx=0;
+        console.log(res.data);
+        this.tabIdx = 0;
         this.loadData();
-      }).catch(
-        e => console.error(e)
-      );
+      }).catch(err=>{
+        console.log(err);
+      })
     },
 
     deleteProjecttype: function(idProjecttype) {

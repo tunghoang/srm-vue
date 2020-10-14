@@ -15,7 +15,7 @@
             <div class="card">
                 <div class="card-content ">
                     <div>
-                        <h4 class='is-size-7 is-lightgray mb-3'>Mã : {{content.idQuota}}</h4> 
+                        <h4 class='is-size-7 is-lightgray mb-3'>ID : {{content.idQuota}}</h4> 
                         <strong>
                             <p>Name: {{content.name}}</p>
                             <p>Description: {{content.description}}</p>
@@ -95,7 +95,7 @@
                                 <button @click="createQuota(quotaData)" class='button is-link'>Submit</button>
                             </div>
                             <div class='control'>
-                                <button class='button is-link is-light'>Cancel</button>
+                                <button class='button is-link is-light' @click='tabIdx=0;'>Cancel</button>
                             </div>
                         </div>
                     </div>
@@ -140,7 +140,7 @@
                         </div>
                         <div class='field is-grouped'>
                             <div class='control'>
-                                <button @click="editQuota(contentEdit.idQuota)" class='button is-link'>Submit</button>
+                                <button @click="editQuota(contentEdit.idQuota,contentEdit.name, contentEdit.description,contentEdit.n_kltn,contentEdit.n_dakh)" class='button is-link'>Submit</button>
                             </div>
                             <div class='control'>
                                 <button class='button is-link is-light' @click="tabIdx = 0;">Cancel</button>

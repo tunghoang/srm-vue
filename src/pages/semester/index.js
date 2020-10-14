@@ -13,7 +13,8 @@ let component = {
       contents: [],
       tabIdx: 0,
       semesterData: {},
-      contentEdit:{}
+      contentEdit:{},
+      currentSemesterId:null
     };
   },
   created: function() {
@@ -55,7 +56,7 @@ let component = {
         e => console.error(e)
       );
     },
-
+    
     deleteSemester: function(idSemester) {
       console.log('delete');
       axios({

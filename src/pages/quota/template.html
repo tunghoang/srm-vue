@@ -15,14 +15,14 @@
             <div class="card">
                 <div class="card-content ">
                     <div>
-                        <h4 class='is-size-7 is-lightgray mb-3'>Mã học kỳ: {{content.idQuota}}</h4> 
+                        <h4 class='is-size-7 is-lightgray mb-3'>Mã : {{content.idQuota}}</h4> 
                         <strong>
-                            <p class="mb-3">Học kỳ: {{content.name}}</p>
-                            <p>Năm học: {{content.description}}</p>
+                            <p class="mb-3">Tên: {{content.name}}</p>
+                            <p>Mô tả: {{content.description}}</p>
                         </strong>
                     </div>
                     <div class="has-text-right">
-                        <span class="Edit" @click="tabIdx=2; editQuota = content">
+                        <span class="Edit" @click="tabIdx=2; contentEdit = content">
                             <a href="#">
                                 <ion-icon name="create-outline"></ion-icon>
                                 <span>Edit</span>
@@ -99,26 +99,26 @@
                 <div class='panel-block'>
                     <div class='container'>
                         <div class=field>
-                            <label class='label'>Mã môn học</label>
+                            <label class='label'>Mã </label>
                             <div class='control'>
-                                <input class='input' type='text' v-model='editQuota.idQuota'>
+                                <input class='input' type='text' v-model='contentEdit.idQuota'>
                             </div>
                         </div>
                         <div class=field>
-                            <label class='label'>Năm học</label>
+                            <label class='label'>Tên:</label>
                             <div class='control'>
-                                <input class='input' type='text' v-model='editQuota.name'>
+                                <input class='input' type='text' v-model='contentEdit.name'>
                             </div>
                         </div>
                         <div class=field>
-                            <label class='label'>Học kỳ</label>
+                            <label class='label'>Mô tả:</label>
                             <div class='control'>
-                                <input class='input' type='text' v-model='editQuota.description'>
+                                <input class='input' type='text' v-model='contentEdit.description'>
                             </div>
                         </div>
                         <div class='field is-grouped'>
                             <div class='control'>
-                                <button @click="editQuota(editQuota.idQuota)" class='button is-link'>Submit</button>
+                                <button @click="editQuota(contentEdit.idQuota)" class='button is-link'>Submit</button>
                             </div>
                             <div class='control'>
                                 <button class='button is-link is-light' @click="tabIdx = 0;">Cancel</button>

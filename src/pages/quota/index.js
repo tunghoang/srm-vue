@@ -11,8 +11,9 @@ let component = {
       contents: [],
       tabIdx: 0,
       quotaData: {},
+      contentEdit:{},
       currentQuotaId: null,
-      editQuota:{},
+      
     };
   },
   created: function() {

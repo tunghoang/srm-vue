@@ -13,49 +13,13 @@
         <div v-for="content in contents" :key="content.idStaff">
             <div class="card">
                 <div class="card-content ">
-                        <span class="is-pulled-left"><b>staff: {{content.idStaff}}</b> <br> Năm học: {{content.year}}. &nbsp;staff2 : {{content.}}</span>
-                        <ion-icon  class="is-pulled-right" name="trash-outline" @click="deleteSemester(content.idSemester)"></ion-icon>
+                        <h4 class='is-size-7 is-lightgray'>Mã:{{content.idStaff}}</h4>
+                        <strong></strong>
                 </div>
             </div>
         </div>
     </div>
     <div v-if="tabIdx === 1">
-        <div class='column '>
-            <div class='panel'>
-                <div class='panel-heading'>
-                    New Staff
-                </div>
-                <div class='panel-block'>
-                    <div class='container'>
-                        <div class=field>
-                            <label class='label'>IdSemester</label>
-                            <div class='control'>
-                                <input class='input' type='text' placeholder='IdSemester'>
-                            </div>
-                        </div>
-                        <div class=field>
-                            <label class='label'>Year</label>
-                            <div class='control'>
-                                <input class='input' type='text' placeholder='Year'>
-                            </div>
-                        </div>
-                        <div class=field>
-                            <label class='label'>staff index</label>
-                            <div class='control'>
-                                <input class='input' type='text' placeholder=''>
-                            </div>
-                        </div>
-                        <div class='field is-grouped'>
-                            <div class='control'>
-                                <button @click="onClick()" class='button is-link'>Submit</button>
-                            </div>
-                            <div class='control'>
-                                <button class='button is-link is-light'>Cancel</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
     </div>
 </div>

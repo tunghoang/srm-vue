@@ -16,8 +16,8 @@
                     <div>
                         <h4 class='is-size-7 is-lightgray'>Mã học kỳ: {{content.idSemester}}</h4> 
                         <strong>
-                            <span>Học kỳ: {{content.semesterIndex + 1}}</span>
-                            <span>Năm học: {{content.year}}</span>
+                            <p class="mb-3">Học kỳ: {{content.semesterIndex + 1}}</p>
+                            <p>Năm học: {{content.year}}-{{content.year+1}}</p>
                         </strong>
                     </div>
                     <div class="has-text-right">
@@ -78,7 +78,7 @@
                                 <button @click="createSemester(semesterData)" class='button is-link'>Submit</button>
                             </div>
                             <div class='control'>
-                                <button class='button is-link is-light'>Cancel</button>
+                                <button class='button is-link is-light' @click='tabIdx=0;'>Cancel</button>
                             </div>
                         </div>
                     </div>

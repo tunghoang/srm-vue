@@ -66,7 +66,7 @@
                         <div class=field>
                             <label class='label'>Year</label>
                             <div class='control'>
-                                <input class='input' type='text' v-model="semesterData.year" placeholder='Year'>
+                                <input class='input' type='text' v-model="semesterData.year" placeholder='Year' value="">
                             </div>
                         </div>
                         <div class=field>
@@ -96,10 +96,7 @@
                 <div class='panel-block'>
                     <div class='container'>
                         <div class=field>
-                            <label class='label'>Mã môn học</label>
-                            <div class='control'>
-                                <input class='input' type='text' v-model='contentEdit.idSemester'>
-                            </div>
+                            <label class='label is-size-7 is-lightgray'>Mã học kỳ: {{contentEdit.idSemester}}</label>
                         </div>
                         <div class=field>
                             <label class='label'>Năm học</label>
@@ -110,12 +107,12 @@
                         <div class=field>
                             <label class='label'>Học kỳ</label>
                             <div class='control'>
-                                <input class='input' type='text' v-model='contentEdit.semesterIndex'>
+                                <dropdown-list :items="['Fall','Spring']" :on-select-changed="(selectedItem, selectedIndex) => contentEdit.semesterIndex = selectedIndex" :selected-index="contentEdit.semesterIndex"></dropdown-list>
                             </div>
                         </div>
                         <div class='field is-grouped'>
                             <div class='control'>
-                                <button @click="editSemester(contentEdit.idSemester)" class='button is-link'>Submit</button>
+                                <button @click="editSemester(contentEdit.idSemester,contentEdit.year,contentEdit.semesterIndex)" class='button is-link'>Submit</button>
                             </div>
                             <div class='control'>
                                 <button class='button is-link is-light' @click="tabIdx = 0;">Cancel</button>

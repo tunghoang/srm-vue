@@ -89,7 +89,6 @@
             </div>
         </div>
     </div>
-
     <div v-if="tabIdx === 2">
         <div class='column '>
             <div class='panel'>
@@ -99,10 +98,7 @@
                 <div class='panel-block'>
                     <div class='container'>
                         <div class=field>
-                            <label class='label'>Mã </label>
-                            <div class='control'>
-                                <input class='input' type='text' v-model='contentEdit.idQuota'>
-                            </div>
+                            <label class='is-size-7 is-lightgray'>Mã: {{contentEdit.idQuota}}</label>
                         </div>
                         <div class=field>
                             <label class='label'>Tên:</label>

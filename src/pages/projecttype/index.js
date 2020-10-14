@@ -12,7 +12,7 @@ let component = {
       tabIdx: 0,
       projecttypeData: {},
       currentProjecttypeId: null,
-      editProjecttype:{},
+      contentEdit:{},
     };
   },
   created: function() {

@@ -13,7 +13,6 @@ let component = {
       quotaData: {},
       contentEdit:{},
       currentQuotaId: null,
-      
     };
   },
   created: function() {

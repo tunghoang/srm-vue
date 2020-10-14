@@ -17,12 +17,14 @@
                     <div>
                         <h4 class='is-size-7 is-lightgray mb-3'>Mã: {{content.idProjecttype}}</h4> 
                         <strong>
-                            <p class="mb-3">Tên: {{content.name}}</p>
+                            <p>Tên: {{content.name}}</p>
                             <p>Mô tả: {{content.description}}</p>
+                            <p>Số lượng khóa luận tốt nghiệp: {{content.n_kltn || 'N/A'}}</p>
+                            <p>Số lượng đồ án khoa học: {{content.n_dakh || 'N/A'}}</p>
                         </strong>
                     </div>
                     <div class="has-text-right">
-                        <span class="Edit" @click="tabIdx=2; editProjecttype = content">
+                        <span class="Edit" @click="tabIdx=2; contentEdit = content">
                             <a href="#">
                                 <ion-icon name="create-outline"></ion-icon>
                                 <span>Edit</span>
@@ -65,23 +67,35 @@
                 <div class='panel-block'>
                     <div class='container'>
                         <div class=field>
-                            <label class='label'>Name</label>
+                            <label class='label'>Tên</label>
                             <div class='control'>
-                                <input class='input' type='text' v-model="projecttypeData.name" placeholder='Name'>
+                                <input class='input' type='text' v-model="contentEdit.name" placeholder='Nhập tên'>
                             </div>
                         </div>
                         <div class=field>
-                            <label class='label'>Description</label>
+                            <label class='label'>Mô tả</label>
                             <div class='control'>
-                                <input class='input' type='text' v-model="projecttypeData.description" placeholder='description'>
+                                <input class='input' type='text' v-model="contentEdit.description" placeholder='Nhập mô tả'>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class='label'>Số lượng khóa luận tốt nghiệp</label>
+                            <div class='control'>
+                                <input class='input' type='text' v-model="contentEdit.n_kltn" placeholder='Nhập số lượng'>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class='label'>Số lượng dự án khoa học</label>
+                            <div class='control'>
+                                <input class='input' type='text' v-model="contentEdit.n_dakh" placeholder='Nhập số lượng'>
                             </div>
                         </div>
                         <div class='field is-grouped'>
                             <div class='control'>
-                                <button @click="createProjecttype(projecttypeData)" class='button is-link'>Submit</button>
+                                <button @click="createProjecttype(contentEdit)" class='button is-link'>Submit</button>
                             </div>
                             <div class='control'>
-                                <button class='button is-link is-light'>Cancel</button>
+                                <button class='button is-link is-light' @click="tabIdx=0">Cancel</button>
                             </div>
                         </div>
                     </div>
@@ -99,26 +113,35 @@
                 <div class='panel-block'>
                     <div class='container'>
                         <div class=field>
-                            <label class='label'>Mã:</label>
-                            <div class='control'>
-                                <input class='input' type='text' v-model='editProjecttype.idProjecttype'>
-                            </div>
+                            <label class='is-size-7 is-lightgray'>Mã:{{contentEdit.idProjecttype}}</label>
                         </div>
                         <div class=field>
                             <label class='label'>Tên:</label>
                             <div class='control'>
-                                <input class='input' type='text' v-model='editProjecttype.name'>
+                                <input class='input' type='text' v-model='contentEdit.name'>
                             </div>
                         </div>
                         <div class=field>
                             <label class='label'>Mô tả:</label>
                             <div class='control'>
-                                <input class='input' type='text' v-model='editProjecttype.description'>
+                                <input class='input' type='text' v-model='contentEdit.description'>
+                            </div>
+                        </div>
+                        <div class=field>
+                            <label class='label'>Số lượng khóa luận tốt nghiệp:</label>
+                            <div class='control'>
+                                <input class='input' type='text' v-model='contentEdit.n_kltn'>
+                            </div>
+                        </div>
+                        <div class=field>
+                            <label class='label'>Số lượng dự án khoa học:</label>
+                            <div class='control'>
+                                <input class='input' type='text' v-model='contentEdit.n_dakh'>
                             </div>
                         </div>
                         <div class='field is-grouped'>
                             <div class='control'>
-                                <button @click="editProjecttype(editProjecttype.idProjecttype)" class='button is-link'>Submit</button>
+                                <button @click="editProjecttype(contentEdit.idProjecttype)" class='button is-link'>Submit</button>
                             </div>
                             <div class='control'>
                                 <button class='button is-link is-light' @click="tabIdx = 0;">Cancel</button>

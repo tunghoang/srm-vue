@@ -13,8 +13,7 @@ let component = {
       contents: [],
       tabIdx: 0,
       semesterData: {},
-      contentEdit:{},
-      currentSemesterId:null
+      contentEdit:{}
     };
   },
   created: function() {
@@ -26,7 +25,6 @@ let component = {
         this.contents = res.data.sort((item1, item2) => (item2.idSemester - item1.idSemester));
       }).catch(err => console.error(err));
     },
-
     createSemester: function(semesterData) {
       console.log('click');
       axios({
@@ -42,12 +40,15 @@ let component = {
         this.loadData();
       }).catch((err)=>{console.log(err)});
     },
-    editSemester: function(id){
+    editSemester: function(idSemester,year,semesterIndex){
       console.log("edit")
       axios({
-        method:"put",
-        url:config.SEMESTERS_URL + id,
-        data:id
+        method:"PUT",
+        url:config.SEMESTERS_URL + idSemester,
+        data:{
+          year:year,
+          semesterIndex:semesterIndex
+        }
       }).then(res=>{
         console.log(res.data);
         this.tabIdx = 0;
@@ -56,7 +57,6 @@ let component = {
         e => console.error(e)
       );
     },
-    
     deleteSemester: function(idSemester) {
       console.log('delete');
       axios({
@@ -70,12 +70,10 @@ let component = {
         e => console.error(e)
       );
     },
-    
     selectChanged: function(selectedItem, selectedIdx) {
       console.log(selectedItem);
       this.semesterData.semesterIndex = selectedIdx
     }
-
   },
   
   template,

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Student Research Management</title>
+  </head>
+  <body>
+    <div id="vue-app" class="tile is-ancestor" style='height: 100vh;margin-bottom:0;'>
+      <div class='tile is-parent is-vertical debug' style='height:100%;padding-bottom:0;'>
+        <div v-if="!isLogingIn()" class='tile is-child debug' style='flex:0;margin-bottom: 0 !important;'>
+          <nav class='navbar is-info debug'>
+            <div class='navbar-brand'>
+              <a class='navbar-item subtitle' href="#" @click="goHome()">Student SRM</a>
+            </div>
+            <div class='navbar-menu'>
+              <div class='navbar-end'>
+                <router-link class='navbar-item' to="/login/student">
+                  <span class='icon'>
+                    <ion-icon name="log-out-outline"></ion-icon>
+                  </span>
+                </router-link>
+              </div>
+            </div>
+          </nav>
+        </div>
+        <div class='tile is-parent debug' style="padding: 0;">
+          <aside v-if="!isLogingIn()" class='tile is-child menu is-active' style='flex:0 1 20%'>
+            <p class="menu-label" style="padding: 1.5rem 0 0 1.5rem;">
+              Research Activities
+            </p>
+            <ul class='menu-list'>
+              <li>
+                <router-link :to="`/project/on-going/${idStudent}`">
+                  <span class='icon is-medium'>
+                    <ion-icon size='small' name="rocket-outline"></ion-icon>
+                  </span>
+                  <span>On-going Projects</span>
+                </router-link>
+              </li>
+              
+              <li>
+                <router-link :to="`/project/finished/${idStudent}`">
+                  <span class='icon is-medium'>
+                    <ion-icon size='small' name="cloud-done-outline"></ion-icon>
+                  </span>
+                  <span>Finished Projects</span>
+                </router-link>
+              </li>
+            </ul>
+            <p class="menu-label" style="padding: 0 0 0 1.5rem;">
+              Actions
+            </p>
+            <ul class='menu-list'>
+              <li>
+                <router-link to="/new-project">
+                  <span class='icon is-medium'>
+                    <ion-icon size='small' name="add-outline"></ion-icon>
+                  </span>
+                  <span>Add New Project</span>
+                </router-link>
+              </li>
+            </ul>
+          </aside>
+          <div class='tile is-parent'>
+            <div class='tile is-child'>
+              <router-view></router-view>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://unpkg.com/ionicons@5.2.1/dist/ionicons.js"></script>
+  </body>
+</html>

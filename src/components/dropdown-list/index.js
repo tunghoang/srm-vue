@@ -32,6 +32,18 @@ let component = {
       if (oldIdx !== newIdx) {
         this.onSelectChanged && this.onSelectChanged(this.dataItems[newIdx], newIdx);
       }
+    },
+    toggleDropdown: function() {
+      this.showDropdown = ! this.showDropdown;
+      this.$nextTick(() => {
+        this.$refs['itemList'].focus();
+      });
+    },
+    onFocus: function() {
+      console.log("focus");
+    },
+    onBlur: function() {
+      console.log('blur');
     }
   },
   computed: {

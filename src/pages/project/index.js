@@ -1,10 +1,20 @@
 import Vue from 'vue';
 
+import template from './template.html';
 let component = {
+  props: ['idStudent', 'idAdvisor', 'idSemester', 'idProjecttype', 'status'],
   data: function() {
-    return {};
+    return {
+      projects: null,
+    };
   },
-  template: '<h2>This is project</h2>'
+  created: function() {
+
+  },
+  template
 };
 
-export default { path:"/project", component: component }
+//export default { path:"/project", component: component }
+export default function(path, props) {
+  return { path, component, props }
+}

@@ -4,7 +4,6 @@ import template from './template.html';
 import DropdownList from '../../components/dropdown-list';
 import config from '../../config';
 import axios from 'axios';
-console.log(config);
 
 let component = {
   data: function (){

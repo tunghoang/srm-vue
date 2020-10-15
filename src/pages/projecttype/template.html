@@ -16,10 +16,8 @@
                 <div class="card-content ">
                     <div>
                         <h4 class='is-size-7 is-lightgray mb-3'>ID: {{content.idProjecttype}}</h4> 
-                        <strong>
-                            <p>Name: {{content.name}}</p>
-                            <p>Description: {{content.description}}</p>
-                        </strong>
+                            <p><b> Name:</b> {{content.name}}</p>
+                            <p><b>Description:</b>  {{content.description}}</p>
                     </div>
                     <div class="has-text-right">
                         <span class="Edit" @click="tabIdx=2; contentEdit = content">
@@ -85,7 +83,7 @@
                             </div>
                             <div class='control'>
                                 <button class='button is-link is-light' @click="tabIdx=0">
-                                    <span><ion-icon name="arrow-back-circle"></ion-icon></span>
+                                    <span class="icon"><ion-icon name="arrow-back-circle"></ion-icon></span>
                                     <span>Back</span>
                                 </button>
                             </div>

@@ -16,12 +16,10 @@
                 <div class="card-content ">
                     <div>
                         <h4 class='is-size-7 is-lightgray mb-3'>ID : {{content.idQuota}}</h4> 
-                        <strong>
-                            <p>Name: {{content.name}}</p>
-                            <p>Description: {{content.description}}</p>
-                            <p>Number of kltn: {{content.n_kltn}}</p>
-                            <p>Number of dakh: {{content.n_dakh}}</p>
-                        </strong>
+                            <p><b>Name:</b>  {{content.name}}</p>
+                            <p><b>Description:</b>  {{content.description}}</p>
+                            <p><b>Number of kltn: </b> {{content.n_kltn}}</p>
+                            <p><b>Number of dakh: </b> {{content.n_dakh}}</p>
                     </div>
                     <div class="has-text-right">
                         <span class="Edit" @click="tabIdx=2; contentEdit = content">

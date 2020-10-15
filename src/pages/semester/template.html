@@ -14,11 +14,9 @@
             <div class="card">
                 <div class="card-content ">
                     <div>
-                        <h4 class='is-size-7 is-lightgray'>Mã học kỳ: {{content.idSemester}}</h4> 
-                        <strong>
-                            <p>Semester: {{content.semesterIndex +1 }}</p>
-                            <p>Year: {{content.year}} - {{content.year+1}}</p>
-                        </strong>
+                        <h4 class='is-size-7 is-lightgray'>ID: {{content.idSemester}}</h4> 
+                            <p><b>Semester:</b>  {{content.semesterIndex +1 }}</p>
+                            <p><b>Year:</b>  {{content.year}} - {{content.year+1}}</p>
                     </div>
                     <div class="has-text-right">
                         <span class="Edit" @click="tabIdx=2; contentEdit = content">
@@ -102,16 +100,16 @@
                 <div class='panel-block'>
                     <div class='container'>
                         <div class=field>
-                            <label class='label is-size-7 is-lightgray'>Mã học kỳ: {{contentEdit.idSemester}}</label>
+                            <label class='label is-size-7 is-lightgray'>ID {{contentEdit.idSemester}}</label>
                         </div>
                         <div class=field>
-                            <label class='label'>Năm học</label>
+                            <label class='label'>Year</label>
                             <div class='control'>
                                 <input class='input' type='text' v-model='contentEdit.year'>
                             </div>
                         </div>
                         <div class=field>
-                            <label class='label'>Học kỳ</label>
+                            <label class='label'>Semester</label>
                             <div class='control'>
                                 <dropdown-list :items="['Fall','Spring']" :on-select-changed="(selectedItem, selectedIndex) => contentEdit.semesterIndex = selectedIndex" :selected-index="contentEdit.semesterIndex"></dropdown-list>
                             </div>

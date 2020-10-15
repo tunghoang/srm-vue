@@ -1,3 +1,4 @@
+  
 import Vue from 'vue';
 import template from './template.html';
 import style from './style.scss';
@@ -24,6 +25,7 @@ let component = {
         this.contents = res.data.sort((item1, item2) => (item2.idSemester - item1.idSemester));
       }).catch(err => console.error(err));
     },
+
     createSemester: function(semesterData) {
       console.log('click');
       axios({
@@ -56,6 +58,7 @@ let component = {
         e => console.error(e)
       );
     },
+
     deleteSemester: function(idSemester) {
       console.log('delete');
       axios({
@@ -69,10 +72,12 @@ let component = {
         e => console.error(e)
       );
     },
+    
     selectChanged: function(selectedItem, selectedIdx) {
       console.log(selectedItem);
       this.semesterData.semesterIndex = selectedIdx
     }
+
   },
   
   template,

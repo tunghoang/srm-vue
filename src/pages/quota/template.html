@@ -44,17 +44,13 @@
     <div class="card m-4 p-4 border-redish" v-if="tabIdx === 3">
         <h2 class="is-size-5 has-text-danger">Are you sure?</h2>
         <div class="field is-grouped is-grouped-right">
-            <button class="button has-text-danger" @click="deleteQuota(currentQuotaId)">
-                <span class="icon">
-                    <ion-icon name="shield-checkmark"></ion-icon>
-                </span>
-                <span>Yes</span>
+            <button class="button is-link is-dangder" @click="deleteQuota(currentQuotaId)">
+                <span class="icon"><ion-icon name="shield-checkmark"></ion-icon></span>
+                <span>Sure</span>
             </button>
-            <button class="button ml-2 has-text-success" @click="tabIdx = 0;">
-                <span class="icon">
-                    <ion-icon name="arrow-back-circle"></ion-icon>
-                </span>
-                <span>No</span>
+            <button class="button ml-2 is-link is-light" @click="tabIdx = 0;">
+                <span class="icon"><ion-icon name="arrow-back-circle"></ion-icon></span>
+                <span>Back</span>
             </button>
         </div>
     </div>
@@ -95,7 +91,10 @@
                                 <button @click="createQuota(quotaData)" class='button is-link'>Submit</button>
                             </div>
                             <div class='control'>
-                                <button class='button is-link is-light' @click='tabIdx=0;'>Cancel</button>
+                                <button class='button is-link is-light'>
+                                    <span class = "icon"><ion-icon name="arrow-back-circle"></ion-icon></span>
+                                    <span>Back</span>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -140,10 +139,16 @@
                         </div>
                         <div class='field is-grouped'>
                             <div class='control'>
-                                <button @click="editQuota(contentEdit.idQuota,contentEdit.name, contentEdit.description,contentEdit.n_kltn,contentEdit.n_dakh)" class='button is-link'>Submit</button>
+                                <button @click="editQuota(contentEdit.idQuota)" class='button is-link'>
+                                    <span class="icon"><ion-icon name="checkmark-circle"></ion-icon></span>
+                                    <span>Submit</span>
+                                </button>
                             </div>
                             <div class='control'>
-                                <button class='button is-link is-light' @click="tabIdx = 0;">Cancel</button>
+                                <button class='button is-link is-light' @click="tabIdx = 0;">
+                                    <span class = "icon"><ion-icon name="arrow-back-circle"></ion-icon></span>
+                                    <span>Back</span>
+                                </button>
                             </div>
                         </div>
                     </div>

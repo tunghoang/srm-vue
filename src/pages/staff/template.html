@@ -82,10 +82,16 @@
                         </div>
                         <div class='field is-grouped'>
                             <div class='control'>
-                                <button @click="createStaff(saffData)" class='button is-link'>Submit</button>
+                                <button @click="createStaff(saffData)" class='button is-link'>
+                                    <span class="icon"><ion-icon name="checkmark-circle"></ion-icon></span>
+                                    <span>Submit</span>
+                                </button>
                             </div>
                             <div class='control'>
-                                <button class='button is-link is-light' @click='tabIdx=0;'>Cancel</button>
+                                <button class='button is-link is-light' @click='tabIdx=0;'>
+                                    <span class = "icon"><ion-icon name="arrow-back-circle"></ion-icon></span>
+                                    <span>Back</span>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -125,7 +131,10 @@
                                 <button @click="editStaff(contentEdit.idStaff,contentEdit.email,contentEdit.fullname)" class='button is-link'>Submit</button>
                             </div>
                             <div class='control'>
-                                <button class='button is-link is-light' @click="tabIdx = 0;">Cancel</button>
+                                <button class='button is-link is-light' @click="tabIdx = 0;">
+                                    <span class = "icon"><ion-icon name="arrow-back-circle"></ion-icon></span>
+                                    <span>Back</span>
+                                </button>
                             </div>
                         </div>
                     </div>

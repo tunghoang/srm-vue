@@ -15,7 +15,7 @@ new Vue({
   router,
   data: {
     message: "Hello world from Vue",
-    idStudent: 10
+    idStudent: 123
   },
   computed: {
   },

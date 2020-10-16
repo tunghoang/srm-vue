@@ -11,7 +11,7 @@ let component = {
       contents: [],
       tabIdx: 0,
       staffData: {},
-      contentEdit:{},
+      contentEdit: {},
       currentStaffId:null
     };
   },
@@ -25,7 +25,7 @@ let component = {
       }).catch(err => console.error(err));
     },
 
-    createSemester: function(staffData) {
+    createStaff: function(staffData) {
       console.log('click');
       axios({
         method:"post",
@@ -40,14 +40,14 @@ let component = {
         this.loadData();
       }).catch((err)=>{console.log(err)});
     },
-    editStaff:function(idStaff,email,description){
+    editStaff:function(idStaff,email,fullname){
       console.log('editStaff');
       axios({
         method:'PUT',
-        url:config.STAFF_URL = idStaff,
+        url:config.STAFF_URL + idStaff,
         data:{
           email:email,
-          description:description
+          fullname:fullname,
         }
       }).then(res=>{
         console.log(res.data);
@@ -56,7 +56,7 @@ let component = {
       }).catch(err=>console.log(err))
     },
     
-    deleteSemester: function(idStaff) {
+    deleteStaff: function(idStaff) {
       console.log('delete');
       axios({
         method: 'delete',

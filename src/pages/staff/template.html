@@ -75,7 +75,7 @@
                         </div>
                         <div class='field is-grouped'>
                             <div class='control'>
-                                <button @click="createStaff(saffData)" class='button is-link'>
+                                <button @click="createStaff(staffData)" class='button is-link'>
                                     <span class="icon"><ion-icon name="checkmark-circle"></ion-icon></span>
                                     <span>Submit</span>
                                 </button>
@@ -102,15 +102,14 @@
                 <div class='panel-block'>
                     <div class='container'>
                         <div class=field>
-                            <label class='label'>ID</label>
-                            <div class='control'>
-                                <input class='input' type='text' v-model='contentEdit.idStaff'>
+                            <div class=field>
+                                <label class='label is-size-7 is-lightgray'>ID {{contentEdit.idStaff}}</label>
                             </div>
                         </div>
                         <div class=field>
                             <label class='label'>Email</label>
                             <div class='control'>
-                                <input class='input' type='text' v-model='contentEdit.name'>
+                                <input class='input' type='text' v-model='contentEdit.email'>
                             </div>
                         </div>
                         <div class=field>
@@ -135,6 +134,4 @@
             </div>
         </div>
     </div>
-
-    
 </div>

@@ -10,14 +10,14 @@
             </li>
         </ul>
     </div>
-    <div v-if="tabIdx == 0">
-        <div  v-for="content in contents" class="column" :key="content.idProjecttype">
+    <div v-if="tabIdx === 0">
+        <div v-for="content in contents" class="column" :key="content.idProjecttype">
             <div class="card">
                 <div class="card-content ">
                     <div>
                         <h4 class='is-size-7 is-lightgray mb-3'>ID: {{content.idProjecttype}}</h4> 
                             <p><b> Name:</b> {{content.name}}</p>
-                            <p><b>Description:</b>  {{content.description}}</p>
+                            <p><b>Description:</b>{{content.description}}</p>
                     </div>
                     <div class="has-text-right">
                         <span class="Edit" @click="tabIdx=2; contentEdit = content">

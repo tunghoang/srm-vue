@@ -5,6 +5,8 @@ import style from './style.scss';
 import DropdownList from '../../components/dropdown-list';
 import config from '../../config';
 import axios from 'axios';
+import {checkNumber} from '../../check-input';
+
 console.log(config);
 
 let component = {
@@ -13,7 +15,8 @@ let component = {
       contents: [],
       tabIdx: 0,
       semesterData: {},
-      contentEdit:{}
+      contentEdit:{},
+      yearError: false,
     };
   },
   created: function() {
@@ -27,6 +30,10 @@ let component = {
     },
 
     createSemester: function(semesterData) {
+      if(!checkNumber(semesterData.year)){
+        this.yearError = true;
+        return
+      }
       console.log('click');
       axios({
         method:"post",
@@ -72,12 +79,10 @@ let component = {
         e => console.error(e)
       );
     },
-    
     selectChanged: function(selectedItem, selectedIdx) {
       console.log(selectedItem);
       this.semesterData.semesterIndex = selectedIdx
-    }
-
+    },
   },
   
   template,

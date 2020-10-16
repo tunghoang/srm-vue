@@ -3,6 +3,7 @@ import template from './template.html';
 import DropdownList from '../../components/dropdown-list';
 import config from '../../config';
 import axios from 'axios';
+import {checkNumber} from '../../check-input'
 console.log(config);
 
 let component = {
@@ -13,6 +14,8 @@ let component = {
       quotaData: {},
       contentEdit:{},
       currentQuotaId: null,
+      numberError: false,
+      numberError2: false,
     };
   },
   created: function() {
@@ -27,6 +30,20 @@ let component = {
 
     createQuota: function(quotaData) {
       console.log('click');
+      if(!checkNumber(quotaData.n_kltn) && !checkNumber(quotaData.n_dakh)){
+        numberError=true;
+        numberError2=true;
+        return
+      }
+      if(!checkNumber(quotaData.n_kltn)){
+        numberError=true;
+        return
+      }
+      if(!checkNumber(quotaData.n_dakh)){
+        numberError2=true;
+        return
+      }
+      
       axios({
         method:"post",
         url:config.QUOTAS_URL,

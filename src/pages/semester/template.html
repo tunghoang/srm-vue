@@ -61,12 +61,14 @@
                 </div>
                 <div class='panel-block'>
                     <div class='container'>
-                        <div class=field>
+                        <div class="field" >
                             <label class='label'>Year</label>
                             <div class='control'>
-                                <input class='input' type='text' v-model="semesterData.year" placeholder='Year' value="">
+                                <input class='input form-input' type='text' v-model="semesterData.year" placeholder='Year' @focus='yearError=false'>
+                                <small v-if = "yearError" class = "has-text-danger">Year must be number</small>
                             </div>
                         </div>
+                      
                         <div class=field>
                             <label class='label'>Semester</label>
                             <dropdown-list :items="['Fall', 'Spring']" :on-select-changed='selectChanged'></dropdown-list>

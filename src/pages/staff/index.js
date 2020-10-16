@@ -25,8 +25,8 @@ let component = {
       }).catch(err => console.error(err));
     },
 
-    createSemester: function(staffData) {
-      console.log('click');
+    createStaff: function(staffData) {
+      console.log(staffData);
       axios({
         method:"post",
         url:config.STAFF_URL,

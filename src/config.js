@@ -7,4 +7,9 @@ export default {
     QUOTAS_URL: baseUrl + '/quotas/',
     PROJECTTYPE_URL: baseUrl + '/projecttypes/',
     STAFF_URL: baseUrl + '/staffs/',
+    LOGIN_URLS : {
+        student: baseUrl + '/studentlogin/',
+        advisor: baseUrl + '/advisorlogin/',
+        staff: baseUrl + '/stafflogin/'
+    }
 }

@@ -29,7 +29,7 @@ new Vue({
       
     },
     isLogingIn: function() {
-      return this.$router.currentRoute.path === '/login';
+      return this.$router.currentRoute.path === '/login/staff';
     }
   }
 });

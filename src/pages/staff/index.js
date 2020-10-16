@@ -1,5 +1,4 @@
-  
-import Vue from 'vue';
+  import Vue from 'vue';
 import template from './template.html';
 import DropdownList from '../../components/dropdown-list';
 import config from '../../config';
@@ -11,7 +10,7 @@ let component = {
       contents: [],
       tabIdx: 0,
       staffData: {},
-      contentEdit:{},
+      contentEdit: {},
       currentStaffId:null
     };
   },
@@ -40,14 +39,14 @@ let component = {
         this.loadData();
       }).catch((err)=>{console.log(err)});
     },
-    editStaff:function(idStaff,email,description){
+    editStaff:function(idStaff,email,fullname){
       console.log('editStaff');
       axios({
         method:'PUT',
-        url:config.STAFF_URL = idStaff,
+        url:config.STAFF_URL + idStaff,
         data:{
           email:email,
-          description:description
+          fullname:fullname,
         }
       }).then(res=>{
         console.log(res.data);
@@ -56,7 +55,7 @@ let component = {
       }).catch(err=>console.log(err))
     },
     
-    deleteSemester: function(idStaff) {
+    deleteStaff: function(idStaff) {
       console.log('delete');
       axios({
         method: 'delete',

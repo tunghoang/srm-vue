@@ -15,7 +15,7 @@ new Vue({
   router,
   data: {
     message: "Hello world from Vue",
-    idStudent: 10
+    idStudent: 123
   },
   computed: {
   },
@@ -30,7 +30,7 @@ new Vue({
       
     },
     isLogingIn: function() {
-      return this.$router.currentRoute.path === '/login';
+      return this.$router.currentRoute.path === '/login/student';
     }
   }
 });

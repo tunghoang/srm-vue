@@ -29,21 +29,16 @@ let component = {
     },
 
     createQuota: function(quotaData) {
-      console.log('click');
-      if(!checkNumber(quotaData.n_kltn) && !checkNumber(quotaData.n_dakh)){
-        numberError=true;
-        numberError2=true;
-        return
-      }
+      console.log(quotaData);
       if(!checkNumber(quotaData.n_kltn)){
-        numberError=true;
+        this.numberError=true;
+        if(!checkNumber(quotaData.n_dakh)){
+          this.numberError2=true;
+          return
+        }    
         return
-      }
-      if(!checkNumber(quotaData.n_dakh)){
-        numberError2=true;
-        return
-      }
-      
+      }  
+     
       axios({
         method:"post",
         url:config.QUOTAS_URL,

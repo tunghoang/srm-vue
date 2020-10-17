@@ -1,9 +1,29 @@
-const checkNumber = (n) => {
+const checkErrorNumber = (n) => {
   console.log(n);
-  if (isNaN(n * 1) || n === null) {
-    return false;
+  checkSpace(n);
+  if (isNaN(n * 1) || n >= 100000) {
+    return true;
+  }
+  return false;
+};
+
+const checkErrorEmail = (n) => {
+  // console.log(typeof n)
+  checkSpace(n);
+  for (i of n) {
+    if (i === "@") {
+      return false;
+    }
   }
   return true;
 };
 
-module.exports = { checkNumber };
+const checkSpace = (n) => {
+  for (i in n) {
+    if (i == " "|| i==null) {
+      return true;
+    }
+  }
+};
+
+module.exports = { checkErrorNumber, checkErrorEmail };

@@ -5,7 +5,7 @@ import style from './style.scss';
 import DropdownList from '../../components/dropdown-list';
 import config from '../../config';
 import axios from 'axios';
-import {checkNumber} from '../../check-input';
+import {checkErrorNumber} from '../../check-input';
 
 console.log(config);
 
@@ -30,7 +30,7 @@ let component = {
     },
 
     createSemester: function(semesterData) {
-      if(!checkNumber(semesterData.year)){
+      if(checkErrorNumber(semesterData.year)){
         this.yearError = true;
         return
       }

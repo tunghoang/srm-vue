@@ -3,7 +3,7 @@ import template from './template.html';
 import DropdownList from '../../components/dropdown-list';
 import config from '../../config';
 import axios from 'axios';
-import {checkNumber} from '../../check-input'
+import {checkErrorNumber} from '../../check-input'
 console.log(config);
 
 let component = {
@@ -30,9 +30,9 @@ let component = {
 
     createQuota: function(quotaData) {
       console.log(quotaData);
-      if(!checkNumber(quotaData.n_kltn)){
+      if(checkErrorNumber(quotaData.n_kltn)){
         this.numberError=true;
-        if(!checkNumber(quotaData.n_dakh)){
+        if(checkErrorNumber(quotaData.n_dakh)){
           this.numberError2=true;
           return
         }    

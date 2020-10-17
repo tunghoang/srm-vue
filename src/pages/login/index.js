@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import axios from 'axios';
-
 import template from './template.html';
 import config from '../../config';
+import {checkErrorEmail} from '../../check-input';
 
 function getLoginUrl(loginType) {
   return config.LOGIN_URLS[loginType];
@@ -15,12 +15,18 @@ let component = {
       account: {
         email: null,
         password: null
-      }
+      },
+      emailError:false,
     };
   },
   methods: {
     doLogin: function(account) {
+      
       console.log('doLogin', this.loginType, JSON.stringify(account), getLoginUrl(this.loginType));
+      if(checkErrorEmail(account.email)){
+        emailError:true;
+        return
+      }
       axios(getLoginUrl(this.loginType), {
         method: "POST",
         headers: {

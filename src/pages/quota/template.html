@@ -1,4 +1,3 @@
-  
 <div class="rows">
     <div class="tabs is-medium">
         <ul>
@@ -6,20 +5,20 @@
                 <a @click="tabIdx = 0;">List Quota</a>
             </li>
             <li>
-                <a @click="tabIdx = 1;">New Quota</a> 
+                <a @click="tabIdx = 1;">New Quota</a>
             </li>
         </ul>
     </div>
     <div v-if="tabIdx == 0">
-        <div  v-for="content in contents" class="column" :key="content.idQuota">
+        <div v-for="content in contents" class="column" :key="content.idQuota">
             <div class="card">
                 <div class="card-content ">
                     <div>
-                        <h4 class='is-size-7 is-lightgray mb-3'>ID : {{content.idQuota}}</h4> 
-                            <p><b>Name:</b>  {{content.name}}</p>
-                            <p><b>Description:</b>  {{content.description}}</p>
-                            <p><b>Number of kltn: </b> {{content.n_kltn}}</p>
-                            <p><b>Number of dakh: </b> {{content.n_dakh}}</p>
+                        <h4 class='is-size-7 is-lightgray mb-3'>ID : {{content.idQuota}}</h4>
+                        <p><b>Name:</b> {{content.name}}</p>
+                        <p><b>Description:</b> {{content.description}}</p>
+                        <p><b>Number of kltn: </b> {{content.n_kltn}}</p>
+                        <p><b>Number of dakh: </b> {{content.n_dakh}}</p>
                     </div>
                     <div class="has-text-right">
                         <span class="Edit" @click="tabIdx=2; contentEdit = content">
@@ -29,9 +28,9 @@
                             </a>
                         </span>
                         <span class="Delete ml-4" @click="currentQuotaId = content.idQuota;tabIdx = 3;">
-                            <a href="#" class="has-text-danger" >
+                            <a href="#" class="has-text-danger">
                                 <ion-icon name="trash-outline"></ion-icon>
-                                <span >Delete</span>
+                                <span>Delete</span>
                             </a>
                         </span>
                     </div>
@@ -43,117 +42,134 @@
         <h2 class="is-size-5 has-text-danger">Are you sure?</h2>
         <div class="field is-grouped is-grouped-right">
             <button class="button is-link is-danger" @click="deleteQuota(currentQuotaId)">
-                <span class="icon"><ion-icon name="shield-checkmark"></ion-icon></span>
+                <span class="icon">
+                    <ion-icon name="shield-checkmark"></ion-icon>
+                </span>
                 <span>Sure</span>
             </button>
             <button class="button ml-2 is-link is-light" @click="tabIdx = 0;">
-                <span class="icon"><ion-icon name="arrow-back-circle"></ion-icon></span>
+                <span class="icon">
+                    <ion-icon name="arrow-back-circle"></ion-icon>
+                </span>
                 <span>Back</span>
             </button>
         </div>
     </div>
     <div v-if="tabIdx === 1">
         <div class='column '>
-            <div class='panel'>
-                <div class='panel-heading'>
-                    New Quota
-                </div>
-                <div class='panel-block'>
-                    <div class='container'>
-                        <div class=field>
-                            <label class='label'>Name</label>
-                            <div class='control'>
-                                <input  class='input' type='text' v-model="quotaData.name" placeholder='Name'>
+            <form>
+                <div class='panel'>
+                    <div class='panel-heading'>
+                        New Quota
+                    </div>
+                    <div class='panel-block'>
+                        <div class='container'>
+                            <div class=field>
+                                <label class='label'>Name</label>
+                                <div class='control'>
+                                    <input class='input' type='text' v-model="quotaData.name" placeholder='Name'>
+                                </div>
                             </div>
-                        </div>
-                        <div class=field>
-                            <label class='label'>Description</label>
-                            <div class='control'>
-                                <input class='input' type='text' v-model="quotaData.description" placeholder='description'>
+                            <div class=field>
+                                <label class='label'>Description</label>
+                                <div class='control'>
+                                    <input class='input' type='text' v-model="quotaData.description"
+                                        placeholder='description'>
+                                </div>
                             </div>
-                        </div>
-                        <div class=field>
-                            <label class='label'>Number of kltn</label>
-                            <div class='control'>
-                                <input class='input' type='text' v-model="quotaData.n_kltn" placeholder='number of kltn' @focus="numberError=false">
-                                <small v-if="numberError" class="has-text-danger">Must be a number</small>
+                            <div class=field>
+                                <label class='label'>Number of kltn</label>
+                                <div class='control'>
+                                    <input class='input' type='text' v-model="quotaData.n_kltn"
+                                        placeholder='number of kltn' @focus="numberError=false">
+                                    <small v-if="numberError" class="has-text-danger">Must be a number</small>
+                                </div>
                             </div>
-                        </div>
-                        <div class=field>
-                            <label class='label'>Number of dakh</label>
-                            <div class='control'>
-                                <input class='input' type='text' v-model="quotaData.n_dakh" placeholder='number of dakh' @focus="numberError2=false">
-                                <small v-if="numberError2" class="has-text-danger">Must be a number</small>
+                            <div class=field>
+                                <label class='label'>Number of dakh</label>
+                                <div class='control'>
+                                    <input class='input' type='text' v-model="quotaData.n_dakh"
+                                        placeholder='number of dakh' @focus="numberError2=false">
+                                    <small v-if="numberError2" class="has-text-danger">Must be a number</small>
+                                </div>
                             </div>
-                        </div>
-                        <div class='field is-grouped'>
-                            <div class='control'>
-                                <button @click="createQuota(quotaData)" class='button is-link'>Submit</button>
-                            </div>
-                            <div class='control'>
-                                <button class='button is-link is-light'>
-                                    <span class = "icon"><ion-icon name="arrow-back-circle"></ion-icon></span>
-                                    <span>Back</span>
-                                </button>
+                            <div class='field is-grouped'>
+                                <div class='control'>
+                                    <button @click="createQuota(quotaData)" class='button is-link'>Submit</button>
+                                </div>
+                                <div class='control'>
+                                    <button class='button is-link is-light'@click='tabIdx =0;'>
+                                        <span class="icon" >
+                                            <ion-icon name="arrow-back-circle"></ion-icon>
+                                        </span>
+                                        <span>Back</span>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
     <div v-if="tabIdx === 2">
         <div class='column '>
-            <div class='panel'>
-                <div class='panel-heading'>
-                    Edit Quota
-                </div>
-                <div class='panel-block'>
-                    <div class='container'>
-                        <div class=field>
-                            <label class='is-size-7 is-lightgray'>ID: {{contentEdit.idQuota}}</label>
-                        </div>
-                        <div class=field>
-                            <label class='label'>Name:</label>
-                            <div class='control'>
-                                <input class='input' type='text' v-model='contentEdit.name'>
+            <form>
+                <div class='panel'>
+                    <div class='panel-heading'>
+                        Edit Quota
+                    </div>
+                    <div class='panel-block'>
+                        <div class='container'>
+                            <div class=field>
+                                <label class='is-size-7 is-lightgray'>ID: {{contentEdit.idQuota}}</label>
                             </div>
-                        </div>
-                        <div class=field>
-                            <label class='label'>Description:</label>
-                            <div class='control'>
-                                <input class='input' type='text' v-model='contentEdit.description'>
+                            <div class=field>
+                                <label class='label'>Name:</label>
+                                <div class='control'>
+                                    <input class='input' type='text' v-model='contentEdit.name'>
+                                </div>
                             </div>
-                        </div>
-                        <div class=field>
-                            <label class='label'>Number of kltn:</label>
-                            <div class='control'>
-                                <input class='input' type='text' v-model='contentEdit.n_kltn'>
+                            <div class=field>
+                                <label class='label'>Description:</label>
+                                <div class='control'>
+                                    <input class='input' type='text' v-model='contentEdit.description'>
+                                </div>
                             </div>
-                        </div>
-                        <div class=field>
-                            <label class='label'>Number of dakh:</label>
-                            <div class='control'>
-                                <input class='input' type='text' v-model='contentEdit.n_dakh'>
+                            <div class=field>
+                                <label class='label'>Number of kltn:</label>
+                                <div class='control'>
+                                    <input class='input' type='text' v-model='contentEdit.n_kltn'>
+                                </div>
                             </div>
-                        </div>
-                        <div class='field is-grouped'>
-                            <div class='control'>
-                                <button @click="editQuota(contentEdit.idQuota)" class='button is-link'>
-                                    <span class="icon"><ion-icon name="checkmark-circle"></ion-icon></span>
-                                    <span>Submit</span>
-                                </button>
+                            <div class=field>
+                                <label class='label'>Number of dakh:</label>
+                                <div class='control'>
+                                    <input class='input' type='text' v-model='contentEdit.n_dakh'>
+                                </div>
                             </div>
-                            <div class='control'>
-                                <button class='button is-link is-light' @click="tabIdx = 0;">
-                                    <span class = "icon"><ion-icon name="arrow-back-circle"></ion-icon></span>
-                                    <span>Back</span>
-                                </button>
+                            <div class='field is-grouped'>
+                                <div class='control'>
+                                    <button @click="editQuota(contentEdit.idQuota)" class='button is-link'>
+                                        <span class="icon">
+                                            <ion-icon name="checkmark-circle"></ion-icon>
+                                        </span>
+                                        <span>Submit</span>
+                                    </button>
+                                </div>
+                                <div class='control'>
+                                    <button class='button is-link is-light' @click="tabIdx = 0;">
+                                        <span class="icon">
+                                            <ion-icon name="arrow-back-circle"></ion-icon>
+                                        </span>
+                                        <span>Back</span>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>

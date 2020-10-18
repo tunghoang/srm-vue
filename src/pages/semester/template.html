@@ -5,18 +5,18 @@
                 <a @click="tabIdx = 0;">List Semester</a>
             </li>
             <li>
-                <a @click="tabIdx = 1;">New Semester</a> 
+                <a @click="tabIdx = 1;">New Semester</a>
             </li>
         </ul>
     </div>
     <div v-if="tabIdx == 0">
-        <div  v-for="content in contents" class="column" :key="content.idSemester">
+        <div v-for="content in contents" class="column" :key="content.idSemester">
             <div class="card">
                 <div class="card-content ">
                     <div>
-                        <h4 class='is-size-7 is-lightgray'>ID: {{content.idSemester}}</h4> 
-                            <p><b>Semester:</b>  {{content.semesterIndex +1 }}</p>
-                            <p><b>Year:</b>  {{content.year}} - {{content.year+1}}</p>
+                        <h4 class='is-size-7 is-lightgray'>ID: {{content.idSemester}}</h4>
+                        <p><b>Semester:</b> {{content.semesterIndex +1 }}</p>
+                        <p><b>Year:</b> {{content.year}} - {{content.year+1}}</p>
                     </div>
                     <div class="has-text-right">
                         <span class="Edit" @click="tabIdx=2; contentEdit = content">
@@ -26,9 +26,9 @@
                             </a>
                         </span>
                         <span class="Delete ml-4" @click="currentSemesterId = content.idSemester;tabIdx = 3;">
-                            <a href="#" class="has-text-danger" >
+                            <a href="#" class="has-text-danger">
                                 <ion-icon name="trash-outline"></ion-icon>
-                                <span >Delete</span>
+                                <span>Delete</span>
                             </a>
                         </span>
                     </div>
@@ -55,85 +55,103 @@
     </div>
     <div v-if="tabIdx === 1">
         <div class='column '>
-            <div class='panel'>
-                <div class='panel-heading'>
-                    New semester
-                </div>
-                <div class='panel-block'>
-                    <div class='container'>
-                        <div class="field" >
-                            <label class='label'>Year</label>
-                            <div class='control'>
-                                <input class='input form-input' type='text' v-model="semesterData.year" placeholder='Year' @focus='yearError=false'>
-                                <small v-if = "yearError" class = "has-text-danger">Year must be number</small>
+            <form>
+                <div class='panel'>
+                    <div class='panel-heading'>
+                        New semester
+                    </div>
+                    <div class='panel-block'>
+                        <div class='container'>
+                            <div class="field">
+                                <label class='label'>Year</label>
+                                <div class='control'>
+                                    <input class='input form-input' type='text' v-model="semesterData.year"
+                                        placeholder='Year' @focus='yearError=false'>
+                                    <small v-if="yearError" class="has-text-danger">Year must be number</small>
+                                </div>
                             </div>
-                        </div>
-                      
-                        <div class=field>
-                            <label class='label'>Semester</label>
-                            <dropdown-list :items="['Fall', 'Spring']" :on-select-changed='selectChanged'></dropdown-list>
-                        </div>
-                        <div class='field is-grouped'>
-                            <div class='control'>
-                                <button @click="createSemester(semesterData)" class='button is-link'>
-                                    <span class = "icon"><ion-icon name="checkmark-circle"></ion-icon></span>
-                                    <span>Submit</span>
-                                </button>
+
+                            <div class=field>
+                                <label class='label'>Semester</label>
+                                <dropdown-list :items="['Fall', 'Spring']" :on-select-changed='selectChanged'>
+                                </dropdown-list>
                             </div>
-                            <div class='control'>
-                                <button class='button is-link is-light' @click="tabIdx = 0;">
-                                    <span class = "icon"><ion-icon name="arrow-back-circle"></ion-icon></span>
-                                    <span>Back</span> 
-                                </button>
+                            <div class='field is-grouped'>
+                                <div class='control'>
+                                    <button @click="createSemester(semesterData)" class='button is-link'>
+                                        <span class="icon">
+                                            <ion-icon name="checkmark-circle"></ion-icon>
+                                        </span>
+                                        <span>Submit</span>
+                                    </button>
+                                </div>
+                                <div class='control'>
+                                    <button class='button is-link is-light' @click="tabIdx = 0;">
+                                        <span class="icon">
+                                            <ion-icon name="arrow-back-circle"></ion-icon>
+                                        </span>
+                                        <span>Back</span>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 
     <div v-if="tabIdx === 2">
         <div class='column '>
-            <div class='panel'>
-                <div class='panel-heading'>
-                    Edit Semester
-                </div>
-                <div class='panel-block'>
-                    <div class='container'>
-                        <div class=field>
-                            <label class='label is-size-7 is-lightgray'>ID {{contentEdit.idSemester}}</label>
-                        </div>
-                        <div class=field>
-                            <label class='label'>Year</label>
-                            <div class='control'>
-                                <input class='input' type='text' v-model='contentEdit.year'>
+            <form>
+                <div class='panel'>
+                    <div class='panel-heading'>
+                        Edit Semester
+                    </div>
+                    <div class='panel-block'>
+                        <div class='container'>
+                            <div class=field>
+                                <label class='label is-size-7 is-lightgray'>ID {{contentEdit.idSemester}}</label>
                             </div>
-                        </div>
-                        <div class=field>
-                            <label class='label'>Semester</label>
-                            <div class='control'>
-                                <dropdown-list :items="['Fall','Spring']" :on-select-changed="(selectedItem, selectedIndex) => contentEdit.semesterIndex = selectedIndex" :selected-index="contentEdit.semesterIndex"></dropdown-list>
+                            <div class=field>
+                                <label class='label'>Year</label>
+                                <div class='control'>
+                                    <input class='input' type='text' v-model='contentEdit.year'>
+                                </div>
                             </div>
-                        </div>
-                        <div class='field is-grouped'>
-                            <div class='control'>
-                                <button @click="editSemester(contentEdit.idSemester,contentEdit.year,contentEdit.semesterIndex)" class='button is-link'>
-                                    <span class="icon"><ion-icon name="checkmark-circle"></ion-icon></span>
-                                    <span>Submit</span>
-                                </button>
+                            <div class=field>
+                                <label class='label'>Semester</label>
+                                <div class='control'>
+                                    <dropdown-list :items="['Fall','Spring']"
+                                        :on-select-changed="(selectedItem, selectedIndex) => contentEdit.semesterIndex = selectedIndex"
+                                        :selected-index="contentEdit.semesterIndex"></dropdown-list>
+                                </div>
                             </div>
-                            <div class='control'>
-                                <button class='button is-link is-light' @click="tabIdx = 0;">
-                                    <span class = "icon"><ion-icon name="arrow-back-circle"></ion-icon></span>
-                                    <span>Back</span> 
-                                </button>
+                            <div class='field is-grouped'>
+                                <div class='control'>
+                                    <button
+                                        @click="editSemester(contentEdit.idSemester,contentEdit.year,contentEdit.semesterIndex)"
+                                        class='button is-link'>
+                                        <span class="icon">
+                                            <ion-icon name="checkmark-circle"></ion-icon>
+                                        </span>
+                                        <span>Submit</span>
+                                    </button>
+                                </div>
+                                <div class='control'>
+                                    <button class='button is-link is-light' @click="tabIdx = 0;">
+                                        <span class="icon">
+                                            <ion-icon name="arrow-back-circle"></ion-icon>
+                                        </span>
+                                        <span>Back</span>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
-    
+
 </div>

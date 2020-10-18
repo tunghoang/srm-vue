@@ -24,7 +24,7 @@ let component = {
       
       console.log('doLogin', this.loginType, JSON.stringify(account), getLoginUrl(this.loginType));
       if(checkErrorEmail(account.email)){
-        emailError:true;
+        this.emailError=true;
         return
       }
       axios(getLoginUrl(this.loginType), {

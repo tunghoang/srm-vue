@@ -2,7 +2,7 @@ import Vue from 'vue';
 import template from './template.html';
 import DropdownList from '../../components/dropdown-list';
 import config from '../../config';
-import axios from 'axios';
+import request from '../../apis';
 console.log(config);
 
 let component = {
@@ -20,56 +20,50 @@ let component = {
   },
   methods: {
     loadData: function() {
-      axios.get(config.PROJECTTYPE_URL).then(res => {
+      request(config.PROJECTTYPE_URL, 'GET').then(res => {
         this.contents = res.data.sort((item1, item2) => (item2.idProjecttype - item1.idProjecttype));
-      }).catch(err => console.error(err));
+      }).catch(e => {
+        console.error(e);
+        this.$router.push('/');
+      });
     },
 
     createProjecttype: function(projecttypeData) {
       console.log('click');
-      axios({
-        method:"post",
-        url:config.PROJECTTYPE_URL,
-        headers:{
-          'Content-Type':'application/json'
-        },
-        data: projecttypeData
-      }).then((res)=>{
+      request(config.PROJECTTYPE_URL, 'POST', projecttypeData).then((res)=>{
         console.log(res.data);
         this.tabIdx = 0;
         this.loadData();
-      }).catch((err)=>{console.log(err)});
+      }).catch(e => {
+        console.error(e);
+        this.$router.push('/');
+      });
     },
     editProjecttype:function(idProjecttype,name,description){
       console.log('edit');
-      axios({
-        method:'PUT',
-        url: config.PROJECTTYPE_URL + idProjecttype,
-        data:{
-          name:name,
-          description:description
-        }
+      request(config.PROJECTTYPE_URL + idProjecttype, 'PUT', {
+        name:name,
+        description:description
       }).then(res=>{
         console.log(res.data);
         this.tabIdx = 0;
         this.loadData();
-      }).catch(err=>{
-        console.log(err);
-      })
+      }).catch(e => {
+        console.error(e);
+        this.$router.push('/');
+      });
     },
 
     deleteProjecttype: function(idProjecttype) {
       console.log('delete');
-      axios({
-        method: 'delete',
-        url: config.PROJECTTYPE_URL + idProjecttype
-      }).then(res => {
+      request(config.PROJECTTYPE_URL + idProjecttype, 'DELETE').then(res => {
         console.log(res.data);
         this.loadData();
         this.tabIdx = 0;
-      }).catch(
-        e => console.error(e)
-      );
+      }).catch(e => {
+        console.error(e);
+        this.$router.push('/');
+      });
     },
     
     selectChanged: function(selectedItem, selectedIdx) {

@@ -1,12 +1,9 @@
-  
 import Vue from 'vue';
 import template from './template.html';
 import style from './style.scss';
 import DropdownList from '../../components/dropdown-list';
 import config from '../../config';
-import axios from 'axios';
-console.log(config);
-
+import request from '../../apis';
 let component = {
   data: function (){
     return {
@@ -21,56 +18,50 @@ let component = {
   },
   methods: {
     loadData: function() {
-      axios.get(config.SEMESTERS_URL).then(res => {
+      request(config.SEMESTERS_URL).then(res => {
         this.contents = res.data.sort((item1, item2) => (item2.idSemester - item1.idSemester));
-      }).catch(err => console.error(err));
+      }).catch(e => {
+        console.error(e);
+        this.$router.push('/');
+      });
     },
 
     createSemester: function(semesterData) {
       console.log('click');
-      axios({
-        method:"post",
-        url:config.SEMESTERS_URL,
-        headers:{
-          'Content-Type':'application/json'
-        },
-        data: semesterData
-      }).then((res)=>{
+      request(config.SEMESTERS_URL,"post", semesterData).then((res)=>{
         console.log(res.data);
         this.tabIdx = 0;
         this.loadData();
-      }).catch((err)=>{console.log(err)});
+      }).catch(e => {
+        console.error(e);
+        this.$router.push('/');
+      });
     },
     editSemester: function(idSemester,year,semesterIndex){
       console.log("edit")
-      axios({
-        method:"PUT",
-        url:config.SEMESTERS_URL + idSemester,
-        data:{
-          year:year,
-          semesterIndex:semesterIndex
-        }
+      request(config.SEMESTERS_URL + idSemester, "PUT", {
+        year:year,
+        semesterIndex:semesterIndex
       }).then(res=>{
         console.log(res.data);
         this.tabIdx = 0;
         this.loadData();
-      }).catch(
-        e => console.error(e)
-      );
+      }).catch(e => {
+        console.error(e);
+        this.$router.push('/');
+      });
     },
 
     deleteSemester: function(idSemester) {
       console.log('delete');
-      axios({
-        method: 'delete',
-        url: config.SEMESTERS_URL + idSemester
-      }).then(res => {
+      request(config.SEMESTERS_URL + idSemester, 'delete').then(res => {
         console.log(res.data);
         this.loadData();
         this.tabIdx = 0;
-      }).catch(
-        e => console.error(e)
-      );
+      }).catch(e => {
+        console.error(e);
+        this.$router.push('/');
+      });
     },
     
     selectChanged: function(selectedItem, selectedIdx) {

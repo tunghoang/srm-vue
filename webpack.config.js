@@ -1,4 +1,8 @@
 let HtmlWebpackPlugin = require('html-webpack-plugin');
+let backend = {
+  target: 'http://112.137.129.214:15980',
+  secure: false
+}
 module.exports = {
   mode: 'development',
   entry: {
@@ -43,5 +47,29 @@ module.exports = {
       filename: 'advisor.html',
       chunks: ['advisor']
     })
-  ]
+  ],
+  devServer: {
+    contentBase: __dirname + '/dist',
+    compress: true,
+    host: '0.0.0.0',
+    port: 8000,
+    proxy: {
+      '/stafflogin': backend,
+      '/studentlogin': backend,
+      '/advisorlogin': backend,
+      '/guestlogin': backend,
+      '/semesters': backend,
+      '/quotas':backend,
+      '/staffs': backend,
+      '/students': backend,
+      '/advisors': backend,
+      '/projecttypes': backend,
+      '/projects': backend,
+      '/guestadvisors': backend,
+      '/attachments': backend,
+      '/logout': backend,
+      '/projectStudentRels': backend,
+      '/projectAdvisorRels': backend
+    }
+  }
 }

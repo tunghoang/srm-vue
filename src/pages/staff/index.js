@@ -3,7 +3,7 @@ import Vue from 'vue';
 import template from './template.html';
 import DropdownList from '../../components/dropdown-list';
 import config from '../../config';
-import axios from 'axios';
+import request from '../../apis';
 
 let component = {
   data: function (){
@@ -20,54 +20,50 @@ let component = {
   },
   methods: {
     loadData: function() {
-      axios.get(config.STAFF_URL).then(res => {
+      request(config.STAFF_URL, 'GET').then(res => {
         this.contents = res.data.sort((item1, item2) => (item2.idStaff - item1.idStaff));
-      }).catch(err => console.error(err));
+      }).catch(e => {
+        console.error(e);
+        this.$router.push('/');
+      });
     },
 
     createStaff: function(staffData) {
       console.log('click');
-      axios({
-        method:"post",
-        url:config.STAFF_URL,
-        headers:{
-          'Content-Type':'application/json'
-        },
-        data: staffData
-      }).then((res)=>{
+      request(config.STAFF_URL, 'POST', staffData).then((res)=>{
         console.log(res.data);
         this.tabIdx = 0;
         this.loadData();
-      }).catch((err)=>{console.log(err)});
+      }).catch(e => {
+        console.error(e);
+        this.$router.push('/');
+      });
     },
     editStaff:function(idStaff,email,fullname){
       console.log('editStaff');
-      axios({
-        method:'PUT',
-        url:config.STAFF_URL + idStaff,
-        data:{
-          email:email,
-          fullname:fullname,
-        }
+      request(config.STAFF_URL + idStaff, 'PUT', {
+        email:email,
+        fullname:fullname,
       }).then(res=>{
         console.log(res.data);
         this.tabIdx = 0;
         this.loadData();
-      }).catch(err=>console.log(err))
+      }).catch(e => {
+        console.error(e);
+        this.$router.push('/');
+      });
     },
     
     deleteStaff: function(idStaff) {
       console.log('delete');
-      axios({
-        method: 'delete',
-        url: config.STAFF_URL + idStaff
-      }).then(res => {
+      request(config.STAFF_URL + idStaff, 'DELETE').then(res => {
         console.log(res.data);
         this.loadData();
         this.tabIdx = 0;
-      }).catch(
-        e => console.error(e)
-      );
+      }).catch(e => {
+        console.error(e);
+        this.$router.push('/');
+      });
     },
     
     selectChanged: function(selectedItem, selectedIdx) {

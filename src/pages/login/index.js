@@ -1,8 +1,7 @@
 import Vue from 'vue';
-import axios from 'axios';
-
 import template from './template.html';
 import config from '../../config';
+import request from '../../apis';
 
 function getLoginUrl(loginType) {
   return config.LOGIN_URLS[loginType];
@@ -21,13 +20,7 @@ let component = {
   methods: {
     doLogin: function(account) {
       console.log('doLogin', this.loginType, JSON.stringify(account), getLoginUrl(this.loginType));
-      axios(getLoginUrl(this.loginType), {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        data: account
-      }).then(res => {
+      request(getLoginUrl(this.loginType), "POST", account).then(res => {
         console.log(res.data);
         this.$router.push('/');
       }).catch(e => {

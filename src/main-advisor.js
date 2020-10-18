@@ -2,6 +2,11 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import './styles.scss';
 
+import jwtDecode from 'jwt-decode';
+import Cookies from 'js-cookie';
+import request from './apis';
+import config from './config';
+
 Vue.config.ignoredElements = [/^ion-/]
 Vue.use(VueRouter);
 import Pages from './pages/advisor-pages';
@@ -21,15 +26,40 @@ new Vue({
   },
   methods: {
     goHome: function() {
-      console.log('do click', this.$router.currentRoute );
       this.$router.push('/');
       return;
-      let homeUrl = '/project/unsupervised/' + this.idAdvisor;
-      if (this.$router.currentRoute.path !== homeUrl) {
-        this.$router.push(homeUrl);
-      }
+    },
+    doLogout: function() {
+      request(config.LOGOUT_URL).then(res => {
+        Cookies.remove('key');
+        Cookies.remove('jwt');
+        this.$router.push('/login/advisor');
+      }).catch(e => {
+        console.error(e);
+        this.$router.push('/login/advisor');
+      });
     },
     isLogingIn: function() {
+      if (this.$router.currentRoute.path === '/login/advisor') {
+        return true;
+      }
+      let jwt = Cookies.get('jwt');
+      if (jwt) {
+        let jwtData = jwtDecode(jwt);
+        if (!jwtData.idAdvisor) {
+          request(config.LOGOUT_URL).then(res => {
+            console.log(res.data);
+            this.$router.replace('/login/advisor');
+          }).catch(e => {
+            console.error(e);
+            this.$router.replace('/login/advisor');
+          });
+        }
+      }
+      else {
+        this.$router.replace('/login/advisor');
+      }
+      return false;
       return this.$router.currentRoute.path === '/login/advisor';
     }
   }

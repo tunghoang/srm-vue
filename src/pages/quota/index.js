@@ -2,7 +2,7 @@ import Vue from 'vue';
 import template from './template.html';
 import DropdownList from '../../components/dropdown-list';
 import config from '../../config';
-import axios from 'axios';
+import request from '../../apis';
 console.log(config);
 
 let component = {
@@ -20,58 +20,52 @@ let component = {
   },
   methods: {
     loadData: function() {
-      axios.get(config.QUOTAS_URL).then(res => {
+      request(config.QUOTAS_URL).then(res => {
         this.contents = res.data.sort((item1, item2) => (item2.idQuota - item1.idQuota));
-      }).catch(err => console.error(err));
+      }).catch(e => {
+        console.error(e);
+        this.$router.push('/');
+      });
     },
 
     createQuota: function(quotaData) {
       console.log('click');
-      axios({
-        method:"post",
-        url:config.QUOTAS_URL,
-        headers:{
-          'Content-Type':'application/json'
-        },
-        data: quotaData
-      }).then((res)=>{
+      request(config.QUOTAS_URL, "post", quotaData).then((res)=>{
         console.log(res.data);
         this.tabIdx = 0;
         this.loadData();
-      }).catch((err)=>{console.log(err)});
+      }).catch(e => {
+        console.error(e);
+        this.$router.push('/');
+      })
     },
     editQuota: function(idQuota,name,description, n_kltn, n_dakh){
       console.log("edit")
-      axios({
-        method:"PUT",
-        url:config.QUOTAS_URL + idQuota,
-        data:{
+      request(config.QUOTAS_URL + idQuota, "PUT", {
           name:name,
           description: description,
           n_kltn: n_kltn,
           n_dakh: n_dakh
-        }
       }).then(res=>{
         console.log(res.data);
         this.tabIdx = 0;
         this.loadData();
-      }).catch(
-        e => console.error(e)
-      );
+      }).catch(e => {
+        console.error(e);
+        this.$router.push('/');
+      })
     },
 
     deleteQuota: function(idQuota) {
       console.log('delete');
-      axios({
-        method: 'delete',
-        url: config.QUOTAS_URL + idQuota
-      }).then(res => {
+      request(config.QUOTAS_URL + idQuota, 'delete').then(res => {
         console.log(res.data);
         this.loadData();
         this.tabIdx = 0;
-      }).catch(
-        e => console.error(e)
-      );
+      }).catch(e => {
+        console.error(e);
+        this.$router.push('/');
+      })
     },
     
     selectChanged: function(selectedItem, selectedIdx) {

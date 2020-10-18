@@ -42,7 +42,7 @@
     <div class="card m-4 p-4 border-redish" v-if="tabIdx === 3">
         <h2 class="is-size-5 has-text-danger">Are you sure?</h2>
         <div class="field is-grouped is-grouped-right">
-            <button class="button is-link is-dangder" @click="deleteQuota(currentQuotaId)">
+            <button class="button is-link is-danger" @click="deleteQuota(currentQuotaId)">
                 <span class="icon"><ion-icon name="shield-checkmark"></ion-icon></span>
                 <span>Sure</span>
             </button>
@@ -63,7 +63,7 @@
                         <div class=field>
                             <label class='label'>Name</label>
                             <div class='control'>
-                                <input class='input' type='text' v-model="quotaData.name" placeholder='Name'>
+                                <input  class='input' type='text' v-model="quotaData.name" placeholder='Name'>
                             </div>
                         </div>
                         <div class=field>
@@ -75,13 +75,15 @@
                         <div class=field>
                             <label class='label'>Number of kltn</label>
                             <div class='control'>
-                                <input class='input' type='text' v-model="quotaData.n_kltn" placeholder='number of kltn'>
+                                <input class='input' type='text' v-model="quotaData.n_kltn" placeholder='number of kltn' @focus="numberError=false">
+                                <small v-if="numberError" class="has-text-danger">Must be a number</small>
                             </div>
                         </div>
                         <div class=field>
                             <label class='label'>Number of dakh</label>
                             <div class='control'>
-                                <input class='input' type='text' v-model="quotaData.n_dakh" placeholder='number of dakh'>
+                                <input class='input' type='text' v-model="quotaData.n_dakh" placeholder='number of dakh' @focus="numberError2=false">
+                                <small v-if="numberError2" class="has-text-danger">Must be a number</small>
                             </div>
                         </div>
                         <div class='field is-grouped'>

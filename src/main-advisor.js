@@ -19,7 +19,7 @@ new Vue({
   el: '#vue-app',
   router,
   data: {
-    message: "Hello world from Vue",
+    username: "N/A",
     idAdvisor: 20
   },
   computed: {
@@ -55,6 +55,7 @@ new Vue({
             this.$router.replace('/login/advisor');
           });
         }
+        this.username = jwtData.fullname;
       }
       else {
         this.$router.replace('/login/advisor');

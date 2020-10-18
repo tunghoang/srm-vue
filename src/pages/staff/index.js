@@ -1,9 +1,9 @@
-  
 import Vue from 'vue';
 import template from './template.html';
 import DropdownList from '../../components/dropdown-list';
 import config from '../../config';
 import request from '../../apis';
+import {checkErrorEmail} from '../../check-input'
 
 let component = {
   data: function (){
@@ -12,7 +12,8 @@ let component = {
       tabIdx: 0,
       staffData: {},
       contentEdit: {},
-      currentStaffId:null
+      currentStaffId:null,
+      emailError:false,
     };
   },
   created: function() {
@@ -29,7 +30,11 @@ let component = {
     },
 
     createStaff: function(staffData) {
-      console.log('click');
+      console.log(staffData.email)
+      if(checkErrorEmail(staffData.email)){
+        this.emailError = true;
+        return
+      }
       request(config.STAFF_URL, 'POST', staffData).then((res)=>{
         console.log(res.data);
         this.tabIdx = 0;

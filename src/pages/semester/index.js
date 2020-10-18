@@ -4,13 +4,16 @@ import style from './style.scss';
 import DropdownList from '../../components/dropdown-list';
 import config from '../../config';
 import request from '../../apis';
+import {checkErrorNumber} from '../../check-input';
+
 let component = {
   data: function (){
     return {
       contents: [],
       tabIdx: 0,
       semesterData: {},
-      contentEdit:{}
+      contentEdit:{},
+      yearError: false,
     };
   },
   created: function() {
@@ -27,6 +30,10 @@ let component = {
     },
 
     createSemester: function(semesterData) {
+      if(checkErrorNumber(semesterData.year)){
+        this.yearError = true;
+        return
+      }
       console.log('click');
       request(config.SEMESTERS_URL,"post", semesterData).then((res)=>{
         console.log(res.data);
@@ -63,12 +70,10 @@ let component = {
         this.$router.push('/');
       });
     },
-    
     selectChanged: function(selectedItem, selectedIdx) {
       console.log(selectedItem);
       this.semesterData.semesterIndex = selectedIdx
-    }
-
+    },
   },
   
   template,

@@ -3,6 +3,7 @@ import template from './template.html';
 import DropdownList from '../../components/dropdown-list';
 import config from '../../config';
 import request from '../../apis';
+import {checkErrorNumber} from '../../check-input'
 console.log(config);
 
 let component = {
@@ -13,6 +14,8 @@ let component = {
       quotaData: {},
       contentEdit:{},
       currentQuotaId: null,
+      numberError: false,
+      numberError2: false,
     };
   },
   created: function() {
@@ -29,7 +32,16 @@ let component = {
     },
 
     createQuota: function(quotaData) {
-      console.log('click');
+      console.log(quotaData);
+      if(checkErrorNumber(quotaData.n_kltn)){
+        this.numberError=true;
+        if(checkErrorNumber(quotaData.n_dakh)){
+          this.numberError2=true;
+          return
+        }    
+        return
+      }  
+     
       request(config.QUOTAS_URL, "post", quotaData).then((res)=>{
         console.log(res.data);
         this.tabIdx = 0;

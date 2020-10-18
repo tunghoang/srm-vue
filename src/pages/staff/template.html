@@ -64,7 +64,8 @@
                         <div class=field>
                             <label class='label'>Email</label>
                             <div class='control'>
-                                <input class='input' type='text' v-model="staffData.email" placeholder='email'>
+                                <input class='input' type='text' v-model="staffData.email" placeholder='email' @focus="emailError=false">
+                                <small v-if="emailError" class="has-text-danger">Email must have '@'</small>
                             </div>
                         </div>
                         <div class=field>

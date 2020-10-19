@@ -54,14 +54,15 @@ new Vue({
             console.error(e);
             this.$router.replace('/login/advisor');
           });
+          return true;
         }
         this.username = jwtData.fullname;
       }
       else {
         this.$router.replace('/login/advisor');
+        return true;
       }
       return false;
-      return this.$router.currentRoute.path === '/login/advisor';
     }
   }
 });

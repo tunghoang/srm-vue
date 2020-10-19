@@ -52,11 +52,13 @@ new Vue({
             console.error(e);
             this.$router.replace('/login/staff');
           });
+          return true;
         }
         this.username = jwtData.fullname;
       }
       else {
         this.$router.replace('/login/staff');
+        return true;
       }
       return false;
     }

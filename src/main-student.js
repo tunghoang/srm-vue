@@ -55,11 +55,13 @@ new Vue({
             console.error(e);
             this.$router.replace('/login/student');
           });
+          return true;
         }
         this.username = jwtData.fullname;
       }
       else {
         this.$router.replace('/login/student');
+        return true;
       }
       return false;
     }

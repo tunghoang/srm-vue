@@ -23,9 +23,8 @@ let component = {
     doLogin: function(account) {
       console.log('doLogin', this.loginType, JSON.stringify(account), getLoginUrl(this.loginType));
       if(checkErrorEmail(account.email)){
-        this.emailError = true;
-        this.errorMessage = "email must have '@'";
-        return;
+        this.emailError=true;
+        return
       }
       request(getLoginUrl(this.loginType), "POST", account).then(res => {
         console.log(res.data);

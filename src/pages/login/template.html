@@ -1,5 +1,6 @@
 <div class='columns is-centered'>
   <div class='column is-half'>
+   <form>
     <div class='panel'>
       <div class='panel-heading'>
         Login {{loginType}}
@@ -10,8 +11,8 @@
           <div class=field>
             <label class='label'>Email</label>
             <div class='control'>
-              <input :class='`input ${emailError?"is-danger":""}`' type='text' v-model="account.email" placeholder='Email' @focus="emailError=false">
-              <small v-if="emailError"></small>
+              <input class='input' type='text' v-model="account.email" placeholder='Email' @focus="emailError=false">
+              <small v-if="emailError" class="has-text-danger">Invalid email</small>
             </div>
           </div>  
           <div class=field>
@@ -31,5 +32,6 @@
         </form></div>
       </div>
     </div>
+   </form>
   </div>
 </div>

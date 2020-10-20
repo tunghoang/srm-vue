@@ -3,7 +3,9 @@ import template from './template.html';
 import DropdownList from '../../components/dropdown-list';
 import config from '../../config';
 import request from '../../apis';
+import {isErrorSpace} from '../../check-input'
 console.log(config);
+
 
 let component = {
   data: function (){
@@ -13,6 +15,8 @@ let component = {
       projecttypeData: {},
       currentProjecttypeId: null,
       contentEdit:{},
+      nameError: false,
+      descriptionError: false,
     };
   },
   created: function() {
@@ -30,6 +34,15 @@ let component = {
 
     createProjecttype: function(projecttypeData) {
       console.log('click');
+      if (isErrorSpace(projecttypeData.name) || isErrorSpace(projecttypeData.description)) {
+        if (isErrorSpace(projecttypeData.name)) {
+          this.nameError = true;
+        }
+        if (isErrorSpace(projecttypeData.description)) {
+          this.descriptionError = true;
+        }
+        return
+      }
       request(config.PROJECTTYPE_URL, 'POST', projecttypeData).then((res)=>{
         console.log(res.data);
         this.tabIdx = 0;

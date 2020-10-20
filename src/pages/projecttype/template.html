@@ -65,13 +65,15 @@
                         <div class=field>
                             <label class='label'>Name</label>
                             <div class='control'>
-                                <input class='input' type='text' v-model="contentEdit.name" placeholder='name'>
+                                <input class='input' type='text' v-model="contentEdit.name" placeholder='name' @focus="nameError=false">
+                                <small v-if="nameError" class="has-text-danger">Invalid name</small>
                             </div>
                         </div>
                         <div class=field>
                             <label class='label'>Description</label>
                             <div class='control'>
-                                <input class='input' type='text' v-model="contentEdit.description" placeholder='description'>
+                                <input class='input' type='text' v-model="contentEdit.description" placeholder='description' @focus="descriptionError=false">
+                                <small v-if="descriptionError" class="has-text-danger">Invalid description</small>
                             </div>
                         </div>
                         <div class='field is-grouped'>

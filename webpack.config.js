@@ -70,7 +70,8 @@ module.exports = {
       '/attachments': backend,
       '/logout': backend,
       '/projectStudentRels': backend,
-      '/projectAdvisorRels': backend
+      '/projectAdvisorRels': backend,
+
     }
   }
 }

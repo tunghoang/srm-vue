@@ -57,32 +57,31 @@
     </div>
     <div v-if="tabIdx === 1">
         <div class='column '>
-            <form>
-                <div class='panel'>
-                    <div class='panel-heading'>
-                        New Quota
-                    </div>
-                    <div class='panel-block'>
-                        <div class='container'>
-                            <div class=field>
-                                <label class='label'>Name</label>
-                                <div class='control'>
-                                    <input class='input' type='text' v-model="quotaData.name" placeholder='Name'>
-                                </div>
+            <div class='panel'>
+                <div class='panel-heading'>
+                    New Quota
+                </div>
+                <div class='panel-block'>
+                    <div class='container'>
+                        <div class=field>
+                            <label class='label'>Name</label>
+                            <div class='control'>
+                                <input  class='input' type='text' v-model="quotaData.name" placeholder='Name' @focus="spaceError1=false">
+                                <small v-if="spaceError1" class="has-text-danger">Invalid name</small>
                             </div>
-                            <div class=field>
-                                <label class='label'>Description</label>
-                                <div class='control'>
-                                    <input class='input' type='text' v-model="quotaData.description"
-                                        placeholder='description'>
-                                </div>
+                        </div>
+                        <div class=field>
+                            <label class='label'>Description</label>
+                            <div class='control'>
+                                <input class='input' type='text' v-model="quotaData.description" placeholder='description' @focus="spaceError2=false">
+                                <small v-if="spaceError2" class="has-text-danger">Invalid desciption</small>
                             </div>
                             <div class=field>
                                 <label class='label'>Number of kltn</label>
                                 <div class='control'>
                                     <input class='input' type='text' v-model="quotaData.n_kltn"
                                         placeholder='number of kltn' @focus="numberError=false">
-                                    <small v-if="numberError" class="has-text-danger">Must be a number</small>
+                                    <small v-if="numberError" class="has-text-danger">Invalid number of kltn</small>
                                 </div>
                             </div>
                             <div class=field>
@@ -90,7 +89,7 @@
                                 <div class='control'>
                                     <input class='input' type='text' v-model="quotaData.n_dakh"
                                         placeholder='number of dakh' @focus="numberError2=false">
-                                    <small v-if="numberError2" class="has-text-danger">Must be a number</small>
+                                    <small v-if="numberError2" class="has-text-danger">Invalid number of dakh</small>
                                 </div>
                             </div>
                             <div class='field is-grouped'>
@@ -109,7 +108,6 @@
                         </div>
                     </div>
                 </div>
-            </form>
         </div>
     </div>
     <div v-if="tabIdx === 2">

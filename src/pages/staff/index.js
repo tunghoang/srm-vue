@@ -3,7 +3,7 @@ import template from './template.html';
 import DropdownList from '../../components/dropdown-list';
 import config from '../../config';
 import request from '../../apis';
-import {checkErrorEmail} from '../../check-input'
+import {isErrorEmail,isErrorSpace} from '../../check-input'
 
 let component = {
   data: function (){
@@ -14,6 +14,7 @@ let component = {
       contentEdit: {},
       currentStaffId:null,
       emailError:false,
+      nameError:false,
     };
   },
   created: function() {
@@ -30,9 +31,14 @@ let component = {
     },
 
     createStaff: function(staffData) {
-      console.log(staffData.email)
-      if(checkErrorEmail(staffData.email)){
-        this.emailError = true;
+      // console.log(staffData.fullname)
+      if(isErrorEmail(staffData.email)||isErrorSpace(staffData.fullname)){
+        if(isErrorEmail(staffData.email)){
+          this.emailError = true;
+        }
+        if(isErrorSpace(staffData.fullname)){
+          this.nameError = true;
+        }
         return
       }
       request(config.STAFF_URL, 'POST', staffData).then((res)=>{

@@ -1,15 +1,20 @@
-const checkErrorNumber = (n) => {
-  console.log(n);
-  checkSpace(n);
+const isErrorNumber = (n) => {
+  // console.log(n);
+  isErrorSpace(n);
   if (isNaN(n * 1) || n >= 100000) {
     return true;
   }
   return false;
 };
 
-const checkErrorEmail = (n) => {
+const isErrorEmail = (n) => {
   // console.log(typeof n)
-  checkSpace(n);
+  isErrorSpace(n);
+  for (i in n) {
+    if (i == " "|| i==null) {
+      return true;
+    }
+  }
   for (i of n) {
     if (i === "@") {
       return false;
@@ -18,12 +23,18 @@ const checkErrorEmail = (n) => {
   return true;
 };
 
-const checkSpace = (n) => {
+const isErrorSpace = (n) => {
+  if (n===null||n==null||n==""||n===""||n===undefined||n==undefined) {
+    return true;
+  }
   for (i in n) {
-    if (i == " "|| i==null) {
+    if (i == ""|| i==" ") {
       return true;
     }
   }
+  return false;
 };
 
-module.exports = { checkErrorNumber, checkErrorEmail };
+
+
+module.exports = { isErrorNumber, isErrorEmail,isErrorSpace };

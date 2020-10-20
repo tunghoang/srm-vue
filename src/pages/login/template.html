@@ -18,7 +18,8 @@
           <div class=field>
             <label class='label'>Password</label>
             <div class='control'>
-              <input class='input' type='password' v-model="account.password" placeholder='Password'>
+              <input class='input' type='password' v-model="account.password" placeholder='Password' @focus="spaceError=false">
+              <small v-if="spaceError" class="has-text-danger">password cannot be empty</small>
             </div>
           </div>  
           <div class='field is-grouped'>

@@ -2,7 +2,7 @@ import Vue from 'vue';
 import template from './template.html';
 import config from '../../config';
 import request from '../../apis';
-import {checkErrorEmail} from '../../check-input';
+import {isErrorEmail,isErrorSpace} from '../../check-input';
 
 function getLoginUrl(loginType) {
   return config.LOGIN_URLS[loginType];
@@ -17,13 +17,18 @@ let component = {
         password: null
       },
       emailError:false,
+      spaceError:false,
     };
   },
   methods: {
     doLogin: function(account) {
       console.log('doLogin', this.loginType, JSON.stringify(account), getLoginUrl(this.loginType));
-      if(checkErrorEmail(account.email)){
-        this.emailError=true;
+      if(isErrorEmail(account.email)||isErrorSpace(account.password)){
+        if(isErrorEmail(account.email)){
+          this.emailError=true;
+        }if(isErrorSpace(account.password)){
+          this.spaceError=true;
+        }
         return
       }
       request(getLoginUrl(this.loginType), "POST", account).then(res => {

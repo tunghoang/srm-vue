@@ -7,7 +7,7 @@ let component = {
             tabIdx: 0,
         };
     },
-    template,
+    template
 }
 
 export default { path:"/student", component:component }

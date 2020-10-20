@@ -20,7 +20,7 @@ new Vue({
   router,
   data: {
     username: "N/A",
-    idStudent: 123
+    idStudent: null,
   },
   computed: {
   },
@@ -58,6 +58,7 @@ new Vue({
           return true;
         }
         this.username = jwtData.fullname;
+        this.idStudent = jwtData.fullname;
       }
       else {
         this.$router.replace('/login/student');

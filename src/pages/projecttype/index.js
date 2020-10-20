@@ -66,10 +66,6 @@ let component = {
       });
     },
     
-    selectChanged: function(selectedItem, selectedIdx) {
-      console.log(selectedItem);
-      this.projecttypeData.projecttypeIndex = selectedIdx
-    }
 
   },
   

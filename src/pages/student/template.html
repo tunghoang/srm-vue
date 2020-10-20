@@ -1,1 +1,152 @@
-<h1>student</h1>
+<div class="rows">
+    <!-- <div class="tabs is-medium">
+        <ul>
+            <li>
+                <a @click="tabIdx = 0;">List Student</a>
+            </li>
+            <li>
+                <a @click="tabIdx = 1;">New Student</a>
+            </li>
+        </ul>
+    </div> -->
+    <div v-if="tabIdx == 0">
+        <div class="field has-addons">
+            <p class="control">
+                <dropdown-list class="min-width-8" :items='["Email","Fullname"]'
+                    :on-select-changed="searchFieldChanged"></dropdown-list>
+            </p>
+            <p class="control">
+                <input class="input" type="text" placeholder="Find student" v-model="searchText">
+            </p>
+            <p class="control">
+                <a class="button is-link" @click="search(searchText, searchField)">
+                    <ion-icon name="search-outline"></ion-icon>
+                </a>
+            </p>
+            <p v-if="errorMessage && errorMessage.length" class="control">
+            <div class="button is-borderless is-radiusless has-text-danger">{{errorMessage}}</div>
+            </p>
+        </div>
+        <div class="column">
+            <table class="table is-fullwidth has-text-centered">
+                <thead>
+                    <tr>
+                        <th>studentNumber</th>
+                        <th>email</th>
+                        <th>fullname</th>
+                        <th>dob</th>
+                        <th>gender</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="content in contents" :key="content.idStudent">
+                        <td>{{content.studentNumber}}</td>
+                        <td>{{content.email}}</td>
+                        <td>{{content.fullname}}</td>
+                        <td>{{content.dob}}</td>
+                        <td>{{content.gender}}</td>
+                        <td>
+                            <span class="Edit" @click="tabIdx=2; contentEdit = content">
+                                <a href="#">
+                                    <ion-icon name="create-outline"></ion-icon>
+                                </a>
+                            </span>
+                        </td>
+                        <td>
+                            <span class="Delete" @click="currentStudentId = content.idStudent;tabIdx = 3;">
+                                <a href="#" class="has-text-danger">
+                                    <ion-icon name="trash-outline"></ion-icon>
+                                </a>
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card m-4 p-4 border-redish" v-if="tabIdx === 3">
+        <h2 class="is-size-5 has-text-danger">Are you sure?</h2>
+        <div class="field is-grouped is-grouped-right">
+            <button class="button is-link is-danger" @click="deleteStudent(currentStudentId)">
+                <span class="icon">
+                    <ion-icon name="shield-checkmark"></ion-icon>
+                </span>
+                <span>Sure</span>
+            </button>
+            <button class="button ml-2 is-link is-light" @click="tabIdx = 0;">
+                <span class="icon">
+                    <ion-icon name="arrow-back-circle"></ion-icon>
+                </span>
+                <span>Back</span>
+            </button>
+        </div>
+    </div>
+
+    <div v-if="tabIdx === 2">
+        <div class='column '>
+            <form @submit="editStudent(contentEdit,$event)">
+                <div class='panel'>
+                    <div class='panel-heading'>
+                        Edit Student
+                    </div>
+                    <div class='panel-block'>
+                        <div class='container'>
+                            <div class="field">
+                                <div class="field">
+                                    <label class='label is-size-7 is-lightgray'>ID: {{contentEdit.idStudent}}</label>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label class='label is-size-6 is-lightgray'>Email: {{contentEdit.studentNumber}}</label>
+                            </div>
+                            <div class="field">
+                                <label class='label'>Fullname</label>
+                                <div class='control'>
+                                    <input class='input' type='text' v-model='contentEdit.fullname'>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label class='label'>email</label>
+                                <div class='control'>
+                                    <input class='input' type='text' v-model='contentEdit.email'>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label class='label'>dob</label>
+                                <div class='control'>
+                                    <input class='input' type='text' v-model='contentEdit.dob'>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label class='label'>gender</label>
+                                <div class='control'>
+                                    <input class='input' type='text' v-model='contentEdit.gender'>
+                                </div>
+                            </div>
+                            <div class='field is-grouped'>
+                                <div class='control'>
+                                    <button type="submit" class='button is-link'>
+                                        <span class="icon">
+                                            <ion-icon name="checkmark-circle"></ion-icon>
+                                        </span>
+                                        <span>Submit</span>
+                                    </button>
+                                </div>
+                                <div class='control'>
+                                    <button class='button is-link is-light' @click="tabIdx = 0;">
+                                        <span class="icon">
+                                            <ion-icon name="arrow-back-circle"></ion-icon>
+                                        </span>
+                                        <span>Back</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -50,12 +50,11 @@ let component = {
         this.$router.push('/');
       });
     },
-    editStaff:function(idStaff,email,fullname){
+    editStaff:function(contentEdit,event){
       console.log('editStaff');
-      request(config.STAFF_URL + idStaff, 'PUT', {
-        email:email,
-        fullname:fullname,
-      }).then(res=>{
+      event.stopPropagation();
+      event.preventDefault();
+      request(config.STAFF_URL + contentEdit.idStaff, 'PUT', contentEdit).then(res=>{
         console.log(res.data);
         this.tabIdx = 0;
         this.loadData();

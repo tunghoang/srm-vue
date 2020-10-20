@@ -52,12 +52,11 @@ let component = {
         this.$router.push('/');
       });
     },
-    editProjecttype:function(idProjecttype,name,description){
-      console.log('edit');
-      request(config.PROJECTTYPE_URL + idProjecttype, 'PUT', {
-        name:name,
-        description:description
-      }).then(res=>{
+    editProjecttype:function(contentEdit,event){
+      console.log('edit',event);
+      event.stopPropagation();
+      event.preventDefault();
+      request(config.PROJECTTYPE_URL + contentEdit.idProjecttype, 'PUT', contentEdit).then(res=>{
         console.log(res.data);
         this.tabIdx = 0;
         this.loadData();

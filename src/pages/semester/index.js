@@ -44,12 +44,11 @@ let component = {
         this.$router.push('/');
       });
     },
-    editSemester: function(idSemester,year,semesterIndex){
-      console.log("edit")
-      request(config.SEMESTERS_URL + idSemester, "PUT", {
-        year:year,
-        semesterIndex:semesterIndex
-      }).then(res=>{
+    editSemester: function(contentEdit,event){
+      console.log("edit",event);
+      event.stopPropagation();
+      event.preventDefault();
+      request(config.SEMESTERS_URL + contentEdit.idSemester, "PUT", contentEdit).then(res=>{
         console.log(res.data);
         this.tabIdx = 0;
         this.loadData();

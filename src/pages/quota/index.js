@@ -86,17 +86,9 @@ let component = {
         this.$router.push('/');
       })
     },
-    
-    selectChanged: function(selectedItem, selectedIdx) {
-      console.log(selectedItem);
-      this.quotaData.quotaIndex = selectedIdx
-    }
 
   },
   
   template,
-  components: {
-    DropdownList
-  }
 };
 export default { path: "/quota", component: component }

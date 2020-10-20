@@ -56,86 +56,90 @@
     </div>
     <div v-if="tabIdx === 1">
         <div class='column '>
-            <div class='panel'>
-                <div class='panel-heading'>
-                    New Projecttype
-                </div>
-                <div class='panel-block'>
-                    <div class='container'>
-                        <div class=field>
-                            <label class='label'>Name</label>
-                            <div class='control'>
-                                <input class='input' type='text' v-model="contentEdit.name" placeholder='name' @focus="nameError=false">
-                                <small v-if="nameError" class="has-text-danger">Invalid name</small>
+            <form @submit="createProjecttype(contentEdit)">
+                <div class='panel'>
+                    <div class='panel-heading'>
+                        New Projecttype
+                    </div>
+                    <div class='panel-block'>
+                        <div class='container'>
+                            <div class=field>
+                                <label class='label'>Name</label>
+                                <div class='control'>
+                                    <input class='input' type='text' v-model="contentEdit.name" placeholder='name' @focus="nameError=false">
+                                    <small v-if="nameError" class="has-text-danger">Invalid name</small>
+                                </div>
                             </div>
-                        </div>
-                        <div class=field>
-                            <label class='label'>Description</label>
-                            <div class='control'>
-                                <input class='input' type='text' v-model="contentEdit.description" placeholder='description' @focus="descriptionError=false">
-                                <small v-if="descriptionError" class="has-text-danger">Invalid description</small>
+                            <div class=field>
+                                <label class='label'>Description</label>
+                                <div class='control'>
+                                    <input class='input' type='text' v-model="contentEdit.description" placeholder='description' @focus="descriptionError=false">
+                                    <small v-if="descriptionError" class="has-text-danger">Invalid description</small>
+                                </div>
                             </div>
-                        </div>
-                        <div class='field is-grouped'>
-                            <div class='control'>
-                                <button @click="createProjecttype(contentEdit)" class='button is-link'>
-                                    <span class="icon"><ion-icon name="checkmark-circle"></ion-icon></span>
-                                    <span>Submit</span>
-                                </button>
-                            </div>
-                            <div class='control'>
-                                <button class='button is-link is-light' @click="tabIdx=0">
-                                    <span class="icon"><ion-icon name="arrow-back-circle"></ion-icon></span>
-                                    <span>Back</span>
-                                </button>
+                            <div class='field is-grouped'>
+                                <div class='control'>
+                                    <button class='button is-link'>
+                                        <span class="icon"><ion-icon name="checkmark-circle"></ion-icon></span>
+                                        <span>Submit</span>
+                                    </button>
+                                </div>
+                                <div class='control'>
+                                    <button class='button is-link is-light' @click="tabIdx=0">
+                                        <span class="icon"><ion-icon name="arrow-back-circle"></ion-icon></span>
+                                        <span>Back</span>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 
     <div v-if="tabIdx === 2">
         <div class='column '>
-            <div class='panel'>
-                <div class='panel-heading'>
-                    Edit Projecttype
-                </div>
-                <div class='panel-block'>
-                    <div class='container'>
-                        <div class=field>
-                            <label class='is-size-7 is-lightgray'>ID:{{contentEdit.idProjecttype}}</label>
-                        </div>
-                        <div class=field>
-                            <label class='label'>Name</label>
-                            <div class='control'>
-                                <input class='input' type='text' v-model='contentEdit.name'>
+            <form @submit="editProjecttype(contentEdit,$event)">
+                <div class='panel'>
+                    <div class='panel-heading'>
+                        Edit Projecttype
+                    </div>
+                    <div class='panel-block'>
+                        <div class='container'>
+                            <div class=field>
+                                <label class='is-size-7 is-lightgray'>ID:{{contentEdit.idProjecttype}}</label>
                             </div>
-                        </div>
-                        <div class=field>
-                            <label class='label'>Description</label>
-                            <div class='control'>
-                                <input class='input' type='text' v-model='contentEdit.description'>
+                            <div class=field>
+                                <label class='label'>Name</label>
+                                <div class='control'>
+                                    <input class='input' type='text' v-model='contentEdit.name'>
+                                </div>
                             </div>
-                        </div>
-                        <div class='field is-grouped'>
-                            <div class='control'>
-                                <button @click="editProjecttype(contentEdit.idProjecttype)" class='button is-link'>
-                                    <span class="icon"><ion-icon name="checkmark-circle"></ion-icon></span>
-                                    <span>Submit</span>
-                                </button>
+                            <div class=field>
+                                <label class='label'>Description</label>
+                                <div class='control'>
+                                    <input class='input' type='text' v-model='contentEdit.description'>
+                                </div>
                             </div>
-                            <div class='control'>
-                                <button class='button is-link is-light' @click="tabIdx = 0;">
-                                    <span class = "icon"><ion-icon name="arrow-back-circle"></ion-icon></span>
-                                    <span>Back</span>
-                                </button>
+                            <div class='field is-grouped'>
+                                <div class='control'>
+                                    <button type="submit" class='button is-link'>
+                                        <span class="icon"><ion-icon name="checkmark-circle"></ion-icon></span>
+                                        <span>Submit</span>
+                                    </button>
+                                </div>
+                                <div class='control'>
+                                    <button class='button is-link is-light' @click="tabIdx = 0;">
+                                        <span class = "icon"><ion-icon name="arrow-back-circle"></ion-icon></span>
+                                        <span>Back</span>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>

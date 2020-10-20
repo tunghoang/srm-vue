@@ -55,24 +55,27 @@
     </div>
     <div v-if="tabIdx === 1">
         <div class='column '>
-            <div class='panel'>
-                <div class='panel-heading'>
-                    New Staff
-                </div>
-                <div class='panel-block'>
-                    <div class='container'>
-                        <div class=field>
-                            <label class='label'>Email</label>
-                            <div class='control'>
-                                <input class='input' type='text' v-model="staffData.email" placeholder='email' @focus="emailError=false">
-                                <small v-if="emailError" class="has-text-danger">Invalid email</small>
+            <form>
+                <div class='panel'>
+                    <div class='panel-heading'>
+                        New Staff
+                    </div>
+                    <div class='panel-block'>
+                        <div class='container'>
+                            <div class=field>
+                                <label class='label'>Email</label>
+                                <div class='control'>
+                                    <input class='input' type='text' v-model="staffData.email" placeholder='email'
+                                        @focus="emailError=false">
+                                    <small v-if="emailError" class="has-text-danger">Email must have '@'</small>
+                                </div>
                             </div>
-                        </div>
-                        <div class=field>
-                            <label class='label'>Fullname</label>
-                            <div class='control'>
-                                <input class='input' type='text' v-model="staffData.fullname" placeholder='fullname' @focus="nameError=false">
-                                <small v-if="nameError" class="has-text-danger">Invalid name</small>
+                            <div class=field>
+                                <label class='label'>Fullname</label>
+                                <div class='control'>
+                                    <input class='input' type='text' v-model="staffData.fullname"
+                                        placeholder='fullname'>
+                                </div>
                             </div>
                             <div class='field is-grouped'>
                                 <div class='control'>

@@ -61,14 +61,11 @@ let component = {
         this.$router.push('/');
       })
     },
-    editQuota: function(idQuota,name,description, n_kltn, n_dakh){
-      console.log("edit")
-      request(config.QUOTAS_URL + idQuota, "PUT", {
-          name:name,
-          description: description,
-          n_kltn: n_kltn,
-          n_dakh: n_dakh
-      }).then(res=>{
+    editQuota: function(contentEdit,event){
+      console.log("edit" , event);
+      event.stopPropagation();
+      event.preventDefault();
+      request(config.QUOTAS_URL + contentEdit.idQuota, "PUT", contentEdit).then(res=>{
         console.log(res.data);
         this.tabIdx = 0;
         this.loadData();

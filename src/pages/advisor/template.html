@@ -1,0 +1,237 @@
+<div class="rows">  
+    <div class="tabs is-medium">
+        <ul>
+            <li>
+                <a @click="tabIdx = 0;">List Advisor</a>
+            </li>
+            <li>
+                <a @click="tabIdx = 1;">New Guestadvisor</a>
+            </li>
+        </ul>
+    </div>
+    <div v-if="tabIdx == 0">
+        <div class="field has-addons">
+            <p class="control">
+                <dropdown-list class="min-width-8" :items='["Email","Fullname"]' :on-select-changed="searchFieldChanged"></dropdown-list>
+            </p>
+            <p class="control">
+                <input class="input" type="text" placeholder="Find advisor" v-model="searchText">
+            </p>
+            <p class="control">
+                <a class="button is-link" @click="search(searchText, searchField)">
+                    <ion-icon name="search-outline"></ion-icon>
+                </a>
+            </p>
+            <p v-if="errorMessage && errorMessage.length" class="control">
+                <div class="button is-borderless is-radiusless has-text-danger">{{errorMessage}}</div>
+            </p>
+        </div>
+        <div class="column">
+            <table class="table is-fullwidth has-text-centered">
+                <thead>
+                    <tr>
+                        <th>Email</th>
+                        <th>Fullname</th>
+                        <th>idQuota</th>
+                        <th>idGuestadvisor</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="content in contents" :key="content.idAvisor">
+                        <td>{{content.email}}</td>
+                        <td>{{content.fullname}}</td>
+                        <td>{{content.idQuota}}</td>
+                        <td>{{content.idGuestadvisor}}</td>
+                        <td>
+                            <span class="Edit" @click="tabIdx=2; contentEdit = content">
+                                <a href="#">
+                                    <ion-icon name="create-outline"></ion-icon>
+                                </a>
+                            </span>
+                        </td>
+                        <td>
+                            <span class="Delete" @click="currentAdvisorId = content.idAdvisor;tabIdx = 3;">
+                                <a href="#" class="has-text-danger">
+                                    <ion-icon name="trash-outline"></ion-icon>
+                                </a>
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card m-4 p-4 border-redish" v-if="tabIdx === 3">
+        <h2 class="is-size-5 has-text-danger">Are you sure?</h2>
+        <div class="field is-grouped is-grouped-right">
+            <button class="button is-link is-danger" @click="deleteAdvisor(currentAdvisorId)">
+                <span class="icon">
+                    <ion-icon name="shield-checkmark"></ion-icon>
+                </span>
+                <span>Sure</span>
+            </button>
+            <button class="button ml-2 is-link is-light" @click="tabIdx = 0;">
+                <span class="icon">
+                    <ion-icon name="arrow-back-circle"></ion-icon>
+                </span>
+                <span>Back</span>
+            </button>
+        </div>
+    </div>
+    <div v-if="tabIdx == 1">
+        <div class='column '>
+            <form>
+                <div class='panel'>
+                    <div class='panel-heading'>
+                        New GuestAdvisor
+                    </div>
+                    <div class='panel-block'>
+                        <div class='container'>
+                            <div class=field>
+                                <label class='label'>Email</label>
+                                <div class='control'>
+                                    <input class='input' type='text' v-model="advisorData.email" placeholder='email'
+                                        @focus="emailError=false">
+                                    <small v-if="emailError" class="has-text-danger">Invalid Email</small>
+                                </div>
+                            </div>
+                            <div class=field>
+                                <label class='label'>Fullname</label>
+                                <div class='control'>
+                                    <input class='input' type='text' v-model="advisorData.fullname"
+                                        placeholder='fullname'>
+                                </div>
+                            </div>
+                            <div class=field>
+                                <label class='label'>idQuota</label>
+                                <div class='control'>
+                                    <input class='input' type='text' v-model="advisorData.idQuota"
+                                        placeholder='idQuota'>
+                                </div>
+                            </div>
+                            <div class=field>
+                                <label class='label'>idGuestadvisor</label>
+                                <div class='control'>
+                                    <input class='input' type='text' v-model="advisorData.idGuestadvisor"
+                                        placeholder='idGuestadvisor'>
+                                </div>
+                            </div>
+                            <div class=field>
+                                <label class='label'>Affliation</label>
+                                <div class='control'>
+                                    <input class='input' type='text' v-model="advisorData.affliation"
+                                        placeholder='Affliation'>
+                                </div>
+                            </div>
+                            <div class=field>
+                                <label class='label'>password</label>
+                                <div class='control'>
+                                    <input class='input' type='text' v-model="advisorData.password"
+                                        placeholder='password'>
+                                </div>
+                            </div>
+                            <div class='field is-grouped'>
+                                <div class='control'>
+                                    <button @click="createAdvisor(advisorData)" class='button is-link'>
+                                        <span class="icon">
+                                            <ion-icon name="checkmark-circle"></ion-icon>
+                                        </span>
+                                        <span>Submit</span>
+                                    </button>
+                                </div>
+                                <div class='control'>
+                                    <button class='button is-link is-light' @click='tabIdx=0;'>
+                                        <span class="icon">
+                                            <ion-icon name="arrow-back-circle"></ion-icon>
+                                        </span>
+                                        <span>Back</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div v-if="tabIdx === 2">
+        <div class='column '>
+            <form>
+                <div class='panel'>
+                    <div class='panel-heading'>
+                        Edit Advisor
+                    </div>
+                    <div class='panel-block'>
+                        <div class='container'>
+                            <div class=field>
+                                <div class=field>
+                                    <label class='label is-size-7 is-lightgray'>ID: {{contentEdit.idAdvisor}}</label>
+                                </div>
+                            </div>
+                            <div class=field>
+                                <label class='label is-size-6 is-lightgray'>Email: {{contentEdit.email}}</label>
+                            </div>
+                            <div class=field>
+                                <label class='label'>Fullname</label>
+                                <div class='control'>
+                                    <input class='input' type='text' v-model='contentEdit.fullname'>
+                                </div>
+                            </div>
+                            <div class=field>
+                                <label class='label'>idQuota</label>
+                                <div class='control'>
+                                    <input class='input' type='text' v-model='contentEdit.idQuota'>
+                                </div>
+                            </div>
+                            <div class=field>
+                                <label class='label'>idGuestadvisor</label>
+                                <div class='control'>
+                                    <input class='input' type='text' v-model='contentEdit.idGuestadvisor'>
+                                </div>
+                            </div>
+                            <div class=field>
+                                <label class='label'>Affilation</label>
+                                <div class='control'>
+                                    <input class='input' type='text' v-model='contentEdit.Affilation'>
+                                </div>
+                            </div>
+                            <div class=field>
+                                <label class='label'>Password</label>
+                                <div class='control'>
+                                    <input class='input' type='text'>
+                                </div>
+                            </div>
+                            <div class=field>
+                                <label class='label'>Confirm Password</label>
+                                <div class='control'>
+                                    <input class='input' type='text'>
+                                </div>
+                            </div>
+                            <div class='field is-grouped'>
+                                <div class='control'>
+                                    <button @click="editAdvisor(contentEdit.idAdvisor,contentEdit.email,contentEdit.fullname,contentEdit.selectedIndex)"class='button is-link'>
+                                        <span class="icon">
+                                            <ion-icon name="checkmark-circle"></ion-icon>
+                                        </span>
+                                        <span>Submit</span>
+                                    </button>
+                                </div>
+                                <div class='control'>
+                                    <button class='button is-link is-light' @click="tabIdx = 0;">
+                                        <span class="icon">
+                                            <ion-icon name="arrow-back-circle"></ion-icon>
+                                        </span>
+                                        <span>Back</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

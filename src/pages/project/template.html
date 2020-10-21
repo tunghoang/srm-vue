@@ -1,17 +1,7 @@
 <div class="rows">
     <div>{{idStudent}}  {{idAdvisor}}  {{idSemester}}  {{idProjecttype}}  {{status}}</div>
-    <div class="tabs is-medium">
-        <ul>
-            <!-- <li>
-                <a @click="tabIdx = 0;">List Project</a>
-            </li> -->
-            <li>
-                
-            </li>
-        </ul>
-    </div>
     <div v-if="tabIdx == 0">
-        <div class="level">
+        <div class="level m-0">
             <div class="level-left has-addons">
                 <div class="level-item">
                     <p class="control">
@@ -33,7 +23,6 @@
             </div>
             <div class="level-right">
                 <div class="level-item">
-                        <!-- <a class="button" @click="tabIdx = 1;">New Project</a> -->
                         <router-link class="button" to='/newproject'>New Project</router-link>
                 </div>
             </div>

@@ -1,16 +1,6 @@
-<div class="rows">  
-    <!-- <div class="tabs is-medium">
-        <ul>
-            <li>
-                <a @click="tabIdx = 0;">List Advisor</a>
-            </li>
-            <li>
-                <a @click="tabIdx = 1;">New Guestadvisor</a>
-            </li>
-        </ul>
-    </div> -->
+<div class="rows"> 
     <div v-if="tabIdx == 0">
-        <div class="level">
+        <div class="level m-0">
             <div class="level-left has-addons">
                 <p class="control">
                     <dropdown-list class="min-width-8" :items='["Email","Fullname"]' :on-select-changed="searchFieldChanged"></dropdown-list>
@@ -163,7 +153,7 @@
     </div>
 
     <div v-if="tabIdx === 2">
-        <div class='column '>
+        <div class='column'>
             <form>
                 <div class='panel'>
                     <div class='panel-heading'>

@@ -25,7 +25,7 @@ let component = {
   },
   methods: {
     itemLabel: function(item) {
-      let label = (this.itemLabeFn && this.itemLabelFn(item)) || item;
+      let label = (this.itemLabelFn && this.itemLabelFn(item)) || item;
       return label;
     },
     selectItem: function(oldIdx, newIdx) {

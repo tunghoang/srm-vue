@@ -1,1 +1,208 @@
-<div>This is project {{idStudent}} - {{idAdvisor}} - {{idSemester}} - {{idProjecttype}} - {{status}}</div>
+<div class="rows">
+    <div>{{idStudent}}  {{idAdvisor}}  {{idSemester}}  {{idProjecttype}}  {{status}}</div>
+    <div class="tabs is-medium">
+        <ul>
+            <!-- <li>
+                <a @click="tabIdx = 0;">List Project</a>
+            </li> -->
+            <li>
+                
+            </li>
+        </ul>
+    </div>
+    <div v-if="tabIdx == 0">
+        <div class="level">
+            <div class="level-left has-addons">
+                <div class="level-item">
+                    <p class="control">
+                        <dropdown-list class="min-width-8" :items='["title","satus"]'
+                            :on-select-changed="searchFieldChanged"></dropdown-list>
+                    </p>
+                    <p class="control">
+                        <input class="input" type="text" placeholder="Find project" v-model="searchText">
+                    </p>
+                    <p class="control">
+                        <a class="button is-link" @click="search(searchText, searchField)">
+                            <ion-icon name="search-outline"></ion-icon>
+                        </a>
+                    </p>
+                    <p v-if="errorMessage && errorMessage.length" class="control">
+                    <div class="button is-borderless is-radiusless has-text-danger">{{errorMessage}}</div>
+                    </p>
+                </div>
+            </div>
+            <div class="level-right">
+                <div class="level-item">
+                        <!-- <a class="button" @click="tabIdx = 1;">New Project</a> -->
+                        <router-link class="button" to='/newproject'>New Project</router-link>
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <table class="table is-fullwidth has-text-centered">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Grade</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="content in contents" :key="content.idProject">
+                        <td>{{content.title}}</td>
+                        <td></td>
+                        <td>{{content.grade}}</td>
+                        <td>
+                            <span class="Edit" @click="tabIdx=2; contentEdit = content">
+                                <a href="#">
+                                    <ion-icon name="create-outline"></ion-icon>
+                                </a>
+                            </span>
+                        </td>
+                        <td>
+                            <span class="Delete" @click="currentProjectId = content.idProject;tabIdx = 3;">
+                                <a href="#" class="has-text-danger">
+                                    <ion-icon name="trash-outline"></ion-icon>
+                                </a>
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card m-4 p-4 border-redish" v-if="tabIdx === 3">
+        <h2 class="is-size-5 has-text-danger">Are you sure?</h2>
+        <div class="field is-grouped is-grouped-right">
+            <button class="button is-link is-danger" @click="deleteProject(currentProjectId)">
+                <span class="icon">
+                    <ion-icon name="shield-checkmark"></ion-icon>
+                </span>
+                <span>Sure</span>
+            </button>
+            <button class="button ml-2 is-link is-light" @click="tabIdx = 0;">
+                <span class="icon">
+                    <ion-icon name="arrow-back-circle"></ion-icon>
+                </span>
+                <span>Back</span>
+            </button>
+        </div>
+    </div>
+    <div v-if="tabIdx == 1">
+        <div class='column '>
+            <form>
+                <div class='panel'>
+                    <div class='panel-heading'>
+                        New Project
+                    </div>
+                    <div class='panel-block'>
+                        <div class='container'>
+                            <div class=field>
+                                <label class='label'>Title</label>
+                                <div class='control'>
+                                    <input class='input' type='text' v-model="projectData.title" placeholder='title'>
+                                </div>
+                            </div>
+                            <div class=field>
+                                <label class='label'>Description</label>
+                                <div class='control'>
+                                    <input class='input' type='text'  placeholder='description'>
+                                </div>
+                            </div>
+                            <div class=field>
+                                <label class='label'>Grade</label>
+                                <div class='control'>
+                                    <input class='input' type='text' v-model="projectData.idQuota" placeholder='Grade'>
+                                </div>
+                            </div>
+                            <div class=field>
+                                <label class='label'>Advisor</label>
+                                <dropdown-list :items="['Gs A', 'Ts B']" >
+                                </dropdown-list>
+                            </div>
+                            <div class='field is-grouped'>
+                                <div class='control'>
+                                    <button @click="creatProfect(projectData)" class='button is-link'>
+                                        <span class="icon">
+                                            <ion-icon name="checkmark-circle"></ion-icon>
+                                        </span>
+                                        <span>Submit</span>
+                                    </button>
+                                </div>
+                                <div class='control'>
+                                    <button class='button is-link is-light' @click='tabIdx=0;'>
+                                        <span class="icon">
+                                            <ion-icon name="arrow-back-circle"></ion-icon>
+                                        </span>
+                                        <span>Back</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div v-if="tabIdx === 2">
+        <div class='column '>
+            <form>
+                <div class='panel'>
+                    <div class='panel-heading'>
+                        Edit Project
+                    </div>
+                    <div class='panel-block'>
+                        <div class='container'>
+                            <div class=field>
+                                <div class=field>
+                                    <label class='label is-size-7 is-lightgray'>ID: {{contentEdit.idProject}}</label>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label class='label'>Title</label>
+                                <div class='control'>
+                                    <input class='input' type='text' v-model='contentEdit.title'>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label class='label'>description</label>
+                                <div class='control'>
+                                    <input class='input' type='text' v-model='contentEdit.description'>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label class='label'>advisor</label>
+                                <div class='control'>
+                                    <input class='input' type='text'>
+                                </div>
+                            </div>
+                            <div class='field is-grouped'>
+                                <div class='control'>
+                                    <button
+                                        @click="editAdvisor(contentEdit)"
+                                        class='button is-link'>
+                                        <span class="icon">
+                                            <ion-icon name="checkmark-circle"></ion-icon>
+                                        </span>
+                                        <span>Submit</span>
+                                    </button>
+                                </div>
+                                <div class='control'>
+                                    <button class='button is-link is-light' @click="tabIdx = 0;">
+                                        <span class="icon">
+                                            <ion-icon name="arrow-back-circle"></ion-icon>
+                                        </span>
+                                        <span>Back</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

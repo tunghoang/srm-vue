@@ -1,5 +1,5 @@
 <div class="rows">  
-    <div class="tabs is-medium">
+    <!-- <div class="tabs is-medium">
         <ul>
             <li>
                 <a @click="tabIdx = 0;">List Advisor</a>
@@ -8,23 +8,28 @@
                 <a @click="tabIdx = 1;">New Guestadvisor</a>
             </li>
         </ul>
-    </div>
+    </div> -->
     <div v-if="tabIdx == 0">
-        <div class="field has-addons">
-            <p class="control">
-                <dropdown-list class="min-width-8" :items='["Email","Fullname"]' :on-select-changed="searchFieldChanged"></dropdown-list>
-            </p>
-            <p class="control">
-                <input class="input" type="text" placeholder="Find advisor" v-model="searchText">
-            </p>
-            <p class="control">
-                <a class="button is-link" @click="search(searchText, searchField)">
-                    <ion-icon name="search-outline"></ion-icon>
-                </a>
-            </p>
-            <p v-if="errorMessage && errorMessage.length" class="control">
-                <div class="button is-borderless is-radiusless has-text-danger">{{errorMessage}}</div>
-            </p>
+        <div class="level">
+            <div class="level-left has-addons">
+                <p class="control">
+                    <dropdown-list class="min-width-8" :items='["Email","Fullname"]' :on-select-changed="searchFieldChanged"></dropdown-list>
+                </p>
+                <p class="control">
+                    <input class="input" type="text" placeholder="Find advisor" v-model="searchText">
+                </p>
+                <p class="control">
+                    <a class="button is-link" @click="search(searchText, searchField)">
+                        <ion-icon name="search-outline"></ion-icon>
+                    </a>
+                </p>
+                <p v-if="errorMessage && errorMessage.length" class="control">
+                    <div class="button is-borderless is-radiusless has-text-danger">{{errorMessage}}</div>
+                </p>
+            </div>
+            <div class="level-right">
+                <a class="button" @click="tabIdx = 1;">New Guestadvisor</a>
+            </div>
         </div>
         <div class="column">
             <table class="table is-fullwidth has-text-centered">
@@ -192,7 +197,7 @@
                                     <input class='input' type='text' v-model='contentEdit.idGuestadvisor'>
                                 </div>
                             </div>
-                            <div class="field">
+                            <!-- <div class="field">
                                 <label class='label'>Affilation</label>
                                 <div class='control'>
                                     <input class='input' type='text' v-model='contentEdit.Affilation'>
@@ -209,10 +214,10 @@
                                 <div class='control'>
                                     <input class='input' type='text'>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class='field is-grouped'>
                                 <div class='control'>
-                                    <button @click="editAdvisor(contentEdit.idAdvisor,contentEdit.email,contentEdit.fullname,contentEdit.selectedIndex)"class='button is-link'>
+                                    <button @click="editAdvisor(contentEdit)"class='button is-link'>
                                         <span class="icon">
                                             <ion-icon name="checkmark-circle"></ion-icon>
                                         </span>

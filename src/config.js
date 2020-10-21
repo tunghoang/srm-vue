@@ -7,6 +7,7 @@ export default {
   STAFF_URL: baseUrl + '/staffs/',
   ADVISOR_URL: baseUrl + '/advisors/',
   STUDENT_URL: baseUrl + '/students/',
+  PROJECT_URL : baseUrl + '/projects/',
   LOGIN_URLS : {
     student: baseUrl + '/studentlogin/',
     advisor: baseUrl + '/advisorlogin/',

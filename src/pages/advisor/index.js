@@ -20,7 +20,7 @@ let component = {
     };
   },
   created: function() {
-    this.loadData();
+    //this.loadData();
   },
   methods: {
     loadData: function() {
@@ -31,28 +31,28 @@ let component = {
         this.$router.push('/');
       });
     },
-    createAdvisor: function(advisorData) {
-      console.log(advisorData.email)
-      if(checkErrorEmail(advisorData.email)){
-        this.emailError = true;
-        return
-      }
-      request(config.ADVISOR_URL, 'POST', advisorData).then((res)=>{
-        console.log(res.data);
-        this.tabIdx = 0;
-        this.search(this.searchText, this.searchField);
-      }).catch(e => {
-        console.error(e);
-        this.$router.push('/');
-      });
+    createAdvisor: function(advisorData,event) {
+       console.log('create');
+       event.stopPropagation();
+       event.preventDefault();
+      // if(checkErrorEmail(advisorData.email)){
+      //   this.emailError = true;
+      //   return
+      // }
+      // request(config.ADVISOR_URL, 'POST', advisorData).then((res)=>{
+      //   console.log(res.data);
+      //   this.tabIdx = 0;
+      //   this.search(this.searchText, this.searchField);
+      // }).catch(e => {
+      //   console.error(e);
+      //   this.$router.push('/');
+      // });
     },
-    editAdvisor:function(idAdvisor,email,fullname,idQuota){
+    editAdvisor:function(contentEdit,event){
       console.log('editAdvisor');
-      request(config.ADVISOR_URL + idAdvisor, 'PUT', {
-        email:email,
-        fullname:fullname,
-        idQuota: idQuota
-      }).then(res=>{
+      event.stopPropagation();
+      event.preventDefault();
+      request(config.ADVISOR_URL + contentEdit.idAdvisor, 'PUT', contentEdit).then(res=>{
         console.log(res.data);
         this.tabIdx = 0;
         this.search(this.searchText, this.searchField);

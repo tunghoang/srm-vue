@@ -7,21 +7,20 @@
       <div class='panel-block'>
         <div class='container'>
           <form @submit="doLogin(account)">
-            <h4 class="p-1 has-text-danger has-background-danger-light has-text-centered" v-show="errorMessage && errorMessage.length > 0">{{errorMessage}}</h4>
+            <h4 class="p-1 has-text-danger has-background-danger-light has-text-centered"
+              v-show="errorMessage && errorMessage.length > 0">{{errorMessage}}</h4>
             <div class=field>
               <label class='label'>Email</label>
               <div class='control'>
-                <input class='input' type='text' v-model="account.email" placeholder='Email' @focus="emailError=false">
-                <small v-if="emailError" class="has-text-danger">Invalid email</small>
+                <input class='input' type='text' v-model="account.email" placeholder='Email'>
               </div>
-            </div>  
+            </div>
             <div class=field>
               <label class='label'>Password</label>
               <div class='control'>
-                <input class='input' type='password' v-model="account.password" placeholder='Password' @focus="spaceError=false">
-                <small v-if="spaceError" class="has-text-danger">password cannot be empty</small>
+                <input class='input' type='password' v-model="account.password" placeholder='Password'>
               </div>
-            </div>  
+            </div>
             <div class='field is-grouped'>
               <div class='control'>
                 <button @click="doLogin(account)" class='button is-link'>Submit</button>

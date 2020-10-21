@@ -1,9 +1,10 @@
-<div class="rows"> 
+<div class="rows">
     <div v-if="tabIdx == 0">
         <div class="level m-0">
             <div class="level-left has-addons">
                 <p class="control">
-                    <dropdown-list class="min-width-8" :items='["Email","Fullname"]' :on-select-changed="searchFieldChanged"></dropdown-list>
+                    <dropdown-list class="min-width-8" :items='["Email","Fullname"]'
+                        :on-select-changed="searchFieldChanged"></dropdown-list>
                 </p>
                 <p class="control">
                     <input class="input" type="text" placeholder="Find advisor" v-model="searchText">
@@ -14,11 +15,14 @@
                     </a>
                 </p>
                 <p v-if="errorMessage && errorMessage.length" class="control">
-                    <div class="button is-borderless is-radiusless has-text-danger">{{errorMessage}}</div>
+                <div class="button is-borderless is-radiusless has-text-danger">{{errorMessage}}</div>
                 </p>
             </div>
             <div class="level-right">
-                <a class="button" @click="tabIdx = 1;">New Guestadvisor</a>
+                <a class="button" @click="tabIdx = 1;">
+                    <span class="icon"><ion-icon name="add-outline"></ion-icon></span>
+                    <span> New Guestadvisor</span>
+                </a>
             </div>
         </div>
         <div class="column">
@@ -77,7 +81,7 @@
     </div>
     <div v-if="tabIdx == 1">
         <div class='column '>
-            <form>
+            <form @submit="createAdvisor(advisorData,$event)">
                 <div class='panel'>
                     <div class='panel-heading'>
                         New GuestAdvisor
@@ -116,20 +120,18 @@
                             <div class=field>
                                 <label class='label'>Affliation</label>
                                 <div class='control'>
-                                    <input class='input' type='text' v-model="advisorData.affliation"
-                                        placeholder='Affliation'>
+                                    <input class='input' type='text' placeholder='Affliation'>
                                 </div>
                             </div>
                             <div class=field>
                                 <label class='label'>password</label>
                                 <div class='control'>
-                                    <input class='input' type='text' v-model="advisorData.password"
-                                        placeholder='password'>
+                                    <input class='input' type='text' placeholder='password'>
                                 </div>
                             </div>
                             <div class='field is-grouped'>
                                 <div class='control'>
-                                    <button @click="createAdvisor(advisorData)" class='button is-link'>
+                                    <button type="submit" class='button is-link'>
                                         <span class="icon">
                                             <ion-icon name="checkmark-circle"></ion-icon>
                                         </span>
@@ -154,7 +156,7 @@
 
     <div v-if="tabIdx === 2">
         <div class='column'>
-            <form>
+            <form @submit="editAdvisor(contentEdit, $event)">
                 <div class='panel'>
                     <div class='panel-heading'>
                         Edit Advisor
@@ -187,27 +189,9 @@
                                     <input class='input' type='text' v-model='contentEdit.idGuestadvisor'>
                                 </div>
                             </div>
-                            <!-- <div class="field">
-                                <label class='label'>Affilation</label>
-                                <div class='control'>
-                                    <input class='input' type='text' v-model='contentEdit.Affilation'>
-                                </div>
-                            </div>
-                            <div class="field">
-                                <label class='label'>Password</label>
-                                <div class='control'>
-                                    <input class='input' type='text'>
-                                </div>
-                            </div>
-                            <div class="field">
-                                <label class='label'>Confirm Password</label>
-                                <div class='control'>
-                                    <input class='input' type='text'>
-                                </div>
-                            </div> -->
                             <div class='field is-grouped'>
                                 <div class='control'>
-                                    <button @click="editAdvisor(contentEdit)"class='button is-link'>
+                                    <button type="submit" class='button is-link'>
                                         <span class="icon">
                                             <ion-icon name="checkmark-circle"></ion-icon>
                                         </span>

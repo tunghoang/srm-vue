@@ -62,35 +62,34 @@
                     <div class='panel-heading'>
                         New Quota
                     </div>
+                    <h2 class="p-2 m-1 has-text-danger has-background-danger-light has-text-centered" v-show="errorMessage.length > 0">{{errorMessage}}</h2>
                     <div class='panel-block'>
                         <div class='container'>
                             <div class=field>
                                 <label class='label'>Name</label>
                                 <div class='control'>
-                                    <input class='input' type='text' v-model="quotaData.name" placeholder='Name'>
+                                    <input class='input' type='text' v-model="quotaData.name" placeholder='Name' @focus="errorMessage=''">
                                 </div>
                             </div>
                             <div class=field>
                                 <label class='label'>Description</label>
                                 <div class='control'>
                                     <input class='input' type='text' v-model="quotaData.description"
-                                        placeholder='description'>
+                                        placeholder='description' @focus="errorMessage=''">
                                 </div>
                             </div>
                             <div class=field>
                                 <label class='label'>Number of kltn</label>
                                 <div class='control'>
                                     <input class='input' type='text' v-model="quotaData.n_kltn"
-                                        placeholder='number of kltn' @focus="numberError=false">
-                                    <small v-if="numberError" class="has-text-danger">Must be a number</small>
+                                        placeholder='number of kltn'  @focus="errorMessage=''">
                                 </div>
                             </div>
                             <div class=field>
                                 <label class='label'>Number of dakh</label>
                                 <div class='control'>
                                     <input class='input' type='text' v-model="quotaData.n_dakh"
-                                        placeholder='number of dakh' @focus="numberError2=false">
-                                    <small v-if="numberError2" class="has-text-danger">Must be a number</small>
+                                        placeholder='number of dakh' @focus="errorMessage=''">
                                 </div>
                             </div>
                             <div class='field is-grouped'>

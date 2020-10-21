@@ -60,13 +60,14 @@
                     <div class='panel-heading'>
                         New semester
                     </div>
+                    <h2 class="p-2 m-1 has-text-danger has-background-danger-light has-text-centered" v-show="errorMessage.length > 0">{{errorMessage}}</h2>
                     <div class='panel-block'>
                         <div class='container'>
                             <div class="field">
                                 <label class='label'>Year</label>
                                 <div class='control'>
                                     <input class='input form-input' type='text' v-model="semesterData.year"
-                                        placeholder='Year' @focus='yearError=false'>
+                                        placeholder='Year' @focus="errorMessage=''">
                                     <small v-if="yearError" class="has-text-danger">Invalid year</small>
                                 </div>
                             </div>

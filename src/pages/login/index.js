@@ -16,19 +16,13 @@ let component = {
         email: null,
         password: null
       },
-      emailError:false,
-      spaceError:false,
     };
   },
   methods: {
     doLogin: function(account) {
       console.log('doLogin', this.loginType, JSON.stringify(account), getLoginUrl(this.loginType));
       if(isErrorEmail(account.email)||isErrorSpace(account.password)){
-        if(isErrorEmail(account.email)){
-          this.emailError=true;
-        }if(isErrorSpace(account.password)){
-          this.spaceError=true;
-        }
+        this.errorMessage = "Invalid email"
         return
       }
       request(getLoginUrl(this.loginType), "POST", account).then(res => {

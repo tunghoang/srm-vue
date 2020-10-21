@@ -15,8 +15,7 @@ let component = {
       projecttypeData: {},
       currentProjecttypeId: null,
       contentEdit:{},
-      nameError: false,
-      descriptionError: false,
+      errorMessage:"",
     };
   },
   created: function() {
@@ -31,16 +30,12 @@ let component = {
         this.$router.push('/');
       });
     },
-
     createProjecttype: function(projecttypeData) {
       console.log('click');
+      this.errorMessage="Input invalid"
+
       if (isErrorSpace(projecttypeData.name) || isErrorSpace(projecttypeData.description)) {
-        if (isErrorSpace(projecttypeData.name)) {
-          this.nameError = true;
-        }
-        if (isErrorSpace(projecttypeData.description)) {
-          this.descriptionError = true;
-        }
+         this.errorMessage="Input invalid"
         return
       }
       request(config.PROJECTTYPE_URL, 'POST', projecttypeData).then((res)=>{
@@ -65,7 +60,6 @@ let component = {
         this.$router.push('/');
       });
     },
-
     deleteProjecttype: function(idProjecttype) {
       console.log('delete');
       request(config.PROJECTTYPE_URL + idProjecttype, 'DELETE').then(res => {

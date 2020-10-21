@@ -14,6 +14,7 @@ let component = {
       semesterData: {},
       contentEdit:{},
       yearError: false,
+      errorMessage:"",
     };
   },
   created: function() {
@@ -31,7 +32,7 @@ let component = {
 
     createSemester: function(semesterData) {
       if(isErrorNumber(semesterData.year)){
-        this.yearError = true;
+        this.errorMessage = "Input invalid";
         return
       }
       console.log('click');

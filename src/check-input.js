@@ -9,12 +9,6 @@ const isErrorNumber = (n) => {
 
 const isErrorEmail = (n) => {
   // console.log(typeof n)
-  isErrorSpace(n);
-  for (i in n) {
-    if (i == " "|| i==null) {
-      return true;
-    }
-  }
   for (i of n) {
     if (i === "@") {
       return false;

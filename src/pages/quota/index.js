@@ -15,10 +15,7 @@ let component = {
       quotaData: {},
       contentEdit:{},
       currentQuotaId: null,
-      numberError: false,
-      numberError2: false,
-      spaceError1: false,
-      spaceError2: false,
+      errorMessage:"",
     };
   },
   created: function() {
@@ -37,19 +34,7 @@ let component = {
     createQuota: function(quotaData) {
       console.log(quotaData.n_kltn);
       if(isErrorSpace(quotaData.name)||isErrorSpace(quotaData.description)||isErrorNumber(quotaData.n_dakh)||isErrorNumber(quotaData.n_kltn)){
-        if(isErrorSpace(quotaData.name)){
-          this.spaceError1 =true;
-        } 
-        if(isErrorSpace(quotaData.description)){
-          console.log(quotaData.description)
-          this.spaceError2 =true;
-        } 
-        if(isErrorNumber(quotaData.n_kltn)){
-          this.numberError=true;
-        }
-        if(isErrorNumber(quotaData.n_dakh)){
-          this.numberError2=true;
-        }
+        this.errorMessage="Input invalid";
         return
       } 
       request(config.QUOTAS_URL, "post", quotaData).then((res)=>{
@@ -58,6 +43,7 @@ let component = {
         this.loadData();
       }).catch(e => {
         console.error(e);
+        this.errorMessage="Input invalid";
         this.$router.push('/');
       })
     },

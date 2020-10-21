@@ -55,31 +55,31 @@
     </div>
     <div v-if="tabIdx === 1">
         <div class='column '>
-            <form @submit="createStaff(staffData)">
+            <form>
                 <div class='panel'>
                     <div class='panel-heading'>
-                        New Staff
+                        <span>New Staff</span> 
                     </div>
+                    <h4 class="p-2 m-1 is-6 has-text-danger has-background-danger-light has-text-centered" v-show="errorMessage.length > 0">{{errorMessage}}</h4>
                     <div class='panel-block'>
                         <div class='container'>
                             <div class=field>
                                 <label class='label'>Email</label>
                                 <div class='control'>
                                     <input class='input' type='text' v-model="staffData.email" placeholder='email'
-                                        @focus="emailError=false">
-                                    <small v-if="emailError" class="has-text-danger">Email must have '@'</small>
+                                        @focus="errorMessage=''">
                                 </div>
                             </div>
                             <div class=field>
                                 <label class='label'>Fullname</label>
                                 <div class='control'>
                                     <input class='input' type='text' v-model="staffData.fullname"
-                                        placeholder='fullname'>
+                                        placeholder='fullname' @focus="errorMessage=''">
                                 </div>
                             </div>
                             <div class='field is-grouped'>
                                 <div class='control'>
-                                    <button type="submit" class='button is-link'>
+                                    <button @click="createStaff(staffData)" class='button is-link'>
                                         <span class="icon">
                                             <ion-icon name="checkmark-circle"></ion-icon>
                                         </span>
@@ -104,7 +104,7 @@
 
     <div v-if="tabIdx === 2">
         <div class='column '>
-            <form @submit="editStaff(contentEdit,$event)">
+            <form>
                 <div class='panel'>
                     <div class='panel-heading'>
                         Edit Staff
@@ -130,7 +130,9 @@
                             </div>
                             <div class='field is-grouped'>
                                 <div class='control'>
-                                    <button type="submit" class='button is-link'>Submit</button>
+                                    <button
+                                        @click="editStaff(contentEdit.idStaff,contentEdit.email,contentEdit.fullname)"
+                                        class='button is-link'>Submit</button>
                                 </div>
                                 <div class='control'>
                                     <button class='button is-link is-light' @click="tabIdx = 0;">

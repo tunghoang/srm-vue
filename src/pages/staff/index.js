@@ -13,8 +13,9 @@ let component = {
       staffData: {},
       contentEdit: {},
       currentStaffId:null,
-      emailError:false,
-      nameError:false,
+      errorEmail:false,
+      errorFullname:false,
+      errorMessage:"",
     };
   },
   created: function() {
@@ -32,13 +33,9 @@ let component = {
 
     createStaff: function(staffData) {
       // console.log(staffData.fullname)
-      if(isErrorEmail(staffData.email)||isErrorSpace(staffData.fullname)){
-        if(isErrorEmail(staffData.email)){
-          this.emailError = true;
-        }
-        if(isErrorSpace(staffData.fullname)){
-          this.nameError = true;
-        }
+
+      if(isErrorSpace(staffData.email)||isErrorSpace(staffData.fullname)||isErrorEmail(staffData.email)){
+        this.errorMessage = "Invalid email";
         return
       }
       request(config.STAFF_URL, 'POST', staffData).then((res)=>{
@@ -47,6 +44,7 @@ let component = {
         this.loadData();
       }).catch(e => {
         console.error(e);
+        this.errorMessage = "Invalid email";
         this.$router.push('/');
       });
     },
@@ -75,11 +73,6 @@ let component = {
         this.$router.push('/');
       });
     },
-    
-    selectChanged: function(selectedItem, selectedIdx) {
-      console.log(selectedItem);
-      this.semesterData.semesterIndex = selectedIdx
-    }
   },
   
   template,

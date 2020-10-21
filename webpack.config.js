@@ -1,8 +1,8 @@
 let HtmlWebpackPlugin = require('html-webpack-plugin');
 let backend = {
-  target: 'http://112.137.129.214:15980',
-  // target: 'http://10.10.1.159',
-  secure: false
+  // target: 'http://112.137.129.214:15980',
+  target: 'http://10.10.1.159',
+  secure: false,
 }
 module.exports = {
   mode: 'development',

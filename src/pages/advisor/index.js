@@ -16,11 +16,11 @@ let component = {
       emailError:false,
       searchText:"",
       searchField: "email",
-      errorMessage: ""
+      errorMessage: "",
     };
   },
   created: function() {
-    //this.loadData();
+    this.loadData();
   },
   methods: {
     loadData: function() {

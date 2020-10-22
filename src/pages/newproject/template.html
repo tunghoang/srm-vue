@@ -20,6 +20,10 @@
         <label class='label'>Advisor</label>
         <dropdown-list :load-items-fn="listAdvisors" :item-label-fn="getAdvisorFullname"> </dropdown-list>
       </div>
+      <div class="field">
+        <label class='label'>Member</label>
+        <dropdown-list :load-items-fn="listMembers" :item-label-fn="getMemberFullname"> </dropdown-list>
+      </div>
       <div class='field is-grouped'>
         <div class='control'>
           <button @click="" class='button is-link'>

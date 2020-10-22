@@ -6,9 +6,11 @@ import Project from './project';
 import Semester from './semester';
 import Quota from './quota';
 import Projecttype from './projecttype';
-
+import Profileadvisor from './profileadvisor';
+// redirect: '/project/unsupervised/0'
 export default [
-  {path:'/', redirect: '/project/unsupervised/0', props: true}, 
+  {path:'/', redirect: '/profileadvisor', props: true}, 
   Login, 
-  Project('/project/:status/:idAdvisor', true)
+  Project('/project/:status/:idAdvisor', true),
+  Profileadvisor('/profileadvisor')
 ];

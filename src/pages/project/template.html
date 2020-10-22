@@ -5,7 +5,7 @@
             <div class="level-left has-addons">
                 <div class="level-item">
                     <p class="control">
-                        <dropdown-list class="min-width-8" :items='["title","satus"]'
+                        <dropdown-list class="min-width-8" :items='["title","status"]'
                             :on-select-changed="searchFieldChanged"></dropdown-list>
                     </p>
                     <p class="control">
@@ -41,8 +41,7 @@
                         <th>Title</th>
                         <th>Description</th>
                         <th>Grade</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -56,8 +55,6 @@
                                     <ion-icon name="create-outline"></ion-icon>
                                 </a>
                             </span>
-                        </td>
-                        <td>
                             <span class="Delete" @click="currentProjectId = content.idProject;tabIdx = 3;">
                                 <a href="#" class="has-text-danger">
                                     <ion-icon name="trash-outline"></ion-icon>

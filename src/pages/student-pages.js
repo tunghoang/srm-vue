@@ -8,10 +8,12 @@ import Quota from './quota';
 import Projecttype from './projecttype';
 import project from './project';
 import Newproject from './newproject';
+import Profilestudent from './profilestudent';
 
 export default [{
-  path:'/', redirect: '/project/finished/0'}, 
+  path:'/', redirect: '/profilestudent'}, 
   Login,
   Project('/project/:status/:idStudent', true),
-  Newproject('/newproject')
+  Newproject('/newproject'),
+  Profilestudent('/profilestudent')
 ];

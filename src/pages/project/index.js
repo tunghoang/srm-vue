@@ -3,7 +3,7 @@ import template from './template.html';
 import DropdownList from '../../components/dropdown-list';
 import config from '../../config';
 import request from '../../apis';
-import {checkErrorEmail,isErrorSpace} from '../../check-input'
+import {isEmailError,isEmpty} from '../../check-input'
 
 let component = {
   props: ['idStudent', 'idAdvisor', 'idSemester', 'idProjecttype', 'status'],
@@ -32,9 +32,9 @@ let component = {
         this.$router.push('/');
       });
     },
-    createProject: function(projectData) {
-      console.log(projectData.email)
-      if(checkErrorEmail(projectData.email)){
+    createAdvisor: function(projectData) {
+      console.log(projectData)
+      if(isEmailError(projectData.email)){
         this.emailError = true;
         return
       }
@@ -48,8 +48,8 @@ let component = {
       });
     },
     editProject:function(contentEdit){
-      console.log('editProject');
-      request(config.PROJECT_URL + contentEdit.idProject, 'PUT', contentEdit).then(res=>{
+      console.log('editAdvisor');
+      request(config.PROJECT_URL + contentEdit.idAdvisor, 'PUT', contentEdit).then(res=>{
         console.log(res.data);
         this.tabIdx = 0;
         this.search(this.searchText, this.searchField);
@@ -75,7 +75,7 @@ let component = {
     },
     search: function(searchText, searchField){
       console.log(searchText, searchField);
-      if (isErrorSpace(searchText) || isErrorSpace(searchField)) {
+      if (isEmpty(searchText) || isEmpty(searchField)) {
         this.errorMessage = "Search data empty";
         return;
       }

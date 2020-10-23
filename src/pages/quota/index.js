@@ -4,7 +4,7 @@ import DropdownList from '../../components/dropdown-list';
 import config from '../../config';
 import request from '../../apis';
 import axios from 'axios';
-import {isErrorNumber,isErrorSpace} from '../../check-input'
+import {isEmpty} from '../../check-input'
 console.log(config);
 
 let component = {
@@ -33,7 +33,7 @@ let component = {
 
     createQuota: function(quotaData) {
       console.log(quotaData.n_kltn);
-      if(isErrorSpace(quotaData.name)||isErrorSpace(quotaData.description)||isErrorNumber(quotaData.n_dakh)||isErrorNumber(quotaData.n_kltn)){
+      if(isEmpty(quotaData.name)||isEmpty(quotaData.description)||isNaN(quotaData.n_dakh)||isNaN(quotaData.n_kltn)){
         this.errorMessage="Input invalid";
         return
       } 

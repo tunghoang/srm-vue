@@ -1,13 +1,4 @@
-const isErrorNumber = (n) => {
-  // console.log(n);
-  isErrorSpace(n);
-  if (isNaN(n * 1) || n >= 100000) {
-    return true;
-  }
-  return false;
-};
-
-const isErrorEmail = (n) => {
+const isEmailError = (n) => {
   // console.log(typeof n)
   for (i of n) {
     if (i === "@") {
@@ -17,8 +8,8 @@ const isErrorEmail = (n) => {
   return true;
 };
 
-const isErrorSpace = (n) => {
-  if (n===null||n==null||n==""||n===""||n===undefined||n==undefined) {
+const isEmpty = (n) => {
+  if (n==null||n==""||n==undefined) {
     return true;
   }
   for (i in n) {
@@ -31,4 +22,4 @@ const isErrorSpace = (n) => {
 
 
 
-module.exports = { isErrorNumber, isErrorEmail,isErrorSpace };
+module.exports = {isEmailError, isEmpty };

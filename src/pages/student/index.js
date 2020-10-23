@@ -3,7 +3,7 @@ import template from './template.html';
 import DropdownList from '../../components/dropdown-list';
 import config from '../../config';
 import request from '../../apis';
-import {checkErrorEmail,isErrorSpace} from '../../check-input'
+import {isEmailError,isEmpty} from '../../check-input'
 
 let component = {
   data: function (){
@@ -20,7 +20,7 @@ let component = {
     };
   },
   created: function() {
-    //this.loadData();
+    this.loadData();
   },
   methods: {
     loadData: function() {
@@ -33,7 +33,7 @@ let component = {
     },
     createStudent: function(studentData) {
       console.log(studentData.email)
-      if(checkErrorEmail(studentData.email)){
+      if(isEmailError(studentData.email)){
         this.emailError = true;
         return
       }
@@ -76,7 +76,7 @@ let component = {
     },
     search: function(searchText, searchField){
       console.log(searchText, searchField);
-      if (isErrorSpace(searchText) || isErrorSpace(searchField)) {
+      if (isEmpty(searchText) || isEmpty(searchField)) {
         this.errorMessage = "Search data empty";
         return;
       }

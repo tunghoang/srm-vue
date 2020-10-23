@@ -4,7 +4,6 @@ import style from './style.scss';
 import DropdownList from '../../components/dropdown-list';
 import config from '../../config';
 import request from '../../apis';
-import {isErrorNumber} from '../../check-input';
 
 let component = {
   data: function (){
@@ -31,7 +30,7 @@ let component = {
     },
 
     createSemester: function(semesterData) {
-      if(isErrorNumber(semesterData.year)){
+      if(isNaN(semesterData.year)){
         this.errorMessage = "Input invalid";
         return
       }

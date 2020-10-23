@@ -2,7 +2,7 @@ import Vue from 'vue';
 import template from './template.html';
 import config from '../../config';
 import request from '../../apis';
-import {isErrorEmail,isErrorSpace} from '../../check-input';
+import {isEmailError,isEmpty} from '../../check-input';
 
 function getLoginUrl(loginType) {
   return config.LOGIN_URLS[loginType];
@@ -21,7 +21,7 @@ let component = {
   methods: {
     doLogin: function(account) {
       console.log('doLogin', this.loginType, JSON.stringify(account), getLoginUrl(this.loginType));
-      if(isErrorEmail(account.email)||isErrorSpace(account.password)){
+      if(isEmailError(account.email)||isEmpty(account.password)){
         this.errorMessage = "Invalid email"
         return
       }

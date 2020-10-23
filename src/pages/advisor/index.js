@@ -3,7 +3,7 @@ import template from './template.html';
 import DropdownList from '../../components/dropdown-list';
 import config from '../../config';
 import request from '../../apis';
-import {checkErrorEmail,isErrorSpace} from '../../check-input'
+import {isEmpty} from '../../check-input'
 
 let component = {
   data: function (){
@@ -78,7 +78,7 @@ let component = {
     },
     search: function(searchText, searchField){
       console.log(searchText, searchField);
-      if (isErrorSpace(searchText) || isErrorSpace(searchField)) {
+      if (isEmpty(searchText) || isEmpty(searchField)) {
         this.errorMessage = "Search data empty";
         return;
       }

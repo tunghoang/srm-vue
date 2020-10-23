@@ -3,7 +3,7 @@ import template from './template.html';
 import DropdownList from '../../components/dropdown-list';
 import config from '../../config';
 import request from '../../apis';
-import {isErrorEmail,isErrorSpace} from '../../check-input'
+import {isEmailError,isEmpty} from '../../check-input'
 
 let component = {
   data: function (){
@@ -34,7 +34,7 @@ let component = {
     createStaff: function(staffData) {
       // console.log(staffData.fullname)
 
-      if(isErrorSpace(staffData.email)||isErrorSpace(staffData.fullname)||isErrorEmail(staffData.email)){
+      if(isEmpty(staffData.email)||isEmpty(staffData.fullname)||isEmailError(staffData.email)){
         this.errorMessage = "Invalid email";
         return
       }

@@ -3,9 +3,8 @@ import template from './template.html';
 import DropdownList from '../../components/dropdown-list';
 import config from '../../config';
 import request from '../../apis';
-import {isErrorSpace} from '../../check-input'
+import {isEmpty} from '../../check-input'
 console.log(config);
-
 
 let component = {
   data: function (){
@@ -32,9 +31,7 @@ let component = {
     },
     createProjecttype: function(projecttypeData) {
       console.log('click');
-      this.errorMessage="Input invalid"
-
-      if (isErrorSpace(projecttypeData.name) || isErrorSpace(projecttypeData.description)) {
+      if (isEmpty(projecttypeData.name) || isEmpty(projecttypeData.description)) {
          this.errorMessage="Input invalid"
         return
       }

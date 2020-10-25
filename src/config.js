@@ -11,7 +11,8 @@ export default {
   LOGIN_URLS : {
     student: baseUrl + '/studentlogin/',
     advisor: baseUrl + '/advisorlogin/',
-    staff: baseUrl + '/stafflogin/'
+    staff: baseUrl + '/stafflogin/',
+    guest: baseUrl + '/guestlogin/'
   },
   LOGOUT_URL: baseUrl + '/logout/'
 }

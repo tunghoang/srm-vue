@@ -9,24 +9,29 @@
           <form @submit="doLogin(account)">
             <h4 class="p-1 has-text-danger has-background-danger-light has-text-centered"
               v-show="errorMessage && errorMessage.length > 0">{{errorMessage}}</h4>
-            <div class=field>
+            <div class="field">
               <label class='label'>Email</label>
               <div class='control'>
                 <input class='input' type='text' v-model="account.email" placeholder='Email'>
               </div>
             </div>
-            <div class=field>
+            <div class="field">
               <label class='label'>Password</label>
               <div class='control'>
                 <input class='input' type='password' v-model="account.password" placeholder='Password'>
               </div>
             </div>
+            <div v-if='loginType==="advisor"' class="field">
+              <label class="checkbox">
+                <input type="checkbox" v-model='isGuest'>Guest advisor?
+              </label>
+            </div>
             <div class='field is-grouped'>
               <div class='control'>
-                <button @click="doLogin(account)" class='button is-link'>Submit</button>
+                <button type="submit" class='button is-link'>Submit</button>
               </div>
               <div class='control'>
-                <button class='button is-link is-light' @click="goHome()">Cancel</button>
+                <button type="reset" class='button is-link is-light' @click="goHome()">Cancel</button>
               </div>
             </div>
           </form>

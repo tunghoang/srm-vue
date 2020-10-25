@@ -4,13 +4,18 @@ import config from '../../config';
 import request from '../../apis';
 import {isEmailError,isEmpty} from '../../check-input';
 
-function getLoginUrl(loginType) {
-  return config.LOGIN_URLS[loginType];
+function getLoginUrl(loginType, isGuest) {
+  if (loginType !== 'advisor') 
+    return config.LOGIN_URLS[loginType];
+  if (isGuest) 
+    return config.LOGIN_URLS['guest'];
+  return config.LOGIN_URLS['advisor'];
 }
 let component = {
   props: ['loginType'],
   data: function() {
     return {
+      isGuest: false,
       errorMessage: "",
       account: {
         email: null,
@@ -20,12 +25,12 @@ let component = {
   },
   methods: {
     doLogin: function(account) {
-      console.log('doLogin', this.loginType, JSON.stringify(account), getLoginUrl(this.loginType));
+      console.log('doLogin', this.loginType, JSON.stringify(account), getLoginUrl(this.loginType, this.isGuest));
       if(isEmailError(account.email)||isEmpty(account.password)){
         this.errorMessage = "Invalid email"
         return
       }
-      request(getLoginUrl(this.loginType), "POST", account).then(res => {
+      request(getLoginUrl(this.loginType, this.isGuest), "POST", account).then(res => {
         console.log(res.data);
         this.$router.push('/');
       }).catch(e => {

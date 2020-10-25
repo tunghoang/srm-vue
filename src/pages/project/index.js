@@ -16,7 +16,7 @@ let component = {
       currentProjectId:null,
       emailError:false,
       searchText:"",
-      searchField: "email",
+      searchField: "title",
       errorMessage: ""
     };
   },
@@ -27,21 +27,6 @@ let component = {
     loadData: function() {
       request(config.PROJECT_URL, 'GET').then(res => {
         this.contents = res.data.sort((item1, item2) => (item2.idProject - item1.idProject));
-      }).catch(e => {
-        console.error(e);
-        this.$router.push('/');
-      });
-    },
-    createAdvisor: function(projectData) {
-      console.log(projectData)
-      if(isEmailError(projectData.email)){
-        this.emailError = true;
-        return
-      }
-      request(config.PROJECT_URL, 'POST', projectData).then((res)=>{
-        console.log(res.data);
-        this.tabIdx = 0;
-        this.search(this.searchText, this.searchField);
       }).catch(e => {
         console.error(e);
         this.$router.push('/');

@@ -20,7 +20,9 @@
             </div>
             <div class="level-right">
                 <a class="button" @click="tabIdx = 1;">
-                    <span class="icon"><ion-icon name="add-outline"></ion-icon></span>
+                    <span class="icon">
+                        <ion-icon name="add-outline"></ion-icon>
+                    </span>
                     <span> New Guestadvisor</span>
                 </a>
             </div>
@@ -91,30 +93,14 @@
                             <div class=field>
                                 <label class='label'>Email</label>
                                 <div class='control'>
-                                    <input class='input' type='text' v-model="advisorData.email" placeholder='email'
-                                        @focus="emailError=false">
+                                    <input class='input' type='text' placeholder='email' @focus="emailError=false">
                                     <small v-if="emailError" class="has-text-danger">Invalid Email</small>
                                 </div>
                             </div>
                             <div class=field>
                                 <label class='label'>Fullname</label>
                                 <div class='control'>
-                                    <input class='input' type='text' v-model="advisorData.fullname"
-                                        placeholder='fullname'>
-                                </div>
-                            </div>
-                            <div class=field>
-                                <label class='label'>idQuota</label>
-                                <div class='control'>
-                                    <input class='input' type='text' v-model="advisorData.idQuota"
-                                        placeholder='idQuota'>
-                                </div>
-                            </div>
-                            <div class=field>
-                                <label class='label'>idGuestadvisor</label>
-                                <div class='control'>
-                                    <input class='input' type='text' v-model="advisorData.idGuestadvisor"
-                                        placeholder='idGuestadvisor'>
+                                    <input class='input' type='text' placeholder='fullname'>
                                 </div>
                             </div>
                             <div class=field>
@@ -124,9 +110,15 @@
                                 </div>
                             </div>
                             <div class=field>
-                                <label class='label'>password</label>
+                                <label class='label'>Password</label>
                                 <div class='control'>
-                                    <input class='input' type='text' placeholder='password'>
+                                    <input class='input' type='password' placeholder='password'>
+                                </div>
+                            </div>
+                            <div class=field>
+                                <label class='label'>Confirm password</label>
+                                <div class='control'>
+                                    <input class='input' type='password' placeholder='Confirm'>
                                 </div>
                             </div>
                             <div class='field is-grouped'>

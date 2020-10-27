@@ -5,24 +5,28 @@
                 Add Member
             </div>
             <div class="panel-block">
-                <div class="control">
-                    <input class="input" type="text" placeholder="Find menber" v-model="searchText">
-                </div>
-                <div class="control">
-                    <a class="button is-link" @click="searchStudent(searchText)">
-                        <ion-icon name="search-outline"></ion-icon>
-                    </a>
-                </div>
-                <div v-if="errorMessage && errorMessage.length" class="control">
-                    <div class="button is-borderless is-radiusless has-text-danger">{{errorMessage}}</div>
-                </div>
+                <form @submit="searchStudent(searchText)">
+                   <div class="field has-addons">
+                    <div class="control">
+                        <input class="input" type="text" placeholder="Find menber" v-model="searchText">
+                    </div>
+                    <div class="control">
+                        <a class="button is-link">
+                            <ion-icon name="search-outline"></ion-icon>
+                        </a>
+                    </div>
+                    <div v-if="errorMessage && errorMessage.length" class="control">
+                        <div class="button is-borderless is-radiusless has-text-danger">{{errorMessage}}</div>
+                    </div>
+                   </div>
+                </form>
             </div>
             <div class="panel-block">
                 <dropdown-list :items="memberList" :item-label-fn="getFullname"> </dropdown-list>
             </div>
             <div class='field is-grouped pl-3 pt-3 pb-3'>
                 <div class='control'>
-                    <button type="submit" class='button is-link'>Submit</button>
+                    <button type="submit" class='button is-link' @click="addStudent()">Submit</button>
                 </div>
                 <div class='control'>
                     <button type="reset" class='button is-link is-light' @click="goBack()">Cancel</button>

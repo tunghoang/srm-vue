@@ -3,53 +3,94 @@ import template from './template.html';
 import DropdownList from '../../components/dropdown-list';
 import config from '../../config';
 import request from '../../apis';
-import {isEmailError,isEmpty} from '../../check-input'
+import { isEmailError, isEmpty } from '../../check-input'
 let component = {
-  props:['idProject'],
+  props: ['idProject'],
   data: function () {
     return {
       newproject: null,
-      advisorList:[{'fullname':'abc'}],
+      advisorList: [{ 'fullname': 'abc' }],
       errorMessage: "",
-      dataProject:{
+      dataProject: {
         title: "",
         description: ""
       },
-      advisors: [{fullname: 'Hoang Xuan Tung'}],
-      members: [{fullname: "Do Duong Duy"}, {fullname: "Diep Van Hieu"},{fullname: "Nguyen Van A"}]
+      advisors: null,
+      members: null,
+      errorMessage: "",
     };
   },
   created: function () {
     this.dataProject.title = "";
     this.dataProject.description = "";
     this.getProject(this.idProject);
+    this.loadDataAdvisor();
+    this.loadDataStudent();
   },
-  watch:{
-    idProject: function(idPrj) {
+  watch: {
+    idProject: function (idPrj) {
       this.getProject(idPrj)
     }
   },
   methods: {
-    createProject: function(project) {
+    loadDataAdvisor: function () {
+      request(config.PROJECT_ADVISOR_RELS_URL).then(res => {
+        this.advisors = res.data;
+      }).catch(e => {
+        console.error(e);
+        this.$router.push('/');
+      });
+    },
+    loadDataStudent: function () {
+      request(config.PROJECT_STUDENT_RELS_URL).then(res => {
+        this.members = res.data;
+      }).catch(e => {
+        console.error(e);
+        this.$router.push('/');
+      });
+    },
+    createProject: function (project) {
       console.log(project);
       request(config.PROJECT_URL, "POST", project).then(res => {
         console.log(res.data);
         this.$router.replace('/newproject/idProject/' + res.data.idProject);
       }).catch(e => console.error(e));
     },
-    getProject: function(idPrj){
+    deleteAdvisorRel: function (idProjectAdvisorRel) {
+      console.log('delete');
+      request(config.PROJECT_ADVISOR_RELS_URL + idProjectAdvisorRel, 'delete').then(res => {
+        console.log(res.data);
+        this.loadDataAdvisor();
+      }).catch(e => {
+        console.error(e);
+        this.errorMessage = 'cant delete AdvisorRel';
+        // this.$router.push('/');
+      });
+    },
+    deleteStudentRel: function (idProjectStudentRel) {
+      console.log('delete');
+      request(config.PROJECT_STUDENT_RELS_URL + idProjectStudentRel, 'delete').then(res => {
+        console.log(res.data);
+        this.loadDataStudent();
+      }).catch(e => {
+        console.error(e);
+        // this.errorMessage = 'cant delete studentRel';
+        // this.$router.push('/');
+      });
+    },
+    getProject: function (idPrj) {
       if (!idPrj) {
         this.dataProject.title = "";
         this.dataProject.description = "";
         return;
       }
       this.dataProject.idProject = idPrj;
-      request(config.PROJECT_URL + this.idProject,'PUT',{
+      request(config.PROJECT_URL + this.idProject, 'PUT', {
         idProject: this.idProject
-      }).then(res=>{
+      }).then(res => {
         console.log(res.data);
         this.dataProject.title = res.data.title;
-      }).catch(e=>console.error(e));
+      }).catch(e => console.error(e));
     },
     listMembers: function () {
       return new Promise((resolve, reject) => {
@@ -74,6 +115,9 @@ let component = {
     },
     getFullname: function (instance) {
       return instance.fullname;
+    },
+    deleteMember: function () {
+      console.log("del");
     }
   },
   template,

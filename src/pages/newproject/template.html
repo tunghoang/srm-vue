@@ -26,10 +26,10 @@
               </span>
             </router-link>
             <ul class="item-list">
-              <li v-for="advisor in advisors">
-                  {{advisor.fullname}}
-                  <a class="ml-2 is-size-7">
-                    [x]
+              <li v-for="advisor in advisors" :key="advisor.idProjectAdvisorRel">
+                  {{advisor.idAdvisor}} ---{{advisor.idProject}}
+                  <a class="ml-2 is-size-7"  @click="deleteAdvisorRel(advisor.idProjectAdvisorRel)">
+                    [x] {{errorMessage}}
                     <!-- <ion-icon name="trash-outline"></ion-icon> -->
                   </a>
               </li>
@@ -43,11 +43,10 @@
               </span>
             </router-link>
             <ul class="item-list">
-              <li v-for="member in members">
-                  {{member.fullname}}
-                  <a class="ml-2 is-size-7">
+              <li v-for="member in members" :key="member.idProjectStudentRel">
+                   {{member.idStudent}}---{{member.idProject}} 
+                  <a class="ml-2 is-size-7"  @click="deleteStudentRel(member.idProjectStudentRel)">
                     [x]
-                    <!-- <ion-icon name="trash-outline"></ion-icon> -->
                   </a>
               </li>
             </ul>

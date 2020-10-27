@@ -24,10 +24,9 @@
             <div class="panel-block">
                 <dropdown-list :items="advisorList" :item-label-fn="getFullname" :on-select-changed="selectAdvisor"> </dropdown-list>
             </div>
-            {{advisor}}
             <div class='field is-grouped pl-3 pt-3 pb-3'>
                 <div class='control'>
-                    <button type="submit" class='button is-link' @click="addAdvisor">Submit</button>
+                    <button type="submit" class='button is-link' @click="addAdvisor()">Submit</button>
                 </div>
                 <div class='control'>
                     <button type="reset" class='button is-link is-light' @click="goBack()">Cancel</button>

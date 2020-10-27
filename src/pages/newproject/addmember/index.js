@@ -11,6 +11,8 @@ let component = {
       searchText:"",
       errorMessage: "",
       memberList:[{'fullname':'<No selected>'}],
+      student:{}
+      ,
     };
   },
   created: function () {
@@ -18,6 +20,15 @@ let component = {
   watch:{
   },
   methods: {
+    addStudent: function(){
+      console.log('addStudent', this.student, this.idProject);
+      request(config.PROJECT_STUDENT_RELS_URL, 'POST', {
+        idStudent: this.student.idStudent,
+        idProject: this.idProject
+      }).then(res => {
+        console.log(res.data);
+      }).catch(e=> console.error(e));
+    },
     searchStudent: function(searchText){
       console.log(searchText);
       if (isEmpty(searchText) ) {

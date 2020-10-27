@@ -20,7 +20,7 @@ let component = {
     };
   },
   created: function() {
-    //this.loadData();
+    this.loadData();
   },
   methods: {
     loadData: function() {

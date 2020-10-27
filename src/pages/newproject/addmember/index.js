@@ -10,7 +10,7 @@ let component = {
     return {
       searchText:"",
       errorMessage: "",
-      advisorList:[{'fullname':'<No selected>'}],
+      memberList:[{'fullname':'<No selected>'}],
     };
   },
   created: function () {
@@ -28,7 +28,7 @@ let component = {
       let data = {['fullname']: searchText};
       console.log(data);
       request(config.STUDENT_URL, 'PUT', data).then(res => {
-        this.advisorList = res.data;
+        this.memberList = res.data;
       }).catch(e => {
         console.error(e);
         this.errorMessage = e.message;

@@ -10,8 +10,6 @@ let component = {
     return {
       newproject: null,
       advisorList:[{'fullname':'abc'}],
-      searchText:"",
-      // searchField: "fullname",
       errorMessage: "",
       dataProject:{
         title: "",

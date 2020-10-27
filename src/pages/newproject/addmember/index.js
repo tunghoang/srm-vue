@@ -5,7 +5,7 @@ import request from '../../../apis';
 import config from '../../../config';
 import {isEmailError,isEmpty} from '../../../check-input'
 let component = {
-  props:[],
+  props:["idProject"],
   data: function () {
     return {
       searchText:"",
@@ -37,13 +37,19 @@ let component = {
       }
       this.errorMessage = "";
       let data = {['fullname']: searchText};
+      this.student = {};
       console.log(data);
       request(config.STUDENT_URL, 'PUT', data).then(res => {
         this.memberList = res.data;
+        if (this.memberList.length)
+          this.student = this.memberList[0];
       }).catch(e => {
         console.error(e);
         this.errorMessage = e.message;
       });
+    },
+    selectMember: function(selectedItem, selectedIndex) {
+      this.student = selectedItem;
     },
     getFullname: function (instance) {
       return instance.fullname;

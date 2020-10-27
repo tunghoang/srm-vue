@@ -20,6 +20,6 @@ export default [{
   Newproject('/newproject'),
   Newproject('/newproject/idProject'),
   Addadvisor('/newproject/addadvisor/idProject/:idProject', true),
-  Addmember('/newproject/addmember'),
+  Addmember('/newproject/addmember/idProject/:idProject', true),
   Profilestudent('/profilestudent')
 ];

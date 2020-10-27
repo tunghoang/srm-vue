@@ -11,9 +11,9 @@
                         <input class="input" type="text" placeholder="Find menber" v-model="searchText">
                     </div>
                     <div class="control">
-                        <a class="button is-link">
+                        <button type="submit" class="button is-link">
                             <ion-icon name="search-outline"></ion-icon>
-                        </a>
+                        </button>
                     </div>
                     <div v-if="errorMessage && errorMessage.length" class="control">
                         <div class="button is-borderless is-radiusless has-text-danger">{{errorMessage}}</div>
@@ -22,7 +22,7 @@
                 </form>
             </div>
             <div class="panel-block">
-                <dropdown-list :items="memberList" :item-label-fn="getFullname"> </dropdown-list>
+                <dropdown-list :items="memberList" :item-label-fn="getFullname" :on-select-changed="selectMember"> </dropdown-list>
             </div>
             <div class='field is-grouped pl-3 pt-3 pb-3'>
                 <div class='control'>

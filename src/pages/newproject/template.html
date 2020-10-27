@@ -1,9 +1,11 @@
 <div class='panel'>
   <div class='panel-heading'>
-    New project
+    New project -{{idProject}}-
   </div>
   <div class='panel-block'>
     <div class='container'>
+      <h4 class="has-text-danger has-background-danger-light has-text-centered"
+              v-show="errorMessage && errorMessage.length > 0">{{errorMessage}}</h4>
       <div class="field">
         <label class='label'>Title</label>
         <div class='control'>
@@ -43,7 +45,7 @@
               <li v-for="advisor in advisors" :key="advisor.idProjectAdvisorRel">
                   {{advisor.idAdvisor}} ---{{advisor.idProject}}
                   <a class="ml-2 is-size-7"  @click="deleteAdvisorRel(advisor.idProjectAdvisorRel)">
-                    [x] {{errorMessage}}
+                    [x] 
                     <!-- <ion-icon name="trash-outline"></ion-icon> -->
                   </a>
               </li>
@@ -51,7 +53,7 @@
           </div>
           <div class="column">
             <label class="label">Members</label>
-            <router-link to='/newproject/addmember'>
+            <router-link :to="`/newproject/addmember/idProject/${idProject}`">
               <span>
                 Add members
               </span>

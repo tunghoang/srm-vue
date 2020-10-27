@@ -22,16 +22,27 @@ let component = {
       Semester:{},
     };
   },
-  created: function () {
-    this.dataProject.title = "";
-    this.dataProject.description = "";
-    this.getProject(this.idProject);
-    this.loadDataAdvisor();
-    this.loadDataStudent();
+  created: async function () {
+    if (!this.idProject) return;
+    try {
+      let res = await this.getProject(this.idProject);
+      this.dataProject.title = res.data.title;
+      res = await this.loadDataAdvisor();
+      this.advisors = res.data;
+      res = await this.loadDataStudent();
+      this.members = res.data;
+    }
+    catch (e) {
+      console.error(e);
+      this.errorMessage = e.message;
+    }
   },
   watch: {
     idProject: function (idPrj) {
-      this.getProject(idPrj)
+      this.getProject(idPrj).then(res => {
+        console.log(res.data);
+        this.dataProject.title = res.data.title;
+      }).catch(e => console.error(e));
     }
   },
   methods: {
@@ -69,19 +80,15 @@ let component = {
     },
     //
     loadDataAdvisor: function () {
-      request(config.PROJECT_ADVISOR_RELS_URL).then(res => {
-        this.advisors = res.data;
-      }).catch(e => {
-        console.error(e);
-        this.$router.push('/');
+      console.log("loadDataAdvisor", this.idProject);
+      return request(config.PROJECT_ADVISOR_RELS_URL, "PUT", {
+        idProject:this.idProject
       });
     },
     loadDataStudent: function () {
-      request(config.PROJECT_STUDENT_RELS_URL).then(res => {
-        this.members = res.data;
-      }).catch(e => {
-        console.error(e);
-        this.$router.push('/');
+      console.log("loadDataStudent", this.idProject);
+      return request(config.PROJECT_STUDENT_RELS_URL,"PUT",{
+        idProject: this.idProject
       });
     },
     createProject: function (project) {
@@ -98,8 +105,7 @@ let component = {
         this.loadDataAdvisor();
       }).catch(e => {
         console.error(e);
-        this.errorMessage = 'cant delete AdvisorRel';
-        // this.$router.push('/');
+        this.errorMessage = "deleteAdvisorRel:" + e.message; 
       });
     },
     deleteStudentRel: function (idProjectStudentRel) {
@@ -109,8 +115,7 @@ let component = {
         this.loadDataStudent();
       }).catch(e => {
         console.error(e);
-        // this.errorMessage = 'cant delete studentRel';
-        // this.$router.push('/');
+        this.errorMessage ="deleteStudentRel: " +  e.message;
       });
     },
     getProject: function (idPrj) {
@@ -120,12 +125,9 @@ let component = {
         return;
       }
       this.dataProject.idProject = idPrj;
-      request(config.PROJECT_URL + this.idProject, 'PUT', {
+      return request(config.PROJECT_URL + this.idProject, 'PUT', {
         idProject: this.idProject
-      }).then(res => {
-        console.log(res.data);
-        this.dataProject.title = res.data.title;
-      }).catch(e => console.error(e));
+      });
     },
     listMembers: function () {
       return new Promise((resolve, reject) => {

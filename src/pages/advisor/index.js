@@ -31,23 +31,6 @@ let component = {
         this.$router.push('/');
       });
     },
-    createAdvisor: function(advisorData,event) {
-       console.log('create');
-       event.stopPropagation();
-       event.preventDefault();
-      if(checkErrorEmail(advisorData.email)){
-        this.emailError = true;
-        return
-      }
-      request(config.ADVISOR_URL, 'POST', advisorData).then((res)=>{
-        console.log(res.data);
-        this.tabIdx = 0;
-        this.search(this.searchText, this.searchField);
-      }).catch(e => {
-        console.error(e);
-        this.$router.push('/');
-      });
-    },
     editAdvisor:function(contentEdit,event){
       console.log('editAdvisor');
       event.stopPropagation();

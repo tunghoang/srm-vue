@@ -5,12 +5,13 @@ import request from '../../../apis';
 import config from '../../../config';
 import {isEmailError,isEmpty} from '../../../check-input'
 let component = {
-  props:[],
+  props:["idProject"],
   data: function () {
     return {
       searchText:"",
       errorMessage: "",
       advisorList:[{'fullname':'<No selected>'}],
+      advisor:{}
     };
   },
   created: function () {
@@ -18,8 +19,12 @@ let component = {
   watch:{
   },
   methods: {
+    addAdvisor: function(){
+      console.log('addAdvisor', this.advisor, this.idProject);
+    },
     searchAdvisor: function(searchText){
       console.log(searchText);
+      this.advisor = {};
       if (isEmpty(searchText) ) {
         this.errorMessage = "Search data empty";
         return;
@@ -29,6 +34,8 @@ let component = {
       console.log(data);
       request(config.ADVISOR_URL, 'PUT', data).then(res => {
         this.advisorList = res.data;
+        if (this.advisorList.length > 0)
+          this.advisor = this.advisorList[0];
       }).catch(e => {
         console.error(e);
         this.errorMessage = e.message;
@@ -40,6 +47,10 @@ let component = {
     goBack: function () {
       this.$router.back();
     },
+    selectAdvisor: function(selectedAdvisor, selectedIndex){
+      console.log("selectAdvisor", selectedAdvisor, selectedIndex);
+      this.advisor = selectedAdvisor;
+    }
   },
   template,
   components: {

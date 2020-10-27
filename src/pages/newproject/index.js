@@ -30,6 +30,13 @@ let component = {
     }
   },
   methods: {
+    createProject: function(project) {
+      console.log(project);
+      request(config.PROJECT_URL, "POST", project).then(res => {
+        console.log(res.data);
+        this.$router.replace('/newproject/idProject/' + res.data.idProject);
+      }).catch(e => console.error(e));
+    },
     getProject: function(idPrj){
       if (!idPrj) {
         this.dataProject.title = "";

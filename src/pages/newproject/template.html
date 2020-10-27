@@ -19,8 +19,8 @@
       <div v-if="idProject" class="field">
         <div class="columns">
           <div class="column">
-            <label class="label">Advisor</label>
-            <router-link to='/newproject/addadvisor'>
+            <label class="label">Advisor {{idProject}}</label>
+            <router-link :to="`/newproject/addadvisor/idProject/${idProject}`">
               <span>
                 Add Advisor
               </span>
@@ -56,7 +56,7 @@
       </div>
       <div class='field is-grouped'>
         <div class='control'>
-          <button @click="" class='button is-link'>
+          <button @click="createProject(dataProject)" class='button is-link'>
             <span class="icon">
               <ion-icon name="checkmark-circle"></ion-icon>
             </span>

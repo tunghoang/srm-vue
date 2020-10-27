@@ -19,7 +19,7 @@ export default [{
   Newproject('/newproject/idProject/:idProject', true),
   Newproject('/newproject'),
   Newproject('/newproject/idProject'),
-  Addadvisor('/newproject/addadvisor'),
+  Addadvisor('/newproject/addadvisor/idProject/:idProject', true),
   Addmember('/newproject/addmember'),
   Profilestudent('/profilestudent')
 ];

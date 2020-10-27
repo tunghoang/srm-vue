@@ -18,6 +18,8 @@ let component = {
       advisors: null,
       members: null,
       errorMessage: "",
+      Projecttype:{},
+      Semester:{},
     };
   },
   created: function () {
@@ -33,6 +35,39 @@ let component = {
     }
   },
   methods: {
+    labelSemester: function(semesterItem){
+      return "Học kỳ: " + (semesterItem.semesterIndex +1) + " Năm: " + semesterItem.year;
+    },
+    listSemester: function() {
+      return new Promise((resolve, reject) => {
+        request(config.SEMESTERS_URL).then(res => {
+          resolve([...res.data]);
+        }).catch(e => {
+          reject(e);
+        });
+      })
+    },
+    labelProjecttype: function(projecttype){
+      return projecttype.name;
+    },
+    listProjecttype: function () {
+      return new Promise((resolve, reject) => {
+        request(config.PROJECTTYPE_URL).then(res => {
+          resolve([...res.data]);
+        }).catch(e => {
+          reject(e);
+        });
+      })
+    },
+    selectedProjecttype:function(selectedProjecttype, selectedIndex){
+      console.log("selectProjecttype", selectedProjecttype, selectedIndex);
+      this.Projecttype = selectedProjecttype;
+    },
+    selectedSemester:function(selectedSemester, selectedIndex){
+      console.log("selectSemester", selectedSemester, selectedIndex);
+      this.Semester = selectedSemester;
+    },
+    //
     loadDataAdvisor: function () {
       request(config.PROJECT_ADVISOR_RELS_URL).then(res => {
         this.advisors = res.data;

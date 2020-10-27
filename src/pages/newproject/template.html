@@ -11,6 +11,20 @@
         </div>
       </div>
       <div class="field">
+        <label class='label'>Projecttype</label>
+        <div class='control'>
+          <dropdown-list class="min-width-8" :load-items-fn="listProjecttype" :item-label-fn = "labelProjecttype" :on-select-changed="selectedProjecttype"
+                    ></dropdown-list>
+        </div>
+      </div>
+      <div class="field">
+        <label class='label'>Semester</label>
+        <div class='control'>
+          <dropdown-list class="min-width-8" :load-items-fn="listSemester" :item-label-fn="labelSemester" :on-select-changed="selectedSemester"
+                    ></dropdown-list>
+        </div>
+      </div>
+      <div class="field">
         <label class='label'>Description</label>
         <div class='control'>
           <textarea class='textarea' type='text' v-model="dataProject.description" placeholder='description'></textarea>

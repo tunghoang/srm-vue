@@ -8,6 +8,8 @@ export default {
   ADVISOR_URL: baseUrl + '/advisors/',
   STUDENT_URL: baseUrl + '/students/',
   PROJECT_URL : baseUrl + '/projects/',
+  PROJECT_ADVISOR_RELS_URL : baseUrl + '/projectAdvisorRels/',
+  PROJECT_STUDENT_RELS_URL : baseUrl + '/projectStudentRels/',
   LOGIN_URLS : {
     student: baseUrl + '/studentlogin/',
     advisor: baseUrl + '/advisorlogin/',

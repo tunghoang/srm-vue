@@ -23,6 +23,11 @@ let component = {
     }
     this.selectedIdx = this.selectedIndex || 0;
   },
+  watch: {
+    items: function(values) {
+      this.dataItems = this.items;
+    }
+  },
   methods: {
     itemLabel: function(item) {
       let label = (this.itemLabelFn && this.itemLabelFn(item)) || item;

@@ -1,0 +1,37 @@
+<div class='columns is-centered'>
+    <div class='column is-three-quarters'>
+        <div class='panel'>
+            <div class="panel-heading">
+                Add Member
+            </div>
+            <div class="panel-block">
+                <form @submit="searchStudent(searchText)">
+                   <div class="field has-addons">
+                    <div class="control">
+                        <input class="input" type="text" placeholder="Find menber" v-model="searchText">
+                    </div>
+                    <div class="control">
+                        <button type="submit" class="button is-link">
+                            <ion-icon name="search-outline"></ion-icon>
+                        </button>
+                    </div>
+                    <div v-if="errorMessage && errorMessage.length" class="control">
+                        <div class="button is-borderless is-radiusless has-text-danger">{{errorMessage}}</div>
+                    </div>
+                   </div>
+                </form>
+            </div>
+            <div class="panel-block">
+                <dropdown-list :items="memberList" :item-label-fn="getFullname" :on-select-changed="selectMember"> </dropdown-list>
+            </div>
+            <div class='field is-grouped pl-3 pt-3 pb-3'>
+                <div class='control'>
+                    <button type="submit" class='button is-link' @click="addStudent()">Submit</button>
+                </div>
+                <div class='control'>
+                    <button type="reset" class='button is-link is-light' @click="goBack()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

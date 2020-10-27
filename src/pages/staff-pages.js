@@ -8,5 +8,8 @@ import Quota from './quota';
 import Projecttype from './projecttype';
 import Cookies from 'js-cookie';
 import Newproject from './newproject';
+import Newadvisor from './newadvisor';
 
-export default [{path:'/', redirect:'/student'}, Login, Staff, Student, Advisor, Project('/project'),Semester,Quota,Projecttype,Newproject('/newproject')];
+export default [{path:'/', redirect:'/student'}, Login, Staff, Student, Advisor, Project('/project'),Semester,Quota,Projecttype,Newproject('/newproject'),
+    Newadvisor('/newadvisor')
+];

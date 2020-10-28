@@ -72,8 +72,20 @@ let component = {
     }
   },
   methods: {
+    deleteProject:function(idProject){
+      console.log("deletePrject" , idProject);
+      if (!idProject) return;
+      request(config.PROJECT_URL + idProject,"delete").then(res=>{
+        this.errorMessage= "";
+        this.$router.back();
+        console.log(res.data);
+      }).catch(e=>{
+        console.error(e);
+        this.errorMessage = "Delete error: " + e.response.data.message;
+      });
+    },
     labelSemester: function(semesterItem){
-      return "Học kỳ: " + (semesterItem.semesterIndex +1) + " Năm: " + semesterItem.year;
+      return "HK" + (semesterItem.semesterIndex +1) +" "+ semesterItem.year +"-"+ (semesterItem.year +1);
     },
     listSemester: function() {
       return request(config.SEMESTERS_URL);
@@ -106,25 +118,32 @@ let component = {
     },
     saveProject: function (project) {
       console.log(project);
+      project.status = project.status||'on-going';
       let method = "POST";
       let url = config.PROJECT_URL;
       if (project.idProject) {
         method = 'PUT';
         url = config.PROJECT_URL + project.idProject;
       }
-      request(url, method, project).then(res => {
-        console.log(res.data);
-        let idProject = null;
-        if (method === 'POST') {
-          idProject = res.data.idProject;
-          this.$router.replace('/newproject/idProject/' + idProject);
-        }
-      }).catch(e => console.error(e));
+      if(project.title){
+        request(url, method, project).then(res => {
+          console.log(res.data);
+          this.errorMessage = "";
+          let idProject = null;
+          if (method === 'POST') {
+            idProject = res.data.idProject;
+            this.$router.replace('/newproject/idProject/' + idProject);
+          }
+        }).catch(e => console.error(e));
+      }else{
+        this.errorMessage = "Empty title";
+      }
     },
     deleteAdvisorRel: function (idProjectAdvisorRel) {
       console.log('delete');
       request(config.PROJECT_ADVISOR_RELS_URL + idProjectAdvisorRel, 'DELETE').then(res => {
         console.log(res.data);
+        this.errorMessage = "";
         return this.loadDataAdvisor();
       }).then(res => {
         this.advisors = res.data;
@@ -158,6 +177,7 @@ let component = {
     listMembers: function () {
       return new Promise((resolve, reject) => {
         request(config.STUDENT_URL).then(res => {
+          this.errorMessage = "";
           resolve([{ fullname: "<Not selected>" }, ...res.data]);
         }).catch(e => {
           reject(e);
@@ -167,6 +187,7 @@ let component = {
     listAdvisors: function () {
       return new Promise((resolve, reject) => {
         request(config.ADVISOR_URL).then(res => {
+          this.errorMessage = "";
           resolve([{ fullname: "<Not selected>" }, ...res.data]);
         }).catch(e => {
           reject(e);

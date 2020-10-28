@@ -27,6 +27,7 @@ let component = {
         idProject: this.idProject
       }).then(res => {
         console.log(res.data);
+        this.$router.back();
       }).catch(e=> console.error(e));
     },
     searchStudent: function(searchText){

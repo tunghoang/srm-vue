@@ -9,7 +9,7 @@ let component = {
   data: function () {
     return {
       newproject: null,
-      advisorList: [{ 'fullname': 'abc' }],
+      // advisorList: [{ 'fullname': 'abc' }],
       errorMessage: "",
       dataProject: {
         title: "",
@@ -129,6 +129,7 @@ let component = {
         request(url, method, project).then(res => {
           console.log(res.data);
           this.errorMessage = "";
+          this.$router.back();
           let idProject = null;
           if (method === 'POST') {
             idProject = res.data.idProject;

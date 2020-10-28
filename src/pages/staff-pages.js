@@ -10,6 +10,8 @@ import Cookies from 'js-cookie';
 import Newproject from './newproject';
 import Newadvisor from './newadvisor';
 
-export default [{path:'/', redirect:'/student'}, Login, Staff, Student, Advisor, Project('/project'),Semester,Quota,Projecttype,Newproject('/newproject'),
-    Newadvisor('/newadvisor')
+export default [{path:'/', redirect:'/student'}, Login, Staff, Student, Advisor, Project('/project'),Semester,Quota,Projecttype,
+Newproject('/newproject'),
+Newadvisor('/newadvisor'),
+Newproject('/newproject/idProject/:idProject', true),
 ];

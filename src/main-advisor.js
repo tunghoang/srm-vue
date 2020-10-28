@@ -56,6 +56,9 @@ new Vue({
           });
           return true;
         }
+        else {
+          this.idAdvisor = jwtData.idAdvisor;
+        }
         this.username = jwtData.fullname;
       }
       else {

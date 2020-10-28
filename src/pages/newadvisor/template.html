@@ -1,39 +1,41 @@
 <div class='column '>
-    <form @submit="createAdvisor(advisorData,$event)">
+    <form @submit="createAdvisor(dataAdvisor,$event)">
         <div class='panel'>
             <div class='panel-heading'>
                 New GuestAdvisor
             </div>
             <div class='panel-block'>
                 <div class='container'>
+                    <h4 class="has-text-danger has-background-danger-light has-text-centered"
+                            v-show="errorMessage && errorMessage.length > 0">{{errorMessage}}</h4>
                     <div class=field>
                         <label class='label'>Email</label>
                         <div class='control'>
-                            <input class='input' type='text' placeholder='email' >
+                            <input class='input' type='text' v-model="dataAdvisor.email" placeholder='email' >
                         </div>
                     </div>
                     <div class=field>
                         <label class='label'>Fullname</label>
                         <div class='control'>
-                            <input class='input' type='text'  placeholder='fullname'>
+                            <input class='input' type='text' v-model="dataAdvisor.fullname" placeholder='fullname'>
                         </div>
                     </div>
                     <div class=field>
                         <label class='label'>Affliation</label>
                         <div class='control'>
-                            <input class='input' type='text'  placeholder='Affliation'>
+                            <input class='input' type='text' v-model="dataAdvisor.affiliation"  placeholder='Affliation'>
                         </div>
                     </div>
                     <div class=field>
                         <label class='label'>Password</label>
                         <div class='control'>
-                            <input class='input' type='password'  placeholder='password'>
+                            <input class='input' type='password' v-model="dataAdvisor.password" placeholder='password'>
                         </div>
                     </div>
                     <div class=field>
                         <label class='label'>Confirm password</label>
                         <div class='control'>
-                            <input class='input' type='password' placeholder='Confirm'>
+                            <input class='input' type='password' v-model="comfirmPassword" placeholder='Confirm'>
                         </div>
                     </div>
                     <div class='field is-grouped'>
@@ -46,7 +48,7 @@
                             </button>
                         </div>
                         <div class='control'>
-                            <button class='button is-link is-light'>
+                            <button class='button is-link is-light' @click="goBack()">
                                 <span class="icon">
                                     <ion-icon name="arrow-back-circle"></ion-icon>
                                 </span>

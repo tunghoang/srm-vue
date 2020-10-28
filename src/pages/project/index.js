@@ -16,8 +16,10 @@ let component = {
       currentProjectId:null,
       emailError:false,
       searchText:"",
-      searchField: "title",
-      errorMessage: ""
+      searchStatus:"",
+      searchSemester:"",
+      searchAdvisor:"",
+      errorMessage: "",
     };
   },
   created: function() {
@@ -78,26 +80,49 @@ let component = {
       });
     },
     
-    searchFieldChanged: function(selectedItem, selectedIdx) {
-      this.searchField = selectedItem.toLowerCase();
+    search: function(searchText,searchSemester,searchAdvisor,searchStatus){
+      console.log(searchText,searchSemester,searchAdvisor);
+      if (!isEmpty(searchText)) {
+        let data = {["title"]: searchText};
+        request(config.PROJECT_URL, 'PUT', data).then(res => {
+          this.contents = res.data;
+          return
+        }).catch(e => {
+          console.error(e);
+          this.errorMessage = e.message;
+        });
+      }     
+      if (!isEmpty(searchSemester)) {
+        let data = {["year"]: searchSemester};
+        console.log(data);
+        request(config.PROJECT_URL, 'PUT', data).then(res => {
+          console.log(res.data);
+          this.contents = res.data;
+          return
+        }).catch(e => {
+          console.error(e);
+          this.errorMessage = e.message;
+        });
+      }     
+      if (!isEmpty(searchStatus)) {
+        if(searchStatus==1){
+          let data = {["status"]: "on-going"};
+          console.log(data);
+          request(config.PROJECT_URL, 'PUT', data).then(res => {
+            console.log(res.data);
+            this.contents = res.data;
+            return
+          }).catch(e => {
+            console.error(e);
+            this.errorMessage = e.message;
+          });
+        }
+      }     
     },
-    search: function(searchText, searchField){
-      console.log(searchText, searchField);
-      if (isEmpty(searchText) || isEmpty(searchField)) {
-        this.errorMessage = "Search data empty";
-        return;
-      }
-      this.errorMessage = "";
-      let data = {[searchField]: searchText};
-      console.log(data);
-      request(config.PROJECT_URL, 'PUT', data).then(res => {
-        console.log(res.data);
-        this.contents = res.data;
-      }).catch(e => {
-        console.error(e);
-        this.errorMessage = e.message;
-      });
-    }
+    selectChanged: function(selectedItem, selectedIdx) {
+      console.log("selectInte" + selectedItem);
+      this.searchStatus = selectedIdx
+    },
   },
   
   template,

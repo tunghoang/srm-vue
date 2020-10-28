@@ -2,16 +2,30 @@
     <div>{{idStudent}} {{idAdvisor}} {{idSemester}} {{idProjecttype}} {{status}} </div>
     <div v-if="tabIdx == 0">
         <div v-if="!idAdvisor && !idStudent" class="level m-0">
-            <form @submit="search(searchText, searchField)">
+            <form @submit="search(searchText,searchSemester,searchAdvisor,searchStatus)">
                 <div class="level-left">
                     <div class="field has-addons">
                         <div class="level-item">
                             <p class="control">
-                                <dropdown-list class="min-width-8" :items='["title","status"]'
-                                    :on-select-changed="searchFieldChanged"></dropdown-list>
+                                <h2>Search by</h2>
+                            </p>
+                            <p class="control ml-2">
+                                <input class="input" type="text" placeholder="Title project" v-model="searchText">
                             </p>
                             <p class="control">
-                                <input class="input" type="text" placeholder="Find project" v-model="searchText">
+                                <input class="input" type="text" placeholder="Semester" v-model="searchSemester" >
+                            </p>
+                            <p class="control">
+                                <input class="input" type="text" placeholder="Advisor" v-model="searchAdvisor" >
+                            </p>
+                            <p class="control">
+                                <dropdown-list class="min-width-8" :items="['--status--','on-going','finish']" 
+                                :on-select-changed="(selectedItem, selectedIndex) => searchStatus = selectedIndex"
+                                :selected-index='searchStatus'></dropdown-list>
+                            </p>
+                            <p class="control">
+                                <dropdown-list class="min-width-10" :items="['--project type--','Khóa luận','Dự án']"  
+                                ></dropdown-list>
                             </p>
                             <p class="control">
                                 <button type="submit" class="button is-link">

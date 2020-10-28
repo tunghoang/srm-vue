@@ -8,6 +8,15 @@ let component = {
   props: [],
   data: function () {
     return {
+      errorMessage:"",
+      comfirmPassword:"",
+      dataAdvisor:{
+        idGuestadvisor: 0,
+        email: "",
+        fullname: "",
+        affiliation: "",
+        password: ""
+      },
     };
   },
   created: function () {
@@ -15,6 +24,30 @@ let component = {
   watch: {
   },
   methods: {
+    loadData: function() {
+      request(config.GUESTADVISOR_URL).then(res => {
+        this.dataAdvisor = res.data.sort((item1, item2) => (item2.idGuestadvisor - item1.idGuestadvisor));
+      }).catch(e => {
+        console.error(e);
+        this.$router.push('/');
+      });
+    },
+    createAdvisor: function(dataAdvisor) {
+      if (dataAdvisor.password != this.comfirmPassword){
+         this.errorMessage="Input password invalid ";
+        return;
+      }
+      request(config.GUESTADVISOR_URL, 'POST', dataAdvisor).then((res)=>{
+        console.log(res.data);
+        this.loadData();
+      }).catch(e => {
+        // this.errorMessage="Input invalid";
+        console.error(e);
+      });
+    },
+    goBack: function(){
+      this.$router.back();
+    },
   },
   template,
   components: {

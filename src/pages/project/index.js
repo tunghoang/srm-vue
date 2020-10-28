@@ -27,6 +27,10 @@ let component = {
     this.loadData();
   },
   methods: {
+    semesterLabel: function(prj){
+      console.log(prj);
+      return `HK${prj.semesterIndex + 1} ${prj.year}-${prj.year + 1}`;
+    },
     loadData: function() {
       let criteria = {};
       if (this.idAdvisor) {

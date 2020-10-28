@@ -53,28 +53,26 @@
                 <tbody>
                     <tr v-for="content in contents" :key="content.idProject">
                         <td>{{content.title}}</td>
-                        <td>{{content.idSemester}}</td>
+                        <td>{{semesterLabel(content)}}</td>
                         <td></td>
                         <td>{{content.status}}</td>
                         <td>{{content.grade}}</td>
                         <td>
-                            <span class="Edit" @click="tabIdx=2; contentEdit = content">
-                                <a href="#">
-                                    <ion-icon name="create-outline"></ion-icon>
-                                </a>
-                            </span>
-                            <span class="Delete" @click="currentProjectId = content.idProject;tabIdx = 3;">
+                            <router-link :to="`/newproject/idProject/${content.idProject}`">
+                                <ion-icon name="create-outline"></ion-icon>
+                            </router-link>
+                            <!-- <span class="Delete" @click="currentProjectId = content.idProject;tabIdx = 3;">
                                 <a href="#" class="has-text-danger">
                                     <ion-icon name="trash-outline"></ion-icon>
                                 </a>
-                            </span>
+                            </span> -->
                         </td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </div>
-    <div class="card m-4 p-4 border-redish" v-if="tabIdx === 3">
+    <!-- <div class="card m-4 p-4 border-redish" v-if="tabIdx === 3">
         <h2 class="is-size-5 has-text-danger">Are you sure?</h2>
         <div class="field is-grouped is-grouped-right">
             <button class="button is-link is-danger" @click="deleteProject(currentProjectId)">
@@ -90,8 +88,8 @@
                 <span>Back</span>
             </button>
         </div>
-    </div>
-    <div v-if="tabIdx === 2">
+    </div> -->
+    <!-- <div v-if="tabIdx === 2">
         <div class='column '>
             <form @submit="editProject(contentEdit)">
                 <div class='panel'>
@@ -146,5 +144,5 @@
                 </div>
             </form>
         </div>
-    </div>
+    </div> -->
 </div>

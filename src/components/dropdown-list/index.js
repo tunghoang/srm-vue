@@ -26,6 +26,9 @@ let component = {
   watch: {
     items: function(values) {
       this.dataItems = this.items;
+    },
+    selectedIndex: function(value) {
+      this.selectedIdx = this.selectedIndex;
     }
   },
   methods: {

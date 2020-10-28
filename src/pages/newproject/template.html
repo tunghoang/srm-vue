@@ -15,14 +15,14 @@
       <div class="field">
         <label class='label'>Projecttype</label>
         <div class='control'>
-          <dropdown-list class="min-width-8" :load-items-fn="listProjecttype" :item-label-fn = "labelProjecttype" :on-select-changed="selectedProjecttype"
+          <dropdown-list class="min-width-8" :items="projecttypes" :selected-index="projecttypeSelectedIdx" :item-label-fn = "labelProjecttype" :on-select-changed="selectedProjecttype"
                     ></dropdown-list>
         </div>
       </div>
       <div class="field">
         <label class='label'>Semester</label>
         <div class='control'>
-          <dropdown-list class="min-width-8" :load-items-fn="listSemester" :item-label-fn="labelSemester" :on-select-changed="selectedSemester"
+          <dropdown-list class="min-width-8" :items="semesters" :selected-index="semesterSelectedIdx" :item-label-fn="labelSemester" :on-select-changed="selectedSemester"
                     ></dropdown-list>
         </div>
       </div>
@@ -43,8 +43,8 @@
             </router-link>
             <ul class="item-list">
               <li v-for="advisor in advisors" :key="advisor.idProjectAdvisorRel">
-                  {{advisor.idAdvisor}} ---{{advisor.idProject}}
-                  <a class="ml-2 is-size-7"  @click="deleteAdvisorRel(advisor.idProjectAdvisorRel)">
+                  {{advisor.fullname}}
+                  <a class="ml-2 is-size-7"  @click="deleteAdvisorRel(advisor.idProjectadvisorrel)">
                     [x] 
                     <!-- <ion-icon name="trash-outline"></ion-icon> -->
                   </a>
@@ -60,8 +60,8 @@
             </router-link>
             <ul class="item-list">
               <li v-for="member in members" :key="member.idProjectStudentRel">
-                   {{member.idStudent}}---{{member.idProject}} 
-                  <a class="ml-2 is-size-7"  @click="deleteStudentRel(member.idProjectStudentRel)">
+                   {{member.fullname}} ({{member.studentNumber}}) 
+                  <a class="ml-2 is-size-7" @click="deleteStudentRel(member.idProjectstudentrel)">
                     [x]
                   </a>
               </li>
@@ -71,7 +71,7 @@
       </div>
       <div class='field is-grouped'>
         <div class='control'>
-          <button @click="createProject(dataProject)" class='button is-link'>
+          <button @click="saveProject(dataProject)" class='button is-link'>
             <span class="icon">
               <ion-icon name="checkmark-circle"></ion-icon>
             </span>

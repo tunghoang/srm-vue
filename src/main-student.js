@@ -58,7 +58,7 @@ new Vue({
           return true;
         }
         this.username = jwtData.fullname;
-        this.idStudent = jwtData.fullname;
+        this.idStudent = jwtData.idStudent;;
       }
       else {
         this.$router.replace('/login/student');

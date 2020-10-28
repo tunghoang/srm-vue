@@ -1,7 +1,7 @@
 <div class="rows">
     <div>{{idStudent}} {{idAdvisor}} {{idSemester}} {{idProjecttype}} {{status}}</div>
     <div v-if="tabIdx == 0">
-        <div class="level m-0">
+        <div v-if="!idAdvisor && !idStudent" class="level m-0">
             <div class="level-left has-addons">
                 <div class="level-item">
                     <p class="control">
@@ -16,14 +16,11 @@
                             <ion-icon name="search-outline"></ion-icon>
                         </a>
                     </p>
-                    <p v-if="errorMessage && errorMessage.length" class="control">
-                    <div class="button is-borderless is-radiusless has-text-danger">{{errorMessage}}</div>
-                    </p>
                 </div>
             </div>
             <div v-if="idStudent" class="level-right">
                 <div class="level-item">
-                    <router-link class="button" to='/newproject/idProject/1'>
+                    <router-link class="button" to='/newproject'>
                         <span class="icon">
                             <ion-icon name="add-outline"></ion-icon>
                         </span>
@@ -35,6 +32,9 @@
             </div>
         </div>
         <div class="column">
+            <p v-if="errorMessage && errorMessage.length" class="control">
+              <div class="has-text-centered has-text-danger has-background-danger-light">{{errorMessage}}</div>
+            </p>
             <table class="table is-fullwidth has-text-centered">
                 <thead>
                     <tr>

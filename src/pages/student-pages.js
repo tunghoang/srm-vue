@@ -9,7 +9,7 @@ import Projecttype from './projecttype';
 import project from './project';
 import Newproject from './newproject';
 import Profilestudent from './profilestudent';
-import Addadvisor from './newproject/addAdvisor';
+import Addadvisor from './newproject/addadvisor';
 import Addmember from './newproject/addmember';
 
 export default [{

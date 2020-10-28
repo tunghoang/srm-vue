@@ -21,15 +21,33 @@ let component = {
     };
   },
   created: function() {
-    //this.loadData();
+    if (this.idStudent || this.idAdvisor) {
+      this.loadData();
+    }
   },
   methods: {
     loadData: function() {
-      request(config.PROJECT_URL, 'GET').then(res => {
+      let criteria = {};
+      if (this.idAdvisor) {
+        criteria.idAdvisor = this.idAdvisor;
+      }
+      if (this.idStudent) {
+        criteria.idStudent = this.idStudent;
+      }
+      if (this.idSemester) {
+        criteria.idSemester = this.idSemester;
+      }
+      if (this.idProjecttype) {
+        criteria.idProjecttype = this.idProjecttype;
+      }
+      if (this.status) {
+        //criteria.status = this.status;
+      }
+      request(config.PROJECT_URL, 'PUT', criteria).then(res => {
         this.contents = res.data.sort((item1, item2) => (item2.idProject - item1.idProject));
       }).catch(e => {
         console.error(e);
-        this.$router.push('/');
+        this.errorMessage = e.response.data.message;
       });
     },
     editProject:function(contentEdit){

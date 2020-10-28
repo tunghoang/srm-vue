@@ -13,20 +13,46 @@ let component = {
       errorMessage: "",
       dataProject: {
         title: "",
-        description: ""
+        description: "",
+        idSemester: null,
+        idProjecttype: null
       },
+      semesterSelectedIdx: 0,
+      projecttypeSelectedIdx: 0,
       advisors: null,
       members: null,
       errorMessage: "",
-      Projecttype:{},
-      Semester:{},
+      projecttypes: [],
+      semesters: []
     };
   },
   created: async function () {
-    if (!this.idProject) return;
     try {
-      let res = await this.getProject(this.idProject);
-      this.dataProject.title = res.data.title;
+      let res = await this.listSemester();
+      this.semesters = res.data;
+      if (this.semesters.length > 0) {
+        this.dataProject.idSemester = this.semesters[0].idSemester;
+        this.semesterSelectedIdx = 0;
+      }
+      else {
+        this.dataProject.idSemester = null;
+      }
+      res = await this.listProjecttype();
+      this.projecttypes = res.data;
+      if (this.projecttypes.length > 0) {
+        this.dataProject.idProjecttype = this.projecttypes[0].idProjecttype;
+        this.projecttypeSelectedIdx = 0;
+      }
+      else {
+        this.dataProject.idSemester = null;
+      }
+
+      if (!this.idProject) return;
+      res = await this.getProject(this.idProject);
+      this.dataProject = res.data;
+      this.semesterSelectedIdx = this.semesters.findIndex(item => item.idSemester == this.dataProject.idSemester);
+      this.projecttypeSelectedIdx = this.projecttypes.findIndex(item => item.idProjecttype == this.dataProject.idProjecttype);
+
       res = await this.loadDataAdvisor();
       this.advisors = res.data;
       res = await this.loadDataStudent();
@@ -50,33 +76,20 @@ let component = {
       return "Học kỳ: " + (semesterItem.semesterIndex +1) + " Năm: " + semesterItem.year;
     },
     listSemester: function() {
-      return new Promise((resolve, reject) => {
-        request(config.SEMESTERS_URL).then(res => {
-          resolve([...res.data]);
-        }).catch(e => {
-          reject(e);
-        });
-      })
+      return request(config.SEMESTERS_URL);
     },
     labelProjecttype: function(projecttype){
       return projecttype.name;
     },
     listProjecttype: function () {
-      return new Promise((resolve, reject) => {
-        request(config.PROJECTTYPE_URL).then(res => {
-          resolve([...res.data]);
-        }).catch(e => {
-          reject(e);
-        });
-      })
+      return request(config.PROJECTTYPE_URL);
     },
     selectedProjecttype:function(selectedProjecttype, selectedIndex){
       console.log("selectProjecttype", selectedProjecttype, selectedIndex);
-      this.Projecttype = selectedProjecttype;
+      this.dataProject.idProjecttype = selectedProjecttype.idProjecttype;
     },
     selectedSemester:function(selectedSemester, selectedIndex){
-      console.log("selectSemester", selectedSemester, selectedIndex);
-      this.Semester = selectedSemester;
+      this.dataProject.idSemester = selectedSemester.idSemester;
     },
     //
     loadDataAdvisor: function () {
@@ -91,31 +104,44 @@ let component = {
         idProject: this.idProject
       });
     },
-    createProject: function (project) {
+    saveProject: function (project) {
       console.log(project);
-      request(config.PROJECT_URL, "POST", project).then(res => {
+      let method = "POST";
+      let url = config.PROJECT_URL;
+      if (project.idProject) {
+        method = 'PUT';
+        url = config.PROJECT_URL + project.idProject;
+      }
+      request(url, method, project).then(res => {
         console.log(res.data);
-        this.$router.replace('/newproject/idProject/' + res.data.idProject);
+        let idProject = null;
+        if (method === 'POST') {
+          idProject = res.data.idProject;
+          this.$router.replace('/newproject/idProject/' + idProject);
+        }
       }).catch(e => console.error(e));
     },
     deleteAdvisorRel: function (idProjectAdvisorRel) {
       console.log('delete');
-      request(config.PROJECT_ADVISOR_RELS_URL + idProjectAdvisorRel, 'delete').then(res => {
+      request(config.PROJECT_ADVISOR_RELS_URL + idProjectAdvisorRel, 'DELETE').then(res => {
         console.log(res.data);
-        this.loadDataAdvisor();
+        return this.loadDataAdvisor();
+      }).then(res => {
+        this.advisors = res.data;
       }).catch(e => {
         console.error(e);
-        this.errorMessage = "deleteAdvisorRel:" + e.message; 
+        this.errorMessage = e.response.data.message;
       });
     },
     deleteStudentRel: function (idProjectStudentRel) {
-      console.log('delete');
       request(config.PROJECT_STUDENT_RELS_URL + idProjectStudentRel, 'delete').then(res => {
         console.log(res.data);
-        this.loadDataStudent();
+        return this.loadDataStudent();
+      }).then(res => {
+        this.members = res.data;
       }).catch(e => {
         console.error(e);
-        this.errorMessage ="deleteStudentRel: " +  e.message;
+        this.errorMessage = "deleteStudentRel: " +  e.response.data.message;
       });
     },
     getProject: function (idPrj) {

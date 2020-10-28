@@ -1,24 +1,27 @@
 <div class="rows">
-    <div>{{idStudent}} {{idAdvisor}} {{idSemester}} {{idProjecttype}} {{status}}</div>
+    <div>{{idStudent}} {{idAdvisor}} {{idSemester}} {{idProjecttype}} {{status}} </div>
     <div v-if="tabIdx == 0">
         <div v-if="!idAdvisor && !idStudent" class="level m-0">
-            <div class="level-left has-addons">
-                <div class="level-item">
-                    <p class="control">
-                        <dropdown-list class="min-width-8" :items='["title","status"]'
-                            :on-select-changed="searchFieldChanged"></dropdown-list>
-                    </p>
-                    <p class="control">
-                        <input class="input" type="text" placeholder="Find project" v-model="searchText">
-                    </p>
-                    <p class="control">
-                        <a class="button is-link" @click="search(searchText, searchField)">
-                            <ion-icon name="search-outline"></ion-icon>
-                        </a>
-                    </p>
+            <form @submit="search(searchText, searchField)">
+                <div class="level-left">
+                    <div class="field has-addons">
+                        <div class="level-item">
+                            <p class="control">
+                                <dropdown-list class="min-width-8" :items='["title","status"]'
+                                    :on-select-changed="searchFieldChanged"></dropdown-list>
+                            </p>
+                            <p class="control">
+                                <input class="input" type="text" placeholder="Find project" v-model="searchText">
+                            </p>
+                            <p class="control">
+                                <button type="submit" class="button is-link">
+                                    <ion-icon name="search-outline"></ion-icon>
+                                </button>
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </form>
-            
             <div v-if="idStudent" class="level-right">
                 <div class="level-item">
                     <router-link class="button" to='/newproject'>
@@ -34,13 +37,15 @@
         </div>
         <div class="column">
             <p v-if="errorMessage && errorMessage.length" class="control">
-              <div class="has-text-centered has-text-danger has-background-danger-light">{{errorMessage}}</div>
+            <div class="has-text-centered has-text-danger has-background-danger-light">{{errorMessage}}</div>
             </p>
             <table class="table is-fullwidth has-text-centered">
                 <thead>
                     <tr>
                         <th>Title</th>
+                        <th>Semester</th>
                         <th>Description</th>
+                        <th>Status</th>
                         <th>Grade</th>
                         <th>Action</th>
                     </tr>
@@ -48,7 +53,9 @@
                 <tbody>
                     <tr v-for="content in contents" :key="content.idProject">
                         <td>{{content.title}}</td>
+                        <td>{{content.idSemester}}</td>
                         <td></td>
+                        <td>{{content.status}}</td>
                         <td>{{content.grade}}</td>
                         <td>
                             <span class="Edit" @click="tabIdx=2; contentEdit = content">
@@ -86,7 +93,7 @@
     </div>
     <div v-if="tabIdx === 2">
         <div class='column '>
-            <form>
+            <form @submit="editProject(contentEdit)">
                 <div class='panel'>
                     <div class='panel-heading'>
                         Edit Project
@@ -107,18 +114,18 @@
                             <div class="field">
                                 <label class='label'>description</label>
                                 <div class='control'>
-                                    <input class='input' type='text' v-model='contentEdit.description'>
+                                    <input class='input' type='text'>
                                 </div>
                             </div>
                             <div class="field">
-                                <label class='label'>advisor</label>
+                                <label class='label'>status</label>
                                 <div class='control'>
-                                    <input class='input' type='text'>
+                                    <input class='input' type='text' v-model='contentEdit.status'>
                                 </div>
                             </div>
                             <div class='field is-grouped'>
                                 <div class='control'>
-                                    <button @click="editAdvisor(contentEdit)" class='button is-link'>
+                                    <button tyoe="submit" class='button is-link'>
                                         <span class="icon">
                                             <ion-icon name="checkmark-circle"></ion-icon>
                                         </span>

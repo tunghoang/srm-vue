@@ -21,9 +21,10 @@ let component = {
     };
   },
   created: function() {
-    if (this.idStudent || this.idAdvisor) {
-      this.loadData();
-    }
+    // if (this.idStudent || this.idAdvisor) {
+    //   this.loadData();
+    // }
+    this.loadData();
   },
   methods: {
     loadData: function() {
@@ -69,7 +70,7 @@ let component = {
         this.tabIdx = 0;
       }).catch(e => {
         console.error(e);
-        this.$router.push('/');
+        // this.$router.push('/');
       });
     },
     

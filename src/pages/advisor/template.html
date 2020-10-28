@@ -88,70 +88,6 @@
             </button>
         </div>
     </div>
-    <!-- <div v-if="tabIdx == 1">
-        <div class='column '>
-            <form @submit="createAdvisor(advisorData,$event)">
-                <div class='panel'>
-                    <div class='panel-heading'>
-                        New GuestAdvisor
-                    </div>
-                    <div class='panel-block'>
-                        <div class='container'>
-                            <div class=field>
-                                <label class='label'>Email</label>
-                                <div class='control'>
-                                    <input class='input' type='text' placeholder='email' @focus="emailError=false">
-                                    <small v-if="emailError" class="has-text-danger">Invalid Email</small>
-                                </div>
-                            </div>
-                            <div class=field>
-                                <label class='label'>Fullname</label>
-                                <div class='control'>
-                                    <input class='input' type='text' placeholder='fullname'>
-                                </div>
-                            </div>
-                            <div class=field>
-                                <label class='label'>Affliation</label>
-                                <div class='control'>
-                                    <input class='input' type='text' placeholder='Affliation'>
-                                </div>
-                            </div>
-                            <div class=field>
-                                <label class='label'>Password</label>
-                                <div class='control'>
-                                    <input class='input' type='password' placeholder='password'>
-                                </div>
-                            </div>
-                            <div class=field>
-                                <label class='label'>Confirm password</label>
-                                <div class='control'>
-                                    <input class='input' type='password' placeholder='Confirm'>
-                                </div>
-                            </div>
-                            <div class='field is-grouped'>
-                                <div class='control'>
-                                    <button type="submit" class='button is-link'>
-                                        <span class="icon">
-                                            <ion-icon name="checkmark-circle"></ion-icon>
-                                        </span>
-                                        <span>Submit</span>
-                                    </button>
-                                </div>
-                                <div class='control'>
-                                    <button class='button is-link is-light' @click='tabIdx=0;'>
-                                        <span class="icon">
-                                            <ion-icon name="arrow-back-circle"></ion-icon>
-                                        </span>
-                                        <span>Back</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div> -->
 
     <div v-if="tabIdx === 2">
         <div class='column'>
@@ -179,7 +115,7 @@
                             <div class="field">
                                 <label class='label'>Quota</label>
                                 <div class='control'>
-                                    <dropdown-list :items="['postdoc-quota','phd-quota','assoprof-quota']"
+                                    <dropdown-list :items="['0','1','2']"
                                         :on-select-changed="(selectedItem, selectedIndex) => contentEdit.idQuota = selectedIndex"
                                         :selected-index="contentEdit.idQuota"></dropdown-list>
                                 </div>

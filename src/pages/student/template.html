@@ -1,22 +1,24 @@
 <div class="rows">
     <div v-if="tabIdx == 0">
-        <div class="field has-addons m-0">
-            <p class="control">
-                <dropdown-list class="min-width-8" :items='["Email","Fullname"]'
-                    :on-select-changed="searchFieldChanged"></dropdown-list>
-            </p>
-            <p class="control">
-                <input class="input" type="text" placeholder="Find student" v-model="searchText">
-            </p>
-            <p class="control">
-                <a class="button is-link" @click="search(searchText, searchField)">
-                    <ion-icon name="search-outline"></ion-icon>
-                </a>
-            </p>
-            <p v-if="errorMessage && errorMessage.length" class="control">
-            <div class="button is-borderless is-radiusless has-text-danger">{{errorMessage}}</div>
-            </p>
-        </div>
+        <form @submit="search(searchText, searchField)">
+            <div class="field has-addons m-0">
+                <p class="control">
+                    <dropdown-list class="min-width-8" :items='["Email","Fullname"]'
+                        :on-select-changed="searchFieldChanged"></dropdown-list>
+                </p>
+                <p class="control">
+                    <input class="input" type="text" placeholder="Find student" v-model="searchText">
+                </p>
+                <p class="control">
+                    <button class="button is-link" >
+                        <ion-icon name="search-outline"></ion-icon>
+                    </button>
+                </p>
+                <p v-if="errorMessage && errorMessage.length" class="control">
+                <div class="button is-borderless is-radiusless has-text-danger">{{errorMessage}}</div>
+                </p>
+            </div>
+        </form>
         <div class="column">
             <table class="table is-fullwidth has-text-centered">
                 <thead>

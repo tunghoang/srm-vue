@@ -1,23 +1,28 @@
 <div class="rows">
     <div v-if="tabIdx == 0">
         <div class="level m-0">
-            <div class="level-left has-addons">
-                <p class="control">
-                    <dropdown-list class="min-width-8" :items='["Email","Fullname"]'
-                        :on-select-changed="searchFieldChanged"></dropdown-list>
-                </p>
-                <p class="control">
-                    <input class="input" type="text" placeholder="Find advisor" v-model="searchText">
-                </p>
-                <p class="control">
-                    <a class="button is-link" @click="search(searchText, searchField)">
-                        <ion-icon name="search-outline"></ion-icon>
-                    </a>
-                </p>
-                <p v-if="errorMessage && errorMessage.length" class="control">
-                <div class="button is-borderless is-radiusless has-text-danger">{{errorMessage}}</div>
-                </p>
-            </div>
+            <form  @submit="search(searchText, searchField)">
+                <div class="level-left">
+                    <div class="field has-addons">
+                        <p class="control">
+                            <dropdown-list class="min-width-8" :items='["Email","Fullname"]'
+                                :on-select-changed="searchFieldChanged"></dropdown-list>
+                        </p>
+                        <p class="control">
+                            <input class="input" type="text" placeholder="Find advisor" v-model="searchText">
+                        </p>
+                        <p class="control">
+                            <button class="button is-link">
+                                <ion-icon name="search-outline"></ion-icon>
+                            </button>
+                        </p>
+                        <p v-if="errorMessage && errorMessage.length" class="control">
+                        <div class="button is-borderless is-radiusless has-text-danger">{{errorMessage}}</div>
+                        </p>
+                    </div>
+                </div>
+            </form>
+            
             <div class="level-right">
                 <a class="button">
                     <router-link to="../newadvisor">
@@ -35,7 +40,7 @@
                     <tr>
                         <th>Email</th>
                         <th>Fullname</th>
-                        <th>idQuota</th>
+                        <th>Quota</th>
                         <th>idGuestadvisor</th>
                         <th>Edit</th>
                         <th>Delete</th>
@@ -172,9 +177,11 @@
                                 </div>
                             </div>
                             <div class="field">
-                                <label class='label'>idQuota</label>
+                                <label class='label'>Quota</label>
                                 <div class='control'>
-                                    <input class='input' type='text' v-model='contentEdit.idQuota'>
+                                    <dropdown-list :items="['postdoc-quota','phd-quota','assoprof-quota']"
+                                        :on-select-changed="(selectedItem, selectedIndex) => contentEdit.idQuota = selectedIndex"
+                                        :selected-index="contentEdit.idQuota"></dropdown-list>
                                 </div>
                             </div>
                             <div class="field">

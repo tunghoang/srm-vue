@@ -51,8 +51,8 @@ let component = {
       });
     },
     editProject:function(contentEdit){
-      console.log('editAdvisor');
-      request(config.PROJECT_URL + contentEdit.idAdvisor, 'PUT', contentEdit).then(res=>{
+      console.log('editProject');
+      request(config.PROJECT_URL + contentEdit.idProject, 'PUT', contentEdit).then(res=>{
         console.log(res.data);
         this.tabIdx = 0;
         this.search(this.searchText, this.searchField);

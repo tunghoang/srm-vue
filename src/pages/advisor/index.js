@@ -38,10 +38,11 @@ let component = {
       request(config.ADVISOR_URL + contentEdit.idAdvisor, 'PUT', contentEdit).then(res=>{
         console.log(res.data);
         this.tabIdx = 0;
-        this.search(this.searchText, this.searchField);
+        this.loadData();
+        // this.search(this.searchText, this.searchField);
       }).catch(e => {
         console.error(e);
-        this.$router.push('/');
+        // this.$router.push('/');
       });
     },
     deleteAdvisor: function(idAdvisor) {
@@ -75,7 +76,11 @@ let component = {
         console.error(e);
         this.errorMessage = e.message;
       });
-    }
+    },
+    selectChanged: function(selectedItem, selectedIdx) {
+      console.log("selectInte" + selectedItem);
+      this.advisorData.idQuota = selectedIdx
+    },
   },
   
   template,

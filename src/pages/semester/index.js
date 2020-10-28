@@ -70,7 +70,7 @@ let component = {
       });
     },
     selectChanged: function(selectedItem, selectedIdx) {
-      console.log(selectedItem);
+      console.log("selectInte" + selectedItem);
       this.semesterData.semesterIndex = selectedIdx
     },
   },

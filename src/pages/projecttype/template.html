@@ -1,14 +1,17 @@
   
 <div class="rows">
-    <div class="tabs is-medium">
-        <ul>
-            <li>
-                <a @click="tabIdx = 0;">List projecttype</a>
-            </li>
-            <li>
-                <a @click="tabIdx = 1;">New projecttype</a> 
-            </li>
-        </ul>
+    <div class="level">
+        <div class="level-left ml-4" v-show="tabIdx==0">
+            <p class="is-size-5">List Projectypte</p>
+        </div>
+        <div class="level-right">
+            <a class="button"  @click="tabIdx = 1;" v-show="tabIdx==0">
+                <span class="icon">
+                    <ion-icon name="add-outline"></ion-icon>
+                </span>
+                <span> New Projecttype</span>
+            </a>
+        </div>
     </div>
     <div v-if="tabIdx === 0">
         <div v-for="content in contents" class="column" :key="content.idProjecttype">
@@ -56,26 +59,25 @@
     </div>
     <div v-if="tabIdx === 1">
         <div class='column '>
-            <form @submit="createProjecttype(contentEdit)">
+            <form @submit="createProjecttype(contentEdit,$event)">
                 <div class='panel'>
                     <div class='panel-heading'>
                         New Projecttype
                     </div>
-                    <h2 class="p-2 m-1 has-text-danger has-background-danger-light has-text-centered" v-show="errorMessage.length > 0">{{errorMessage}}</h2>
+                    <h4 class="p-2 m-1 has-text-danger has-background-danger-light has-text-centered" v-show="errorMessage.length > 0">{{errorMessage}}</h4>
                     <div class='panel-block'>
                         <div class='container'>
                             <div class=field>
                                 <label class='label'>Name</label>
                                 <div class='control'>
-                                    <input class='input' type='text' v-model="contentEdit.name" placeholder='name' @focus="nameError=false">
-                                    <small v-if="nameError" class="has-text-danger">Invalid name</small>
+                                    <input class='input' type='text' v-model="contentEdit.name" placeholder='name' @focus="errorMessage=''">
                                 </div>
                             </div>
                             <div class=field>
                                 <label class='label'>Description</label>
                                 <div class='control'>
-                                    <input class='input' type='text' v-model="contentEdit.description" placeholder='description' @focus="descriptionError=false">
-                                    <small v-if="descriptionError" class="has-text-danger">Invalid description</small>
+                                    <input class='input' type='text' v-model="contentEdit.description" placeholder='description' @focus="errorMessage=''"> 
+                                    
                                 </div>
                             </div>
                             <div class='field is-grouped'>
@@ -98,7 +100,6 @@
             </form>
         </div>
     </div>
-
     <div v-if="tabIdx === 2">
         <div class='column '>
             <form @submit="editProjecttype(contentEdit,$event)">
@@ -106,6 +107,7 @@
                     <div class='panel-heading'>
                         Edit Projecttype
                     </div>
+                    <h4 class="p-2 m-1 has-text-danger has-background-danger-light has-text-centered" v-show="errorMessage.length > 0">{{errorMessage}}</h4>
                     <div class='panel-block'>
                         <div class='container'>
                             <div class=field>
@@ -114,13 +116,13 @@
                             <div class=field>
                                 <label class='label'>Name</label>
                                 <div class='control'>
-                                    <input class='input' type='text' v-model='contentEdit.name'>
+                                    <input class='input' type='text' v-model='contentEdit.name' @focus="errorMessage=''">
                                 </div>
                             </div>
                             <div class=field>
                                 <label class='label'>Description</label>
                                 <div class='control'>
-                                    <input class='input' type='text' v-model='contentEdit.description'>
+                                    <input class='input' type='text' v-model='contentEdit.description'@focus="errorMessage=''">
                                 </div>
                             </div>
                             <div class='field is-grouped'>

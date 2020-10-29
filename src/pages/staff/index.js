@@ -31,24 +31,32 @@ let component = {
       });
     },
 
-    createStaff: function(staffData) {
+    createStaff: function(staffData,event) {
       // console.log(staffData.fullname)
 
       if(isEmpty(staffData.email)||isEmpty(staffData.fullname)||isEmailError(staffData.email)){
-        this.errorMessage = "Invalid email";
+        this.errorMessage = "Invalid input";
         return
       }
+      event.stopPropagation();
+      event.preventDefault();
       request(config.STAFF_URL, 'POST', staffData).then((res)=>{
         console.log(res.data);
         this.tabIdx = 0;
         this.loadData();
       }).catch(e => {
         console.error(e);
-        this.errorMessage = "Invalid email";
+        this.errorMessage = "Invalid input";
         this.$router.push('/');
       });
     },
     editStaff:function(contentEdit,event){
+      if(isEmpty(contentEdit.email)||isEmpty(contentEdit.fullname)||isEmailError(contentEdit.email)){
+        this.errorMessage = "Invalid input";
+        event.stopPropagation();
+        event.preventDefault();
+        return
+      }
       console.log('editStaff');
       event.stopPropagation();
       event.preventDefault();

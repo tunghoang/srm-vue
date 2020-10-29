@@ -1,18 +1,21 @@
 <div class="rows">
-    <div class="tabs is-medium">
-        <ul>
-            <li>
-                <a @click="tabIdx = 0;">List Semester</a>
-            </li>
-            <li>
-                <a @click="tabIdx = 1;">New Semester</a>
-            </li>
-        </ul>
+    <div class="level">
+        <div class="level-left ml-4" v-show="tabIdx==0">
+            <p class="is-size-5">List Semester</p>
+        </div>
+        <div class="level-right">
+            <a class="button"  @click="tabIdx = 1;" v-show="tabIdx==0">
+                <span class="icon">
+                    <ion-icon name="add-outline"></ion-icon>
+                </span>
+                <span> New Semester</span>
+            </a>
+        </div>
     </div>
     <div v-if="tabIdx == 0">
         <div v-for="content in contents" class="column" :key="content.idSemester">
             <div class="card">
-                <div class="card-content ">
+                <div class="card-content">
                     <div>
                         <h4 class='is-size-7 is-lightgray'>ID: {{content.idSemester}}</h4>
                         <p><b>Semester:</b> {{content.semesterIndex +1 }}</p>
@@ -55,12 +58,13 @@
     </div>
     <div v-if="tabIdx === 1">
         <div class='column '>
-            <form @submit="createSemester(semesterData)">
+            <form @submit="createSemester(semesterData,$event)">
                 <div class='panel'>
                     <div class='panel-heading'>
                         New semester
                     </div>
-                    <h2 class="p-2 m-1 has-text-danger has-background-danger-light has-text-centered" v-show="errorMessage.length > 0">{{errorMessage}}</h2>
+                    <h4 class="p-2 m-1 has-text-danger has-background-danger-light has-text-centered"
+                        v-show="errorMessage.length > 0">{{errorMessage}}</h4>
                     <div class='panel-block'>
                         <div class='container'>
                             <div class="field">
@@ -108,6 +112,8 @@
                     <div class='panel-heading'>
                         Edit Semester
                     </div>
+                    <h4 class="p-2 m-1 has-text-danger has-background-danger-light has-text-centered"
+                        v-show="errorMessage.length > 0">{{errorMessage}}</h4>
                     <div class='panel-block'>
                         <div class='container'>
                             <div class=field>
@@ -116,7 +122,7 @@
                             <div class=field>
                                 <label class='label'>Year</label>
                                 <div class='control'>
-                                    <input class='input' type='text' v-model='contentEdit.year'>
+                                    <input class='input' type='text' v-model='contentEdit.year' @focus="errorMessage=''">
                                 </div>
                             </div>
                             <div class=field>

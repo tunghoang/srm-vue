@@ -33,6 +33,10 @@ let component = {
       console.log(prj);
       return `HK${prj.semesterIndex + 1} ${prj.year}-${prj.year + 1}`;
     },
+    // advisorLabel: function(prj){
+    //   console.log("advisorLabel" + prj);
+    //   return `abc ${prj.idAdvisor} - ${prj.email}`;
+    // },
     loadData: function() {
       let criteria = {};
       if (this.idAdvisor) {

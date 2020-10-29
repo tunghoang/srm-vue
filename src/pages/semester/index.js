@@ -29,12 +29,14 @@ let component = {
       });
     },
 
-    createSemester: function(semesterData) {
+    createSemester: function(semesterData,event) {
       if(isNaN(semesterData.year)){
-        this.errorMessage = "Input invalid";
+        this.errorMessage = "invalid input";
         return
       }
       console.log('click');
+      event.stopPropagation();
+      event.preventDefault();
       request(config.SEMESTERS_URL,"post", semesterData).then((res)=>{
         console.log(res.data);
         this.tabIdx = 0;
@@ -45,6 +47,12 @@ let component = {
       });
     },
     editSemester: function(contentEdit,event){
+      if(isNaN(semesterData.year)){
+        this.errorMessage = "Invalid input";
+        event.stopPropagation();
+        event.preventDefault();
+        return
+      }
       console.log("edit",event);
       event.stopPropagation();
       event.preventDefault();

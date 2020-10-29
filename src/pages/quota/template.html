@@ -1,13 +1,16 @@
 <div class="rows">
-    <div class="tabs is-medium">
-        <ul>
-            <li>
-                <a @click="tabIdx = 0;">List Quota</a>
-            </li>
-            <li>
-                <a @click="tabIdx = 1;">New Quota</a>
-            </li>
-        </ul>
+    <div class="level">
+        <div class="level-left ml-4" v-show="tabIdx==0">
+            <p class="is-size-5">List Quota</p>
+        </div>
+        <div class="level-right">
+            <a class="button"  @click="tabIdx = 1;" v-show="tabIdx==0">
+                <span class="icon">
+                    <ion-icon name="add-outline"></ion-icon>
+                </span>
+                <span> New Quota</span>
+            </a>
+        </div>
     </div>
     <div v-if="tabIdx == 0">
         <div v-for="content in contents" class="column" :key="content.idQuota">
@@ -57,12 +60,12 @@
     </div>
     <div v-if="tabIdx === 1">
         <div class='column '>
-            <form>
+            <form @submit=createQuota(quotaData,$event)>
                 <div class='panel'>
                     <div class='panel-heading'>
                         New Quota
                     </div>
-                    <h2 class="p-2 m-1 has-text-danger has-background-danger-light has-text-centered" v-show="errorMessage.length > 0">{{errorMessage}}</h2>
+                    <h4 class="p-2 m-1 has-text-danger has-background-danger-light has-text-centered" v-show="errorMessage.length > 0">{{errorMessage}}</h4>
                     <div class='panel-block'>
                         <div class='container'>
                             <div class=field>
@@ -94,7 +97,7 @@
                             </div>
                             <div class='field is-grouped'>
                                 <div class='control'>
-                                    <button @click="createQuota(quotaData)" class='button is-link'>Submit</button>
+                                    <button type="submit" class='button is-link'>Submit</button>
                                 </div>
                                 <div class='control'>
                                     <button class='button is-link is-light' @click='tabIdx =0;'>
@@ -118,6 +121,7 @@
                     <div class='panel-heading'>
                         Edit Quota
                     </div>
+                    <h4 class="p-2 m-1 has-text-danger has-background-danger-light has-text-centered" v-show="errorMessage.length > 0">{{errorMessage}}</h4>
                     <div class='panel-block'>
                         <div class='container'>
                             <div class="field">
@@ -126,25 +130,25 @@
                             <div class="field">
                                 <label class='label'>Name:</label>
                                 <div class='control'>
-                                    <input class='input' type='text' v-model='contentEdit.name'>
+                                    <input class='input' type='text' v-model='contentEdit.name' @focus="errorMessage=''">
                                 </div>
                             </div>
                             <div class="field">
                                 <label class='label'>Description:</label>
                                 <div class='control'>
-                                    <input class='input' type='text' v-model='contentEdit.description'>
+                                    <input class='input' type='text' v-model='contentEdit.description'@focus="errorMessage=''">
                                 </div>
                             </div>
                             <div class="field">
                                 <label class='label'>Number of kltn:</label>
                                 <div class='control'>
-                                    <input class='input' type='text' v-model='contentEdit.n_kltn'>
+                                    <input class='input' type='text' v-model='contentEdit.n_kltn' @focus="errorMessage=''">
                                 </div>
                             </div>
                             <div class="field">
                                 <label class='label'>Number of dakh:</label>
                                 <div class='control'>
-                                    <input class='input' type='text' v-model='contentEdit.n_dakh'>
+                                    <input class='input' type='text' v-model='contentEdit.n_dakh' @focus="errorMessage=''">
                                 </div>
                             </div>
                             <div class='field is-grouped'>

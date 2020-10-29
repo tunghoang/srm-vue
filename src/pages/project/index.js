@@ -33,10 +33,10 @@ let component = {
       console.log(prj);
       return `HK${prj.semesterIndex + 1} ${prj.year}-${prj.year + 1}`;
     },
-    // advisorLabel: function(prj){
-    //   console.log("advisorLabel" + prj);
-    //   return `abc ${prj.idAdvisor} - ${prj.email}`;
-    // },
+    advisorLabel: function(prj){
+      console.log("advisorLabel" + prj);
+      return `abc ${prj.idAdvisor} - ${prj.email}`;
+    },
     loadData: function() {
       let criteria = {};
       if (this.idAdvisor) {
@@ -86,53 +86,38 @@ let component = {
     
     search: function(searchText,searchSemester,searchAdvisor,searchStatus){
       console.log(searchText,searchSemester,searchAdvisor);
+      if (isEmpty(searchText) && isEmpty(searchSemester) && isEmpty(searchStatus) && isEmpty(searchAdvisor)) {
+        this.errorMessage = "Search data empty";
+        return;
+      }
+      this.errorMessage = "";
       if (!isEmpty(searchText)) {
         let data = {["title"]: searchText};
         request(config.PROJECT_URL, 'PUT', data).then(res => {
           this.contents = res.data;
           return
         }).catch(e => {
-          console.error(e);
           this.errorMessage = e.message;
         });
       }     
       if (!isEmpty(searchSemester)) {
         let data = {["year"]: searchSemester};
-        console.log(data);
-        request(config.PROJECT_URL, 'PUT', data).then(res => {
-          console.log(res.data);
+        request(config.SEMESTERS_URL, 'PUT', data).then(res => {
           this.contents = res.data;
           return
         }).catch(e => {
-          console.error(e);
           this.errorMessage = e.message;
         });
       }     
       if (!isEmpty(searchStatus)) {
-        if(searchStatus==1){
-          let data = {["status"]: "on-going"};
-          console.log(data);
+        let data;
+        searchStatus==1 ? data = {["status"]: "on-going"}:data = {["status"]: "finish"};
           request(config.PROJECT_URL, 'PUT', data).then(res => {
-            console.log(res.data);
             this.contents = res.data;
             return
           }).catch(e => {
-            console.error(e);
             this.errorMessage = e.message;
           });
-        }
-        if(searchStatus==2){
-          let data = {["status"]: "finish"};
-          console.log(data);
-          request(config.PROJECT_URL, 'PUT', data).then(res => {
-            console.log(res.data);
-            this.contents = res.data;
-            return
-          }).catch(e => {
-            console.error(e);
-            this.errorMessage = e.message;
-          });
-        }
       }     
     },
     selectChanged: function(selectedItem, selectedIdx) {

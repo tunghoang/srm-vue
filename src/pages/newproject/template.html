@@ -1,6 +1,6 @@
 <div class='panel'>
   <div class='panel-heading'>
-    {{idProject?"Edit Project (id:" + idProject + ")": "New Project"}}
+    {{idProject?"Edit Project (id:" + idProject  + ")": "New Project"}}
   </div>
   <div class='panel-block'>
     <div class='container'>
@@ -35,7 +35,7 @@
       <div v-if="idProject" class="field">
         <div class="columns">
           <div class="column">
-            <label class="label">Advisor {{idProject}}</label>
+            <label class="label">Advisor {{idProject}} {{idStudent}}</label>
             <router-link :to="`/newproject/addadvisor/idProject/${idProject}`">
               <span>
                 Add Advisor

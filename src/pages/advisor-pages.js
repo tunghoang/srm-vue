@@ -16,5 +16,5 @@ export default [
   Project('/project/:status/:idAdvisor', true),
   Profileadvisor('/profileadvisor'),
   Newproject('/newproject/idProject/:idProject', true),
-  Newadvisor('/newadvisor')
+  Newadvisor('/newadvisor'),
 ];

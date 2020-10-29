@@ -1,5 +1,4 @@
 <div class="rows">
-    <div>{{idStudent}} {{idAdvisor}} {{idSemester}} {{idProjecttype}} {{status}} </div>
     <div v-if="tabIdx == 0">
         <div v-if="!idAdvisor && !idStudent" class="level m-0">
             <form @submit="search(searchText,searchSemester,searchAdvisor,searchStatus)">
@@ -7,13 +6,13 @@
                     <div class="field has-addons">
                         <div class="level-item">
                             <p class="control ml-2">
-                                <input class="input" type="text" placeholder="Title project" v-model="searchText">
+                                <input class="input" type="text" placeholder="Title project" v-model="searchText" @focus="errorMessage=''">
                             </p>
                             <p class="control">
-                                <input class="input" type="text" placeholder="Semester" v-model="searchSemester" >
+                                <input class="input" type="text" placeholder="Semester" v-model="searchSemester" @focus="errorMessage=''">
                             </p>
                             <p class="control">
-                                <input class="input" type="text" placeholder="Advisor" v-model="searchAdvisor" >
+                                <input class="input" type="text" placeholder="Advisor" v-model="searchAdvisor" @focus="errorMessage=''">
                             </p>
                             <p class="control">
                                 <dropdown-list class="min-width-8" :items="['--Status--','on-going','finish']" 
@@ -69,6 +68,12 @@
                         <td>{{content.status}}</td>
                         <td>{{content.grade}}</td>
                         <td>
+                            <!-- <router-link -v-if="idAvisor&&idProject" :to="`/newproject/idProject/${content.idProject}/${content.idAvisor}`">
+                                <ion-icon name="create-outline"></ion-icon>
+                            </router-link>
+                            <router-link -v-if="idStudent&&idProject" :to="`/newproject/idProject/${content.idProject}/${content.idStudent}`">
+                                <ion-icon name="create-outline"></ion-icon>
+                            </router-link> -->
                             <router-link :to="`/newproject/idProject/${content.idProject}`">
                                 <ion-icon name="create-outline"></ion-icon>
                             </router-link>

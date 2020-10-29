@@ -117,6 +117,18 @@ let component = {
             this.errorMessage = e.message;
           });
         }
+        if(searchStatus==2){
+          let data = {["status"]: "finish"};
+          console.log(data);
+          request(config.PROJECT_URL, 'PUT', data).then(res => {
+            console.log(res.data);
+            this.contents = res.data;
+            return
+          }).catch(e => {
+            console.error(e);
+            this.errorMessage = e.message;
+          });
+        }
       }     
     },
     selectChanged: function(selectedItem, selectedIdx) {

@@ -19,12 +19,12 @@
                                 <input class="input" type="text" placeholder="Advisor" v-model="searchAdvisor" >
                             </p>
                             <p class="control">
-                                <dropdown-list class="min-width-8" :items="['--status--','on-going','finish']" 
+                                <dropdown-list class="min-width-8" :items="['--Status--','on-going','finish']" 
                                 :on-select-changed="(selectedItem, selectedIndex) => searchStatus = selectedIndex"
                                 :selected-index='searchStatus'></dropdown-list>
                             </p>
                             <p class="control">
-                                <dropdown-list class="min-width-10" :items="['--project type--','Khóa luận','Dự án']"  
+                                <dropdown-list class="min-width-10" :items="['--Project type--','Khóa luận','Dự án']"  
                                 ></dropdown-list>
                             </p>
                             <p class="control">

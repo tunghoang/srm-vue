@@ -118,7 +118,7 @@ let component = {
     },
     saveProject: function (project) {
       console.log(project);
-      project.status = project.status||'on-going';
+      project.status = project.status||'finish';
       let method = "POST";
       let url = config.PROJECT_URL;
       if (project.idProject) {

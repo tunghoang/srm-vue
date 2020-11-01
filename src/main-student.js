@@ -13,7 +13,7 @@ import Pages from './pages/student-pages';
 
 const router = new VueRouter({
   routes: Pages,
-  linkActiveClass: 'is-active',
+  linkActiveClass: 'is-active_bg-student',
 })
 new Vue({
   el: '#vue-app',

@@ -31,6 +31,16 @@ let component = {
         this.$router.push('/');
       });
     },
+    createAdvisor: function(dataAdvisor) {
+      request(config.ADVISOR_URL, 'POST', dataAdvisor).then((res)=>{
+        console.log(res.data);
+        this.tabIdx = 0;
+        this.loadData();
+      }).catch(e => {
+        // this.errorMessage="Input invalid";
+        console.error(e);
+      });
+    },
     editAdvisor:function(contentEdit,event){
       console.log('editAdvisor');
       event.stopPropagation();
@@ -39,7 +49,7 @@ let component = {
         console.log(res.data);
         this.tabIdx = 0;
         this.loadData();
-        // this.search(this.searchText, this.searchField);
+        this.search(this.searchText, this.searchField);
       }).catch(e => {
         console.error(e);
         // this.$router.push('/');
@@ -49,7 +59,7 @@ let component = {
       console.log('delete');
       request(config.ADVISOR_URL + idAdvisor, 'delete').then(res => {
         console.log(res.data);
-        this.search(this.searchText, this.searchField);
+        this.loadData();
         this.tabIdx = 0;
       }).catch(e => {
         console.error(e);

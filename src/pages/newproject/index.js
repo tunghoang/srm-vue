@@ -5,7 +5,7 @@ import config from '../../config';
 import request from '../../apis';
 import { isEmailError, isEmpty } from '../../check-input'
 let component = {
-  props: ['idProject'],
+  props: ['idProject','idAdvisor','idStudent'],
   data: function () {
     return {
       newproject: null,
@@ -129,7 +129,7 @@ let component = {
         request(url, method, project).then(res => {
           console.log(res.data);
           this.errorMessage = "";
-          this.$router.back();
+          // this.$router.back();
           let idProject = null;
           if (method === 'POST') {
             idProject = res.data.idProject;

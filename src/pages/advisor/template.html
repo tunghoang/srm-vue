@@ -24,13 +24,17 @@
             </form>
             
             <div class="level-right">
-                <a class="button">
-                    <router-link to="../newadvisor">
+                <a class="button" @click="tabIdx=1">
+                    <span class="icon">
+                        <ion-icon name="add-outline"></ion-icon>
+                    </span>
+                    <span> New Guestadvisor</span>
+                    <!-- <router-link to="../newadvisor">
                         <span class="icon">
                             <ion-icon name="add-outline"></ion-icon>
                         </span>
                         <span> New Guestadvisor</span>
-                      </router-link>
+                      </router-link> -->
                 </a>
             </div>
         </div>
@@ -88,7 +92,57 @@
             </button>
         </div>
     </div>
-
+    <div v-if="tabIdx==1" class='column '>
+        <form @submit="createAdvisor(advisorData)">
+            <div class='panel'>
+                <div class='panel-heading'>
+                    New Advisor
+                </div>
+                <div class='panel-block'>
+                    <div class='container'>
+                        <h4 class="has-text-danger has-background-danger-light has-text-centered"
+                                v-show="errorMessage && errorMessage.length > 0">{{errorMessage}}</h4>
+                        <div class=field>
+                            <label class='label'>Email</label>
+                            <div class='control'>
+                                <input class='input' type='text' v-model="advisorData.email" placeholder='email' >
+                            </div>
+                        </div>
+                        <div class=field>
+                            <label class='label'>Fullname</label>
+                            <div class='control'>
+                                <input class='input' type='text' v-model="advisorData.fullname" placeholder='fullname'>
+                            </div>
+                        </div>
+                        <div class=field>
+                            <label class='label'>Affliation</label>
+                            <div class='control'>
+                                <input class='input' type='text' v-model="advisorData.affiliation"  placeholder='Affliation'>
+                            </div>
+                        </div>
+                        <div class='field is-grouped'>
+                            <div class='control'>
+                                <button type="submit" class='button is-link'>
+                                    <span class="icon">
+                                        <ion-icon name="checkmark-circle"></ion-icon>
+                                    </span>
+                                    <span>Submit</span>
+                                </button>
+                            </div>
+                            <div class='control'>
+                                <button class='button is-link is-light' @click="tabIdx=0">
+                                    <span class="icon">
+                                        <ion-icon name="arrow-back-circle"></ion-icon>
+                                    </span>
+                                    <span>Back</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
     <div v-if="tabIdx === 2">
         <div class='column'>
             <form @submit="editAdvisor(contentEdit, $event)">

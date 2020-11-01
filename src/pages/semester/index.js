@@ -4,7 +4,7 @@ import style from './style.scss';
 import DropdownList from '../../components/dropdown-list';
 import config from '../../config';
 import request from '../../apis';
-import {isEmpty} from '../../check-input'
+
 let component = {
   data: function (){
     return {
@@ -14,7 +14,8 @@ let component = {
       contentEdit:{},
       yearError: false,
       errorMessage:"",
-      currentSemesterId:"",
+      currentSemesterId:""
+
     };
   },
   created: function() {
@@ -26,6 +27,7 @@ let component = {
         this.contents = res.data.sort((item1, item2) => (item2.idSemester - item1.idSemester));
       }).catch(e => {
         console.error(e);
+        this.$router.push('/');
       });
     },
 
@@ -43,10 +45,11 @@ let component = {
         this.loadData();
       }).catch(e => {
         console.error(e);
+        this.$router.push('/');
       });
     },
     editSemester: function(contentEdit,event){
-      if(isNaN(contentEdit.year)||isEmpty(contentEdit.year)){
+      if(isNaN(semesterData.year)){
         this.errorMessage = "Invalid input";
         event.stopPropagation();
         event.preventDefault();
@@ -61,6 +64,7 @@ let component = {
         this.loadData();
       }).catch(e => {
         console.error(e);
+        this.$router.push('/');
       });
     },
 
@@ -72,6 +76,7 @@ let component = {
         this.tabIdx = 0;
       }).catch(e => {
         console.error(e);
+        this.$router.push('/');
       });
     },
     selectChanged: function(selectedItem, selectedIdx) {

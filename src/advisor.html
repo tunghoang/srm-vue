@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="shortcut icon" type="image/png" href="https://uet.vnu.edu.vn/wp-content/uploads/2017/02/uet_logo.png"/>
     <title>Student Research Management</title>
   </head>
   <body>
     <div id="vue-app" class="tile is-ancestor" style='height: 100vh;margin-bottom:0;'>
       <div class='tile is-parent is-vertical debug' style='height:100%;padding-bottom:0;'>
         <div v-if="!isLogingIn()" class='tile is-child debug' style='flex:0;margin-bottom: 0 !important;'>
-          <nav class='navbar is-info debug'>
+          <nav class='navbar bg-advisor debug'>
             <div class='navbar-brand'>
               <a class='navbar-item subtitle' href='#' @click="goHome()">Advisor SRM</a>
             </div>
             <div class='navbar-menu'>
               <div class='navbar-end'>
-                <a class='navbar-item' @click='doLogout()'>
+                <a class=' navbar-item bg-advisor' style="background-color: background-advisor;" @click='doLogout()'>
                   <span class='icon'>
                     <ion-icon size="large" name="person-circle-outline"></ion-icon>
                   </span>
@@ -24,7 +25,7 @@
           </nav>
         </div>
         <div class='tile is-parent debug' style="padding: 0;">
-          <aside v-if="!isLogingIn()" class='tile is-child menu is-active' style='flex:0 1 20%'>
+          <aside v-if="!isLogingIn()" class='tile is-child menu is-active_bg-advisor' style='flex:0 1 20%'>
             <p class="menu-label" style="padding: 1.5rem 0 0 1.5rem;">
               Supervision
             </p>
@@ -49,7 +50,7 @@
             <p class="menu-label" style="padding: 0 0 0 1.5rem;">
               Actions
             </p>
-            <ul class='menu-list'>
+            <!-- <ul class='menu-list'>
               <li>
                 <router-link to="/newadvisor">
                   <span class='icon is-medium'>
@@ -58,7 +59,7 @@
                   <span>Add New Advisor</span>
                 </router-link>
               </li>
-            </ul>
+            </ul> -->
           </aside>
           <div class='tile is-parent'>
             <div class='tile is-child'>

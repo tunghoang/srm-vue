@@ -4,6 +4,7 @@ import DropdownList from '../../components/dropdown-list';
 import config from '../../config';
 import request from '../../apis';
 import {isEmailError,isEmpty} from '../../check-input'
+import advisor from '../advisor';
 
 let component = {
   props: ['idStudent', 'idAdvisor', 'idSemester', 'idProjecttype', 'status'],
@@ -35,7 +36,7 @@ let component = {
     },
     advisorLabel: function(prj){
       console.log("advisorLabel" + prj);
-      return `abc ${prj.idAdvisor} - ${prj.email}`;
+      return prj.idAdvisor;
     },
     loadData: function() {
       let criteria = {};
@@ -94,6 +95,16 @@ let component = {
       if (!isEmpty(searchText)) {
         let data = {["title"]: searchText};
         request(config.PROJECT_URL, 'PUT', data).then(res => {
+          this.contents = res.data;
+          return
+        }).catch(e => {
+          this.errorMessage = e.message;
+        });
+      }     
+      if (!isEmpty(searchAdvisor)) {
+        console.log("searchad");
+        let data = {["fullname"]: searchAdvisor};
+        request(config.ADVISOR_URL, 'PUT', data).then(res => {
           this.contents = res.data;
           return
         }).catch(e => {

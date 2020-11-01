@@ -13,7 +13,7 @@ import Pages from './pages/staff-pages';
 
 const router = new VueRouter({
   routes: Pages,
-  linkActiveClass: 'is-active',
+  linkActiveClass: 'is-active_bg-staff',
 })
 new Vue({
   el: '#vue-app',

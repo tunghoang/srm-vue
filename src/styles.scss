@@ -1,8 +1,41 @@
 @charset "utf-8";
-$title-color: blue;
+$student:#49bf67;
+$advisor:gray;
+$staff: #3298dc;
 @import "~bulma/bulma";
-.debug {
-//  border: 1px solid black;
+.bg-staff{
+    background-color:$staff;
+}
+.button.is-link{
+    background-color: $staff;
+}
+.button.is-link.is-light{
+    background-color: $staff;
+}
+.bg-advisor{
+    background-color: $advisor;
+    border: 0px;
+}
+a.navbar-item.bg-staff:hover{
+    background-color:$staff ;
+}
+a.navbar-item.bg-advisor:hover{
+    background-color:$advisor ;
+}
+.bg-student{
+    background-color: $student;
+}
+a.navbar-item.bg-student:hover{
+    background-color:$student ;
+}
+.menu-list a.is-active_bg-student{
+    background-color: $student;
+}
+.menu-list a.is-active_bg-advisor{
+    background-color: $advisor;
+}
+.menu-list a.is-active_bg-staff{
+    background-color:$staff;
 }
 .is-lightgray {
     color: lightgray !important;

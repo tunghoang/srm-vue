@@ -13,7 +13,7 @@ import Pages from './pages/advisor-pages';
 
 const router = new VueRouter({
   routes: Pages,
-  linkActiveClass: 'is-active',
+  linkActiveClass: 'is-active_bg-advisor',
 })
 new Vue({
   el: '#vue-app',

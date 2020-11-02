@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import './advisor.scss';
 import './styles.scss';
 
 import jwtDecode from 'jwt-decode';
@@ -13,7 +14,7 @@ import Pages from './pages/advisor-pages';
 
 const router = new VueRouter({
   routes: Pages,
-  linkActiveClass: 'is-active_bg-advisor',
+  linkActiveClass: 'is-active',
 })
 new Vue({
   el: '#vue-app',

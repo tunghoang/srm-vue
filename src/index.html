@@ -1,113 +1,118 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <link rel="shortcut icon" type="image/png" href="https://uet.vnu.edu.vn/wp-content/uploads/2017/02/uet_logo.png"/>
-    <!-- <link rel="shortcut icon" type="image/png" href="./image/favicon.png"/> -->
 
-    <title>Student Research Management</title>
-  </head>
-  <body>
-    <div id="vue-app" class="tile is-ancestor" style='height: 100vh;margin-bottom:0;'>
-      <div class='tile is-parent is-vertical debug' style='height:100%;padding-bottom:0;'>
-        <div v-if="!isLogingIn()" class='tile is-child debug' style='flex:0;margin-bottom: 0 !important;'>
-          <nav class='navbar bg-staff'>
-            <div class='navbar-brand'>
-              <a class=' navbar-item subtitle' href="#" @click='goHome()'>Staff SRM</a>
+<head>
+  <link rel="apple-touch-icon" sizes="180x180" href="/static/icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/static/icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/static/icons/favicon-16x16.png">
+  <link rel="manifest" href="/static/icons/site.webmanifest">
+
+  <title>Student Research Management</title>
+</head>
+
+<body>
+  <div id="vue-app" class="tile is-ancestor" style='height: 100vh;margin-bottom:0;'>
+    <div class='tile is-parent is-vertical debug' style='height:100%;padding-bottom:0;'>
+      <div v-if="!isLogingIn()" class='tile is-child debug' style='flex:0;margin-bottom: 0 !important;'>
+        <nav class='navbar is-info'>
+          <div class='navbar-brand'>
+            <a class=' navbar-item subtitle' href="#" @click='goHome()'>Staff SRM</a>
+          </div>
+          <div class='navbar-menu has-text-light'>
+            <div class='navbar-end'>
+              <a class='navbar-item bg-staff' @click='doLogout()'>
+                <span class='icon'>
+                  <ion-icon size="large" name="person-circle-outline"></ion-icon>
+                </span>
+                <span class="ml-3">{{username}}</span>
+              </a>
             </div>
-            <div class='navbar-menu'>
-              <div class='navbar-end'>
-                <a class='navbar-item bg-staff' @click='doLogout()'>
-                  <span class='icon'>
-                    <ion-icon size="large" name="person-circle-outline"></ion-icon>
-                  </span>
-                  <span class="ml-3">{{username}}</span>
-                </a>
-              </div>
-            </div>
-          </nav>
-        </div>
-        <div class='tile is-parent debug' style="padding: 0;">
-          <aside v-if="!isLogingIn()" class='tile is-child menu is-active_bg-staff' style='flex:0 1 20%'>
-            <p class="menu-label" style="padding: 1.5rem 0 0 1.5rem;">
-              Administration
-            </p>
-            <ul class='menu-list'>
-              <li>
-                <router-link to="/student">
+          </div>
+        </nav>
+      </div>
+      <div class='tile is-parent debug' style="padding: 0;">
+        <aside v-if="!isLogingIn()" class='tile is-child menu' style='flex:0 1 20%'>
+          <p class="menu-label" style="padding: 1.5rem 0 0 1.5rem;">
+            Administration
+          </p>
+          <ul class='menu-list'>
+            <li>
+              <router-link to="/student">
                 <span class='icon is-medium'>
                   <ion-icon size='small' name="person-add-outline"></ion-icon>
                 </span>
                 <span>Student Management</span>
-                </router-link>
-              </li>
+              </router-link>
+            </li>
 
-              <li>
-                <router-link to="/advisor">
+            <li>
+              <router-link to="/advisor">
                 <span class='icon is-medium'>
                   <ion-icon size='small' name="eye-outline"></ion-icon>
                 </span>
                 <span>Advisor Management</span>
-                </router-link>
-              </li>
-              
+              </router-link>
+            </li>
 
-              <li>
-                <router-link to="/semester">
+
+            <li>
+              <router-link to="/semester">
                 <span class='icon is-medium'>
                   <ion-icon size='small' name="school-outline"></ion-icon>
                 </span>
                 <span>Semester Management</span>
-                </router-link>
-              </li>
+              </router-link>
+            </li>
 
-              <li>
-                <router-link to="/project">
+            <li>
+              <router-link to="/project">
                 <span class='icon is-medium'>
                   <ion-icon size='small' name="briefcase-outline"></ion-icon>
                 </span>
                 <span>Project Management</span>
-                </router-link>
-              </li>
-            </ul>
-            <p class="menu-label" style="padding: 1.5rem 0 0 1.5rem;">
-              Settings
-            </p>
-            <ul class='menu-list'>
-              <li>
-                <router-link to="/staff">
-                  <span class='icon is-medium'>
-                    <ion-icon name="ribbon-outline"></ion-icon>
-                  </span>
-                  <span>Staff Management</span>
-                </router-link>
-              </li>
-              
-              <li>
-                <router-link to="/quota">
+              </router-link>
+            </li>
+          </ul>
+          <p class="menu-label" style="padding: 1.5rem 0 0 1.5rem;">
+            Settings
+          </p>
+          <ul class='menu-list'>
+            <li>
+              <router-link to="/staff">
+                <span class='icon is-medium'>
+                  <ion-icon name="ribbon-outline"></ion-icon>
+                </span>
+                <span>Staff Management</span>
+              </router-link>
+            </li>
+
+            <li>
+              <router-link to="/quota">
                 <span class='icon is-medium'>
                   <ion-icon size='small' name="newspaper-outline"></ion-icon>
                 </span>
                 <span>Quota Management</span>
-                </router-link>
-              </li>
-              <li>
-                <router-link to="/projecttype">
+              </router-link>
+            </li>
+            <li>
+              <router-link to="/projecttype">
                 <span class='icon is-medium'>
                   <ion-icon name="bar-chart-outline"></ion-icon>
                 </span>
                 <span>Projecttype Management</span>
-                </router-link>
-              </li>
-            </ul>
-          </aside>
-          <div class='tile is-parent'>
-            <div class='tile is-child'>
-              <router-view></router-view>
-            </div>
+              </router-link>
+            </li>
+          </ul>
+        </aside>
+        <div class='tile is-parent'>
+          <div class='tile is-child'>
+            <router-view></router-view>
           </div>
         </div>
       </div>
     </div>
-    <script src="https://unpkg.com/ionicons@5.2.1/dist/ionicons.js"></script>
-  </body>
+  </div>
+  <script src="https://unpkg.com/ionicons@5.2.1/dist/ionicons.js"></script>
+</body>
+
 </html>

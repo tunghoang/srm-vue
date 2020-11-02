@@ -18,16 +18,22 @@ let component = {
       emailError:false,
       searchText:"",
       searchStatus:"",
-      searchSemester:"",
-      searchAdvisor:"",
       errorMessage: "",
+      projecttypes:[],
+      semesters: [],
+      advisors: [],
+      projects:['--status--',"on-going",'finish']
+
     };
   },
   created: function() {
-    // if (this.idStudent || this.idAdvisor) {
-    //   this.loadData();
-    // }
-    this.loadData();
+    if(this.idStudent || this.idAdvisor){
+      this.loadData();
+    }
+    else {
+      this.loadDataStaff();
+    }
+    console.log("projecttype" + this.projecttypes);
   },
   methods: {
     semesterLabel: function(prj){
@@ -37,6 +43,21 @@ let component = {
     advisorLabel: function(prj){
       console.log("advisorLabel" + prj);
       return prj.idAdvisor;
+    },
+    loadDataStaff: async function(){
+      console.log();
+      try {
+        let response = await request(config.PROJECTTYPE_URL,"GET");
+        this.projecttypes = response.data;
+        response = await request(config.SEMESTERS_URL,"GET");
+        this.semesters = response.data;
+        response = await request(config.ADVISOR_URL,"GET");
+        this.advisors = response.data;
+      }
+      catch(e) {
+        console.error(e);
+        this.errorMessage = e.response.data.message;
+      }
     },
     loadData: function() {
       let criteria = {};
@@ -55,7 +76,7 @@ let component = {
       if (this.status) {
         //criteria.status = this.status;
       }
-      request(config.PROJECT_URL, 'PUT', criteria).then(res => {
+      request(config.PROJECT_URL, 'put', criteria).then(res => {
         this.contents = res.data.sort((item1, item2) => (item2.idProject - item1.idProject));
       }).catch(e => {
         console.error(e);
@@ -85,9 +106,9 @@ let component = {
       });
     },
     
-    search: function(searchText,searchSemester,searchAdvisor,searchStatus){
-      console.log(searchText,searchSemester,searchAdvisor);
-      if (isEmpty(searchText) && isEmpty(searchSemester) && isEmpty(searchStatus) && isEmpty(searchAdvisor)) {
+    search: function(searchText,searchStatus){
+      console.log(searchText);
+      if (isEmpty(searchText) && isEmpty(searchStatus)) {
         this.errorMessage = "Search data empty";
         return;
       }
@@ -100,26 +121,7 @@ let component = {
         }).catch(e => {
           this.errorMessage = e.message;
         });
-      }     
-      if (!isEmpty(searchAdvisor)) {
-        console.log("searchad");
-        let data = {["fullname"]: searchAdvisor};
-        request(config.ADVISOR_URL, 'PUT', data).then(res => {
-          this.contents = res.data;
-          return
-        }).catch(e => {
-          this.errorMessage = e.message;
-        });
-      }     
-      if (!isEmpty(searchSemester)) {
-        let data = {["year"]: searchSemester};
-        request(config.SEMESTERS_URL, 'PUT', data).then(res => {
-          this.contents = res.data;
-          return
-        }).catch(e => {
-          this.errorMessage = e.message;
-        });
-      }     
+      } 
       if (!isEmpty(searchStatus)) {
         let data;
         searchStatus==1 ? data = {["status"]: "on-going"}:data = {["status"]: "finish"};
@@ -131,10 +133,18 @@ let component = {
           });
       }     
     },
-    selectChanged: function(selectedItem, selectedIdx) {
-      console.log("selectInte" + selectedItem);
-      this.searchStatus = selectedIdx
+    getName: function(item){
+      return item.name;
     },
+    getYear: function(item){
+      return `HK${item.semesterIndex + 1} ${item.year}-${item.year + 1}`;
+    },
+    getFullname: function(item){
+      return item.fullname;
+    },
+    selectFullname: function(selectedItem,selectedIdx){
+      this.advisors = selectedItem;
+    }
   },
   
   template,

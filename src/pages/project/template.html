@@ -1,27 +1,32 @@
 <div class="rows">
     <div v-if="tabIdx == 0">
         <div v-if="!idAdvisor && !idStudent" class="level m-0">
-            <form @submit="search(searchText,searchStatus)">
+            <form @submit="search()">
                 <div class="level-left">
                     <div class="field has-addons">
                         <div class="level-item">
                             <p class="control ml-2">
-                                <input class="input" type="text" placeholder="Title project" v-model="searchText" @focus="errorMessage=''">
+                                <input class="input" type="text" placeholder="Title project" v-model="searchTitle" @focus="errorMessage=''">
                             </p>
                             <p class="control">
-                               <dropdown-list class="min-width-8" :items="semesters" :item-label-fn="getYear"></dropdown-list>
+                                <dropdown-list class="min-width-8" :items="semesters" 
+                                    :item-label-fn="(item) => (item.idSemester?('HK' + (item.semesterIndex + 1) + ' ' + item.year):'--semesters--')"
+                                    :on-select-changed="(selectedItem,selectedIndex) => searchIdSemester = selectedItem.idSemester"
+                                ></dropdown-list>
                             </p>
                             <p class="control">
-                                <dropdown-list class="min-width-8" :items="advisors" :item-label-fn="getFullname">
+                                <dropdown-list class="min-width-8" :items="advisors" :item-label-fn="getFullname"
+                                    :on-select-changed="(selectedItem,selectedIndex) => searchIdAdvisor = selectedItem.idAdvisor">
                                 </dropdown-list>
                             </p>
                             <p class="control">
-                                <dropdown-list class="min-width-8" :items="projects"
-                                :on-select-changed="(selectedItem, selectedIndex) => searchStatus = selectedIndex"
-                                :selected-index='searchStatus'></dropdown-list>
+                                <dropdown-list class="min-width-8" :items="projectStatuses" :item-label-fn="(item) => item.length?item:'--status--'"
+                                    :on-select-changed="(selectedItem, selectedIndex) => searchStatus = selectedItem">
+                                </dropdown-list>
                             </p>
                             <p class="control">
                                 <dropdown-list class="min-width-10" :items="projecttypes" :item-label-fn="getName"
+                                    :on-select-changed="(selectedItem, selectedIndex) => searchIdProjecttype = selectedItem.idProjecttype"
                                 ></dropdown-list>
                             </p>
                             <p class="control">
@@ -69,17 +74,10 @@
                         <td>{{content.status}}</td>
                         <td>{{content.grade}}</td>
                         <td>
-                            <!-- <router-link -v-if="idAvisor&&idProject" :to="`/newproject/idProject/${content.idProject}/${content.idAvisor}`">
+                            <router-link :to="`/newproject/idProject/${content.idProject}`">
                                 <ion-icon name="create-outline"></ion-icon>
                             </router-link>
-                            <router-link -v-if="idStudent&&idProject" :to="`/newproject/idProject/${content.idProject}/${content.idStudent}`">
-                                <ion-icon name="create-outline"></ion-icon>
-                            </router-link> -->
-                            <!--  -->
-                            <!-- <router-link :to="`/newproject/idProject/${content.idProject}`">
-                                <ion-icon name="create-outline"></ion-icon>
-                            </router-link>
-                            <router-link :to="`/newproject/idProject/${content.idProject}`" v-if="!idAdvisor && !idStudent">
+                            <!-- <router-link :to="`/newproject/idProject/${content.idProject}`" v-if="!idAdvisor && !idStudent">
                                 -Score
                             </router-link> -->
                         </td>

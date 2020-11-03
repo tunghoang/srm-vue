@@ -16,14 +16,22 @@ let component = {
       contentEdit: {},
       currentProjectId:null,
       emailError:false,
-      searchText:"",
-      searchStatus:"",
       errorMessage: "",
       projecttypes:[],
       semesters: [],
       advisors: [],
-      projects:['--status--',"on-going",'finish']
-
+      projectStatuses:["","on-going",'finish'],
+      searchText:"",
+      searchTitle:"",
+      searchStatus:"",
+      searchIdSemester:null,
+      searchIdAdvisor:null,
+      searchIdProjecttype: null,
+      searchProject:{
+        title: null,
+        idProjecttype: null,
+        idSemester: null,
+        status: null}
     };
   },
   created: function() {
@@ -33,26 +41,25 @@ let component = {
     else {
       this.loadDataStaff();
     }
-    console.log("projecttype" + this.projecttypes);
+    this.loadData();
   },
   methods: {
     semesterLabel: function(prj){
       console.log(prj);
       return `HK${prj.semesterIndex + 1} ${prj.year}-${prj.year + 1}`;
     },
-    advisorLabel: function(prj){
-      console.log("advisorLabel" + prj);
-      return prj.idAdvisor;
-    },
     loadDataStaff: async function(){
       console.log();
       try {
         let response = await request(config.PROJECTTYPE_URL,"GET");
-        this.projecttypes = response.data;
+        this.projecttypes =response.data;
+        this.projecttypes.unshift({name: "--projecttype--"});
         response = await request(config.SEMESTERS_URL,"GET");
         this.semesters = response.data;
+        this.semesters.unshift({});
         response = await request(config.ADVISOR_URL,"GET");
         this.advisors = response.data;
+        this.advisors.unshift({fullname: "--advisor--"});
       }
       catch(e) {
         console.error(e);
@@ -88,25 +95,35 @@ let component = {
       request(config.PROJECT_URL + contentEdit.idProject, 'PUT', contentEdit).then(res=>{
         console.log(res.data);
         this.tabIdx = 0;
-        this.search(this.searchText, this.searchField);
+        // this.search1(this.searchTitle, this.searchField);//to do
       }).catch(e => {
         console.error(e);
-        this.$router.push('/');
+        // this.$router.push('/');
       });
     },
     deleteProject: function(idProject) {
       console.log('delete');
       request(config.PROJECT_URL + idProject, 'delete').then(res => {
         console.log(res.data);
-        this.search(this.searchText, this.searchField);
+        // this.search1(this.searchText, this.searchField);// to do
         this.tabIdx = 0;
       }).catch(e => {
         console.error(e);
         // this.$router.push('/');
       });
     },
-    
-    search: function(searchText,searchStatus){
+    search: function(){
+      this.searchProject.title = this.searchTitle;
+      this.searchProject.idProjecttype = this.searchIdProjecttype;
+      this.searchProject.idSemester = this.searchIdSemester;
+      this.searchProject.status = this.searchStatus;
+      console.log("searchProject", this.searchProject);
+      request(config.PROJECT_URL, "PUT", this.searchProject).then(res => {
+        console.log(res.data);
+        this.contents = res.data;
+      }).catch(e=> console.error)
+    },
+    search1: function(searchText,searchStatus){
       console.log(searchText);
       if (isEmpty(searchText) && isEmpty(searchStatus)) {
         this.errorMessage = "Search data empty";
@@ -117,7 +134,6 @@ let component = {
         let data = {["title"]: searchText};
         request(config.PROJECT_URL, 'PUT', data).then(res => {
           this.contents = res.data;
-          return
         }).catch(e => {
           this.errorMessage = e.message;
         });
@@ -127,7 +143,6 @@ let component = {
         searchStatus==1 ? data = {["status"]: "on-going"}:data = {["status"]: "finish"};
           request(config.PROJECT_URL, 'PUT', data).then(res => {
             this.contents = res.data;
-            return
           }).catch(e => {
             this.errorMessage = e.message;
           });
@@ -137,14 +152,12 @@ let component = {
       return item.name;
     },
     getYear: function(item){
-      return `HK${item.semesterIndex + 1} ${item.year}-${item.year + 1}`;
+      // return `HK${item.semesterIndex + 1} ${item.year}-${item.year + 1}`;
+      return item.year;
     },
     getFullname: function(item){
       return item.fullname;
     },
-    selectFullname: function(selectedItem,selectedIdx){
-      this.advisors = selectedItem;
-    }
   },
   
   template,

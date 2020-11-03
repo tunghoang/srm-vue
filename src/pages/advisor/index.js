@@ -17,6 +17,8 @@ let component = {
       searchText:"",
       searchField: "email",
       errorMessage: "",
+      test:null,
+      idx:null
     };
   },
   created: function() {
@@ -37,10 +39,26 @@ let component = {
         this.tabIdx = 0;
         this.loadData();
       }).catch(e => {
-        // this.errorMessage="Input invalid";
         console.error(e);
       });
     },
+    // editAdvisor:function(idAdvisor,email,test,event){
+    //   console.log('editAdvisor');
+    //   event.stopPropagation();
+    //   event.preventDefault();
+    //   test == 1 ? idx = 12 : idx = 15;
+    //   request(config.ADVISOR_URL + idAdvisor, 'PUT', {
+    //     idQuota : idx,
+    //     email: email
+    //   }).then(res=>{
+    //     console.log(res.data);
+    //     this.tabIdx = 0;
+    //     this.loadData();
+    //     this.search(this.searchText, this.searchField);
+    //   }).catch(e => {
+    //     console.error(e);
+    //   });
+    // },
     editAdvisor:function(contentEdit,event){
       console.log('editAdvisor');
       event.stopPropagation();
@@ -49,7 +67,6 @@ let component = {
         console.log(res.data);
         this.tabIdx = 0;
         this.loadData();
-        this.search(this.searchText, this.searchField);
       }).catch(e => {
         console.error(e);
         // this.$router.push('/');
@@ -87,10 +104,10 @@ let component = {
         this.errorMessage = e.message;
       });
     },
-    selectChanged: function(selectedItem, selectedIdx) {
-      console.log("selectInte" + selectedItem);
-      this.advisorData.idQuota = selectedIdx
-    },
+    // selectChanged: function(selectedItem, selectedIdx) {
+    //   console.log("selectInte" + selectedItem);
+    //   this.advisorData.idQuota = selectedIdx
+    // },
   },
   
   template,

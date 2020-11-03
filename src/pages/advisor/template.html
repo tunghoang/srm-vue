@@ -45,7 +45,6 @@
                         <th>Email</th>
                         <th>Fullname</th>
                         <th>Quota</th>
-                        <th>idGuestadvisor</th>
                         <th>Edit</th>
                         <th>Delete</th>
                     </tr>
@@ -55,7 +54,6 @@
                         <td>{{content.email}}</td>
                         <td>{{content.fullname}}</td>
                         <td>{{content.idQuota}}</td>
-                        <td>{{content.idGuestadvisor}}</td>
                         <td>
                             <span class="Edit" @click="tabIdx=2; contentEdit = content">
                                 <a href="#">
@@ -167,19 +165,19 @@
                                 </div>
                             </div>
                             <div class="field">
+                                <label class='label'>quota</label>
+                                <div class='control'>
+                                    <input class='input' type='text' v-model='contentEdit.idQuota'>
+                                </div>
+                            </div>
+                            <!-- <div class="field">
                                 <label class='label'>Quota</label>
                                 <div class='control'>
                                     <dropdown-list :items="['0','1','2']"
                                         :on-select-changed="(selectedItem, selectedIndex) => contentEdit.idQuota = selectedIndex"
                                         :selected-index="contentEdit.idQuota"></dropdown-list>
                                 </div>
-                            </div>
-                            <div class="field">
-                                <label class='label'>idGuestadvisor</label>
-                                <div class='control'>
-                                    <input class='input' type='text' v-model='contentEdit.idGuestadvisor'>
-                                </div>
-                            </div>
+                            </div> -->
                             <div class='field is-grouped'>
                                 <div class='control'>
                                     <button type="submit" class='button is-link'>

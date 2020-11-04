@@ -9,12 +9,14 @@ import Projecttype from './projecttype';
 import Profileadvisor from './profileadvisor';
 import Newadvisor from './newadvisor';
 import Newproject from './newproject';
+import Addadvisor from './newproject/addadvisor';
 // redirect: '/project/unsupervised/0'
 export default [
   {path:'/', redirect: '/profileadvisor', props: true}, 
   Login, 
   Project('/project/:status/:idAdvisor', true),
   Profileadvisor('/profileadvisor'),
-  Newproject('/newproject/idProject/:idProject', true),
+  Newproject('/newproject/idProject/:idProject/idAdvisor/:idAdvisor', true),
   Newadvisor('/newadvisor'),
+  Addadvisor('/newproject/addadvisor/idProject/:idProject', true),
 ];

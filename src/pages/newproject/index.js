@@ -8,8 +8,10 @@ let component = {
   props: ['idProject','idAdvisor','idStudent'],
   data: function () {
     return {
+      currentIdProjectAdvisorRel:null,
+      tabIdx:0,
+      waiting:"[waiting]",
       newproject: null,
-      // advisorList: [{ 'fullname': 'abc' }],
       errorMessage: "",
       dataProject: {
         title: "",
@@ -44,7 +46,7 @@ let component = {
         this.projecttypeSelectedIdx = 0;
       }
       else {
-        this.dataProject.idSemester = null;
+        this.dataProject.idProjecttype = null;
       }
 
       if (!this.idProject) return;
@@ -72,6 +74,15 @@ let component = {
     }
   },
   methods: {
+    confirm: function(idProjectAdvisorRel){
+      this.waiting = "[Done!]";
+      console.log("confirm",idProjectAdvisorRel );
+      request(config.PROJECT_ADVISOR_RELS_URL + idProjectAdvisorRel,"PUT",{
+        status : 1
+      }).then(res=> {
+        console.log(res.data);
+      }).catch(e=> console.error(e))
+    },
     deleteProject:function(idProject){
       console.log("deletePrject" , idProject);
       if (!idProject) return;

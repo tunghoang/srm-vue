@@ -1,73 +1,84 @@
 <div class='panel'>
-  <div class='panel-heading'>
-    {{idProject?"Edit Project (id:" + idProject  + ")": "New Project"}}
-  </div>
-  <div class='panel-block'>
-    <div class='container'>
-      <h4 class="has-text-danger has-background-danger-light has-text-centered"
-        v-show="errorMessage && errorMessage.length > 0">{{errorMessage}}</h4>
-      <div class="field">
-        <label class='label'>Title</label>
-        <div class='control'>
-          <input class='input' type='text' v-model="dataProject.title" placeholder='title'>
-        </div>
-      </div>
-      <div class="field">
-        <label class='label'>Projecttype</label>
-        <div class='control'>
-          <dropdown-list class="min-width-8" :items="projecttypes" :selected-index="projecttypeSelectedIdx"
-            :item-label-fn="labelProjecttype" :on-select-changed="selectedProjecttype"></dropdown-list>
-        </div>
-      </div>
-      <div class="field">
-        <label class='label'>Semester</label>
-        <div class='control'>
-          <dropdown-list class="min-width-8" :items="semesters" :selected-index="semesterSelectedIdx"
-            :item-label-fn="labelSemester" :on-select-changed="selectedSemester"></dropdown-list>
-        </div>
-      </div>
-      <div class="field">
-        <label class='label'>Description</label>
-        <div class='control'>
-          <textarea class='textarea' type='text' v-model="dataProject.description" placeholder='description'></textarea>
-        </div>
-      </div>
-      <div v-if="idProject" class="field">
-        <div class="columns">
-          <div class="column">
-            <label class="label">Advisor {{idProject}} {{idStudent}}</label>
-            <router-link :to="`/newproject/addadvisor/idProject/${idProject}`">
-              <span>
-                Add Advisor
-              </span>
-            </router-link>
-            <ul class="item-list">
-              <li v-for="advisor in advisors" :key="advisor.idProjectAdvisorRel">
-                {{advisor.fullname}}
-                <a class="ml-2 is-size-7" @click="deleteAdvisorRel(advisor.idProjectadvisorrel)">
-                  [x]
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div class="column">
-            <label class="label">Members</label>
-            <router-link :to="`/newproject/addmember/idProject/${idProject}`">
-              <span>
-                Add members
-              </span>
-            </router-link>
-            <ul class="item-list">
-              <li v-for="member in members" :key="member.idProjectStudentRel">
-                {{member.fullname}} ({{member.studentNumber}})
-                <a class="ml-2 is-size-7" @click="deleteStudentRel(member.idProjectstudentrel)">
-                  [x]
-                </a>
-              </li>
-            </ul>
+  <div v-if="tabIdx===0">
+    <div class='panel-heading'>
+      {{idProject?"Edit Project (id:" + idProject  + ")": "New Project"}}
+    </div>
+    <div class='panel-block'>
+      <div class='container'>
+        <h4 class="has-text-danger has-background-danger-light has-text-centered"
+          v-show="errorMessage && errorMessage.length > 0">{{errorMessage}}</h4>
+        <div class="field">
+          <label class='label'>Title</label>
+          <div class='control'>
+            <input class='input' type='text' v-model="dataProject.title" placeholder='title'>
           </div>
         </div>
-      </div>
+        <div class="field">
+          <label class='label'>Projecttype</label>
+          <div class='control'>
+            <dropdown-list class="min-width-8" :items="projecttypes" :selected-index="projecttypeSelectedIdx"
+              :item-label-fn="labelProjecttype" :on-select-changed="selectedProjecttype"></dropdown-list>
+          </div>
+        </div>
+        <div class="field">
+          <label class='label'>Semester</label>
+          <div class='control'>
+            <dropdown-list class="min-width-8" :items="semesters" :selected-index="semesterSelectedIdx"
+              :item-label-fn="labelSemester" :on-select-changed="selectedSemester"></dropdown-list>
+          </div>
+        </div>
+        <div class="field">
+          <label class='label'>Description</label>
+          <div class='control'>
+            <textarea class='textarea' type='text' v-model="dataProject.description"
+              placeholder='description'></textarea>
+          </div>
+        </div>
+        <div v-if="idProject" class="field">
+          <div class="columns">
+            <div class="column">
+              <label class="label">Advisor -{{idProject}} -{{idStudent}} -{{idAdvisor}}</label>
+              <div v-if="!idAdvisor">
+                <router-link :to="`/newproject/addadvisor/idProject/${idProject}`">
+                  <span>
+                    Add Advisor
+                  </span>
+                </router-link>
+              </div>
+              <ul class="item-list">
+                <li v-for="advisor in advisors" :key="advisor.idProjectadvisorrel">
+                  {{advisor.fullname}}-{{advisor.idProjectadvisorrel}}
+                  <a class="ml-2 is-size-7" @click="deleteAdvisorRel(advisor.idProjectadvisorrel)">
+                    [x]
+                  </a>
+                  <a v-if="idAdvisor" class="ml-2 is-size-7 has-text-danger" @click="tabIdx=1;currentIdProjectAdvisorRel=advisor.idProjectadvisorrel">
+                    <!-- [waiting] -->
+                    {{idProject == advisor.idProjectadvisorrel ? "[waiting]":""}}
+                  </a>
+                  <a v-if="!idAdvisor" class="ml-2 is-size-7 has-text-danger">
+                    {{waiting}}
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="column">
+              <label class="label">Members</label>
+              <router-link v-if="!idAdvisor" :to="`/newproject/addmember/idProject/${idProject}`">
+                <span>
+                  Add members
+                </span>
+              </router-link>
+              <ul class="item-list">
+                <li v-for="member in members" :key="member.idProjectStudentRel">
+                  {{member.fullname}} ({{member.studentNumber}})
+                  <a v-if="!idAdvisor" class="ml-2 is-size-7" @click="deleteStudentRel(member.idProjectstudentrel)">
+                    [x]
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
         <div class="level">
           <div class="level-left">
             <div class='control'>
@@ -98,7 +109,25 @@
             </div>
           </div>
         </div>
-      <!-- </div> -->
+        <!-- </div> -->
+      </div>
+    </div>
+  </div>
+  <div class="card  p-4" v-if="tabIdx === 1">
+    <h2 class="is-size-5 has-text-danger">Confirm?</h2>
+    <div class="field is-grouped is-grouped-right">
+      <button class="button is-link is-danger" @click="confirm(currentIdProjectAdvisorRel)">
+        <span class="icon">
+          <ion-icon name="shield-checkmark"></ion-icon>
+        </span>
+        <span>Sure</span>
+      </button>
+      <button class="button ml-2 is-link is-light" @click="tabIdx = 0;">
+        <span class="icon">
+          <ion-icon name="arrow-back-circle"></ion-icon>
+        </span>
+        <span>Back</span>
+      </button>
     </div>
   </div>
 </div>

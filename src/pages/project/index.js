@@ -98,7 +98,6 @@ let component = {
         // this.search1(this.searchTitle, this.searchField);//to do
       }).catch(e => {
         console.error(e);
-        // this.$router.push('/');
       });
     },
     deleteProject: function(idProject) {
@@ -109,7 +108,6 @@ let component = {
         this.tabIdx = 0;
       }).catch(e => {
         console.error(e);
-        // this.$router.push('/');
       });
     },
     search: function(){

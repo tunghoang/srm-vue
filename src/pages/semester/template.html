@@ -63,13 +63,13 @@
         </div>
     </div>
     <div class="card m-4 p-4 border-redish" v-if="tabIdx === 4">
-        <h2 class="is-size-5 has-text-danger">Are you sure?</h2>
+        <input type="file" id="file" ref="myFiles" class="custom-file-input" @change="previewFiles" multiple>
         <div class="field is-grouped is-grouped-right">
-            <button class="button is-link is-danger" @click="Upload();">
+            <button class="button is-link" @click="Upload();">
                 <span class="icon">
                     <ion-icon name="shield-checkmark"></ion-icon>
                 </span>
-                <span>Sure</span>
+                <span>Submit</span>
             </button>
             <button class="button ml-2 is-link is-light" @click="tabIdx = 0;">
                 <span class="icon">

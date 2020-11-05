@@ -26,12 +26,7 @@ let component = {
       searchStatus:"",
       searchIdSemester:null,
       searchIdAdvisor:null,
-      searchIdProjecttype: null,
-      searchProject:{
-        title: null,
-        idProjecttype: null,
-        idSemester: null,
-        status: null}
+      searchIdProjecttype: null
     };
   },
   created: function() {
@@ -95,7 +90,6 @@ let component = {
       request(config.PROJECT_URL + contentEdit.idProject, 'PUT', contentEdit).then(res=>{
         console.log(res.data);
         this.tabIdx = 0;
-        // this.search1(this.searchTitle, this.searchField);//to do
       }).catch(e => {
         console.error(e);
       });
@@ -104,19 +98,27 @@ let component = {
       console.log('delete');
       request(config.PROJECT_URL + idProject, 'delete').then(res => {
         console.log(res.data);
-        // this.search1(this.searchText, this.searchField);// to do
         this.tabIdx = 0;
       }).catch(e => {
         console.error(e);
       });
     },
     search: function(){
-      this.searchProject.title = this.searchTitle;
-      this.searchProject.idProjecttype = this.searchIdProjecttype;
-      this.searchProject.idSemester = this.searchIdSemester;
-      this.searchProject.status = this.searchStatus;
+      let searchProject= {};
+      if (this.searchTitle && this.searchTitle.length>0){
+        searchProject.title = this.searchTitle;
+      }
+      if( this.searchIdProjecttype ){
+        searchProject.idProjecttype = this.searchIdProjecttype;
+      }
+      if(this.searchIdSemester){
+      searchProject.idSemester = this.searchIdSemester;
+      }
+      if(this.searchStatus){
+        searchProject.status = this.searchStatus;
+      }
       console.log("searchProject", this.searchProject);
-      request(config.PROJECT_URL, "PUT", this.searchProject).then(res => {
+      request(config.PROJECT_URL, "PUT", searchProject).then(res => {
         console.log(res.data);
         this.contents = res.data;
       }).catch(e=> console.error)

@@ -121,36 +121,11 @@ let component = {
         this.contents = res.data;
       }).catch(e=> console.error)
     },
-    search1: function(searchText,searchStatus){
-      console.log(searchText);
-      if (isEmpty(searchText) && isEmpty(searchStatus)) {
-        this.errorMessage = "Search data empty";
-        return;
-      }
-      this.errorMessage = "";
-      if (!isEmpty(searchText)) {
-        let data = {["title"]: searchText};
-        request(config.PROJECT_URL, 'PUT', data).then(res => {
-          this.contents = res.data;
-        }).catch(e => {
-          this.errorMessage = e.message;
-        });
-      } 
-      if (!isEmpty(searchStatus)) {
-        let data;
-        searchStatus==1 ? data = {["status"]: "on-going"}:data = {["status"]: "finish"};
-          request(config.PROJECT_URL, 'PUT', data).then(res => {
-            this.contents = res.data;
-          }).catch(e => {
-            this.errorMessage = e.message;
-          });
-      }     
-    },
+    
     getName: function(item){
       return item.name;
     },
     getYear: function(item){
-      // return `HK${item.semesterIndex + 1} ${item.year}-${item.year + 1}`;
       return item.year;
     },
     getFullname: function(item){
@@ -163,7 +138,6 @@ let component = {
     DropdownList
   }
 };
-// export default { path: "/project", component: component }
 export default function(path, props) {
   return { path, component, props }
 }

@@ -30,7 +30,9 @@ let component = {
         this.$router.push('/');
       });
     },
-
+    Upload: function(){
+      console.log("Upload!!!" , this.currentSemesterId);
+    },
     createSemester: function(semesterData,event) {
       if(isNaN(semesterData.year)){
         this.errorMessage = "invalid input";

@@ -4,7 +4,7 @@
             <p class="is-size-5">List Semester</p>
         </div>
         <div class="level-right">
-            <a class="button"  @click="tabIdx = 1;" v-show="tabIdx==0">
+            <a class="button" @click="tabIdx = 1;" v-show="tabIdx==0">
                 <span class="icon">
                     <ion-icon name="add-outline"></ion-icon>
                 </span>
@@ -22,7 +22,13 @@
                         <p><b>Year:</b> {{content.year}} - {{content.year+1}}</p>
                     </div>
                     <div class="has-text-right">
-                        <span class="Edit" @click="tabIdx=2; contentEdit = content">
+                        <span class="Upload" @click="currentSemesterId = content.idSemester;tabIdx = 4;">
+                            <a href="#" class="has-text-primary-dark">
+                                <ion-icon name="cloud-upload-outline"></ion-icon>
+                                <span>Upload</span>
+                            </a>
+                        </span>
+                        <span class="Edit ml-4" @click="tabIdx=2; contentEdit = content">
                             <a href="#">
                                 <ion-icon name="create-outline"></ion-icon>
                                 <span>Edit</span>
@@ -43,6 +49,23 @@
         <h2 class="is-size-5 has-text-danger">Are you sure?</h2>
         <div class="field is-grouped is-grouped-right">
             <button class="button is-link is-danger" @click="deleteSemester(currentSemesterId)">
+                <span class="icon">
+                    <ion-icon name="shield-checkmark"></ion-icon>
+                </span>
+                <span>Sure</span>
+            </button>
+            <button class="button ml-2 is-link is-light" @click="tabIdx = 0;">
+                <span class="icon">
+                    <ion-icon name="arrow-back-circle"></ion-icon>
+                </span>
+                <span>Back</span>
+            </button>
+        </div>
+    </div>
+    <div class="card m-4 p-4 border-redish" v-if="tabIdx === 4">
+        <h2 class="is-size-5 has-text-danger">Are you sure?</h2>
+        <div class="field is-grouped is-grouped-right">
+            <button class="button is-link is-danger" @click="Upload();">
                 <span class="icon">
                     <ion-icon name="shield-checkmark"></ion-icon>
                 </span>
@@ -104,7 +127,6 @@
             </form>
         </div>
     </div>
-
     <div v-if="tabIdx === 2">
         <div class='column '>
             <form @submit="editSemester(contentEdit,$event)">
@@ -122,7 +144,8 @@
                             <div class=field>
                                 <label class='label'>Year</label>
                                 <div class='control'>
-                                    <input class='input' type='text' v-model='contentEdit.year' @focus="errorMessage=''">
+                                    <input class='input' type='text' v-model='contentEdit.year'
+                                        @focus="errorMessage=''">
                                 </div>
                             </div>
                             <div class=field>

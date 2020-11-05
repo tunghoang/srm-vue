@@ -42,23 +42,6 @@ let component = {
         console.error(e);
       });
     },
-    // editAdvisor:function(idAdvisor,email,test,event){
-    //   console.log('editAdvisor');
-    //   event.stopPropagation();
-    //   event.preventDefault();
-    //   test == 1 ? idx = 12 : idx = 15;
-    //   request(config.ADVISOR_URL + idAdvisor, 'PUT', {
-    //     idQuota : idx,
-    //     email: email
-    //   }).then(res=>{
-    //     console.log(res.data);
-    //     this.tabIdx = 0;
-    //     this.loadData();
-    //     this.search(this.searchText, this.searchField);
-    //   }).catch(e => {
-    //     console.error(e);
-    //   });
-    // },
     editAdvisor:function(contentEdit,event){
       console.log('editAdvisor');
       event.stopPropagation();

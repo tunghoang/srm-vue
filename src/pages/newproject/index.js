@@ -10,7 +10,6 @@ let component = {
     return {
       currentIdProjectAdvisorRel:null,
       tabIdx:0,
-      waiting:"[waiting]",
       newproject: null,
       errorMessage: "",
       dataProject: {
@@ -75,7 +74,6 @@ let component = {
   },
   methods: {
     confirm: function(idProjectAdvisorRel){
-      this.waiting = "[Done!]";
       console.log("confirm",idProjectAdvisorRel );
       request(config.PROJECT_ADVISOR_RELS_URL + idProjectAdvisorRel,"PUT",{
         status : 1

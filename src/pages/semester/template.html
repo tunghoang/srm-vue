@@ -22,7 +22,13 @@
                         <p><b>Year:</b> {{content.year}} - {{content.year+1}}</p>
                     </div>
                     <div class="has-text-right">
-                        <span class="Upload" @click="currentSemesterId = content.idSemester;tabIdx = 4;">
+                        <span @click="currentSemesterId = content.idSemester;tabIdx = 5;">
+                            <a href="#" class="has-text-danger">
+                                <ion-icon name="list-outline"></ion-icon>
+                                <span>ListStudent</span>
+                            </a>
+                        </span>
+                        <span class="Upload ml-4" @click="currentSemesterId = content.idSemester;tabIdx = 4;">
                             <a href="#" class="has-text-primary-dark">
                                 <ion-icon name="cloud-upload-outline"></ion-icon>
                                 <span>Upload</span>
@@ -77,6 +83,64 @@
                 </span>
                 <span>Back</span>
             </button>
+        </div>
+    </div>
+    <div v-if="tabIdx === 5">
+        {{currentSemesterId}}
+        <form @submit="search(searchText, searchField)">
+            <div class="field has-addons m-0">
+                <p class="control">
+                    <dropdown-list class="min-width-8" :items='["Email","Fullname"]'
+                        :on-select-changed="searchFieldChanged"></dropdown-list>
+                </p>
+                <p class="control">
+                    <input class="input" type="text" placeholder="Find student" v-model="searchText">
+                </p>
+                <p class="control">
+                    <button class="button is-link" >
+                        <ion-icon name="search-outline"></ion-icon>
+                    </button>
+                </p>
+                <p v-if="errorMessage && errorMessage.length" class="control">
+                <div class="button is-borderless is-radiusless has-text-danger">{{errorMessage}}</div>
+                </p>
+            </div>
+        </form>
+        <div class="column">
+            <table class="table is-fullwidth has-text-centered">
+                <thead>
+                    <tr>
+                        <th>studentNumber</th>
+                        <th>email</th>
+                        <th>fullname</th>
+                        <th>dob</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <span class="Edit">
+                                <a href="#">
+                                    <ion-icon name="create-outline"></ion-icon>
+                                </a>
+                            </span>
+                        </td>
+                        <td>
+                            <span class="Delete" >
+                                <a href="#" class="has-text-danger">
+                                    <ion-icon name="trash-outline"></ion-icon>
+                                </a>
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
     <div v-if="tabIdx === 1">

@@ -20,3 +20,6 @@ export default [
   Newadvisor('/newadvisor'),
   Addadvisor('/newproject/addadvisor/idProject/:idProject', true),
 ];
+
+
+

@@ -15,7 +15,10 @@ let component = {
       contentEdit: {},
       yearError: false,
       errorMessage: "",
-      currentSemesterId: ""
+      currentSemesterId: "",
+      listStudent:{},
+      searchText:"",
+      searchField:""
     };
   },
   created: function () {
@@ -28,6 +31,13 @@ let component = {
     },
     Upload: function () {
       console.log("Upload!!!", "idSemester:" + this.currentSemesterId, "choosefile : " + this.files);
+    },
+    ListStudent: function(){
+      console.log("listStudent");
+      request(config.STUDENT_SEMESTER_RELS_URL, "GET").then(res=>{
+        console.log(res.data);
+        this.listStudent = res.data;
+      }).catch(e=> console.error(e))
     },
     loadData: function () {
       request(config.SEMESTERS_URL).then(res => {
@@ -89,6 +99,9 @@ let component = {
       console.log("selectInte" + selectedItem);
       this.semesterData.semesterIndex = selectedIdx
     },
+    searchFieldChanged: function(){
+      console.log("searchFieldChanged");
+    }
   },
 
   template,

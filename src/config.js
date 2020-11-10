@@ -11,6 +11,7 @@ export default {
   PROJECT_ADVISOR_RELS_URL : baseUrl + '/projectAdvisorRels/',
   PROJECT_STUDENT_RELS_URL : baseUrl + '/projectStudentRels/',
   GUESTADVISOR_URL : baseUrl + '/guestadvisors/',
+  STUDENT_SEMESTER_RELS_URL : baseUrl + '/studentSemesterRels/',
   LOGIN_URLS : {
     student: baseUrl + '/studentlogin/',
     advisor: baseUrl + '/advisorlogin/',

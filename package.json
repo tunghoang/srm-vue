@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "dependencies": {
     "axios": "^0.20.0",
+    "ionicons": "^5.2.3",
     "js-cookie": "^2.2.1",
     "jwt-decode": "^3.0.0",
     "vue": "^2.6.12",

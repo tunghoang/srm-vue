@@ -29,6 +29,21 @@ function request(url, method = 'GET', body = null, headers = null){
     r(res);
   }));
 }
+export function uploadRequest(url, method, body, headers = null) {
+  let formData = new FormData();
+  for (let key of Object.keys(body)){
+    formData.append(key, body[key]);
+  }
+  let options = {
+    method,
+    headers: {
+      'Content-Type': 'multipart/form-data',
+      ...headers
+    },
+    data: formData
+  }
+  return axios(url, options);
+}
 
 export default request;
 export function handleError(err) {

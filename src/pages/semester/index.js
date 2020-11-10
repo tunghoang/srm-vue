@@ -4,6 +4,7 @@ import style from './style.scss';
 import DropdownList from '../../components/dropdown-list';
 import config from '../../config';
 import request from '../../apis';
+import {uploadRequest} from '../../apis';
 
 let component = {
   data: function () {
@@ -18,19 +19,26 @@ let component = {
       currentSemesterId: "",
       listStudent:{},
       searchText:"",
-      searchField:"email"
+      searchField:"email",
+      loading: false
     };
   },
   created: function () {
     this.loadData();
   },
   methods: {
-    previewFiles() {
-      this.files = this.$refs.myFiles.files;
-      console.log("file", this.files);
+    onChangeFile($event) {
+      this.files = $event.target.files;
     },
-    Upload: function () {
-      console.log("Upload!!!", "idSemester:" + this.currentSemesterId, "choosefile : " + this.files);
+    upload: function (event) {
+      event.stopPropagation();
+      event.preventDefault();
+      this.loading = true;
+      uploadRequest('/upload/studentSemesterXlsx', 'POST', {
+        'xlsx_file': this.files[0]
+      }).then(res => {
+        console.log(res.data);
+      }).catch(e => console.error(e)).finally(() => this.loading=false);
     },
     ListStudent: function(){
       console.log("listStudent");

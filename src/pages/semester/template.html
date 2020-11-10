@@ -69,21 +69,23 @@
         </div>
     </div>
     <div class="card m-4 p-4 border-redish" v-if="tabIdx === 4">
-        <input type="file" id="file" ref="myFiles" class="custom-file-input" @change="previewFiles" multiple>
-        <div class="field is-grouped is-grouped-right">
-            <button class="button is-link" @click="Upload();">
-                <span class="icon">
-                    <ion-icon name="shield-checkmark"></ion-icon>
-                </span>
-                <span>Submit</span>
-            </button>
-            <button class="button ml-2 is-link is-light" @click="tabIdx = 0;">
-                <span class="icon">
-                    <ion-icon name="arrow-back-circle"></ion-icon>
-                </span>
-                <span>Back</span>
-            </button>
-        </div>
+        <form @submit="upload($event)">
+            <input type="file" name="xlsx_file" class="custom-file-input" @change="onChangeFile($event)" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+            <div class="field is-grouped is-grouped-right">
+                <button :disabled="!files || !files.length" type="submit" class="button is-link">
+                    <span class="icon">
+                        <ion-icon name="shield-checkmark"></ion-icon>
+                    </span>
+                    <span>Submit</span>
+                </button>
+                <button type="reset" class="button ml-2 is-link is-light" @click="tabIdx = 0;">
+                    <span class="icon">
+                        <ion-icon name="arrow-back-circle"></ion-icon>
+                    </span>
+                    <span>Back</span>
+                </button>
+            </div>
+        </form>
     </div>
     <div v-if="tabIdx === 5">
         HK{{currentSemester.semesterIndex + 1}} {{currentSemester.year}}-{{currentSemester.year + 1}} 
@@ -261,6 +263,7 @@
             </form>
         </div>
     </div>
+<<<<<<< Updated upstream
     <div v-if="tabIdx === 6">
         <div class='columns is-centered'>
             <div class='column is-three-quarters'>
@@ -307,6 +310,15 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div :class="['modal', loading?'is-active':'']">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+            <div class='box'>
+              <h3 class="is-size-4 has-text-centered">Uploading ...</h3>
+              <progress class="progress is-small is-info" max="100"></progress>
             </div>
         </div>
     </div>

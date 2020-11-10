@@ -23,7 +23,7 @@
                     </div>
                     <div class="has-text-right">
                         <span @click="currentSemester = content;tabIdx = 5;">
-                            <a href="#" class="has-text-danger">
+                            <a href="#" class="has-text-black">
                                 <ion-icon name="list-outline"></ion-icon>
                                 <span>ListStudent</span>
                             </a>
@@ -87,34 +87,42 @@
     </div>
     <div v-if="tabIdx === 5">
         HK{{currentSemester.semesterIndex + 1}} {{currentSemester.year}}-{{currentSemester.year + 1}} 
-        <form @submit="searchStudent(searchText, searchField)">
-            <div class="field has-addons m-0 level">
-                <p class="control">
-                    <dropdown-list class="min-width-8" :items='["Email","Fullname"]'
-                        :on-select-changed="searchFieldChanged"></dropdown-list>
-                </p>
-                <p class="control">
-                    <input class="input" type="text" placeholder="Find student" v-model="searchText">
-                </p>
-                <p class="control">
-                    <button class="button is-link" >
-                        <ion-icon name="search-outline"></ion-icon>
-                    </button>
-                </p>
-                <p class="control level-right">
-                    <button class="button ml-2 is-link " @click="tabIdx = 0;">
-                        <span class="icon">
-                            <ion-icon name="arrow-back-circle"></ion-icon>
-                        </span>
-                        <span>Back</span>
-                    </button>
-                </p>
-                <p v-if="errorMessage && errorMessage.length" class="control">
-                <div class="button is-borderless is-radiusless has-text-danger">{{errorMessage}}</div>
-                </p>
-            </div>
-        </form>
-        
+        <div class="level">
+            <form @submit="searchStudent(searchText, searchField)">
+                <div class="field has-addons m-0">
+                    <p class="control">
+                        <dropdown-list class="min-width-8" :items='["Email","Fullname"]'
+                            :on-select-changed="searchFieldChanged"></dropdown-list>
+                    </p>
+                    <p class="control">
+                        <input class="input" type="text" placeholder="Find student" v-model="searchText">
+                    </p>
+                    <p class="control">
+                        <button class="button is-link" >
+                            <ion-icon name="search-outline"></ion-icon>
+                        </button>
+                    </p>
+    
+                    <p v-if="errorMessage && errorMessage.length" class="control">
+                    <div class="button is-borderless is-radiusless has-text-danger">{{errorMessage}}</div>
+                    </p>
+                </div>
+            </form>
+            <p class="control level-right">
+                <button class="button ml-2 is-light" @click="tabIdx=6" >
+                    <span class="icon">
+                        <ion-icon name="add-outline"></ion-icon>
+                    </span>
+                    <span>New student</span>
+                </button>
+                <button class="button ml-2 is-link " @click="tabIdx = 0;">
+                    <span class="icon">
+                        <ion-icon name="arrow-back-circle"></ion-icon>
+                    </span>
+                    <span>Back</span>
+                </button>
+            </p>
+       </div>
         <div class="column">
             <table class="table is-fullwidth has-text-centered">
                 <thead>
@@ -253,5 +261,53 @@
             </form>
         </div>
     </div>
-
+    <div v-if="tabIdx === 6">
+        <div class='columns is-centered'>
+            <div class='column is-three-quarters'>
+                <div class='panel'>
+                    <div class="panel-heading">
+                        Add Student
+                    </div>
+                    <div class="panel-block">
+                        <form @submit="">
+                            <div class="field has-addons">
+                                <div class="control">
+                                    <input class="input" type="text" placeholder="Find student" v-model="searchText">
+                                </div>
+                                <div class="control">
+                                    <button type="submit" class="button is-link">
+                                        <ion-icon name="search-outline"></ion-icon>
+                                    </button>
+                                </div>
+                                <div v-if="errorMessage && errorMessage.length" class="control">
+                                    <div class="button is-borderless is-radiusless has-text-danger">{{errorMessage}}</div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="panel-block">
+                        <dropdown-list :items="advisorList" :item-label-fn="getFullname" :on-select-changed="selectAdvisor"> </dropdown-list>
+                    </div>
+                    <div class='field is-grouped pl-3 pt-3 pb-3'>
+                        <div class='control'>
+                            <button type="submit" class='button is-link' >
+                                <span class="icon">
+                                    <ion-icon name="checkmark-circle"></ion-icon>
+                                </span>
+                                <Span>Submit</Span>
+                            </button>
+                        </div>
+                        <div class='control'>
+                            <button class='button is-link is-light' @click="tabIdx=5">
+                                <span class="icon">
+                                  <ion-icon name="arrow-back-circle"></ion-icon>
+                                </span>
+                                <span>Back</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

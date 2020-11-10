@@ -18,7 +18,7 @@ let component = {
       currentSemesterId: "",
       listStudent:{},
       searchText:"",
-      searchField:""
+      searchField:"email"
     };
   },
   created: function () {
@@ -38,6 +38,29 @@ let component = {
         console.log(res.data);
         this.listStudent = res.data;
       }).catch(e=> console.error(e))
+    },
+    searchStudent: function(searchField,searchText){
+      console.log("search")
+      let data = {[searchField]:searchText};
+      console.log(data)
+      request(config.STUDENT_SEMESTER_RELS_URL,"put",data).then(res=>{
+        console.log(res.data + "---------");
+        this.listStudent=res.data;
+      }).catch(e=>console.log(e))
+    },
+    editStudent: function(){
+      console.log("edit")
+      request(config.STUDENT_SEMESTER_RELS_URL,"put").then(res=>{
+        console.log(res.data);
+        this.listStudent=res.data;
+      }).catch(e=>console.log(e))
+    },
+    deleteStudent: function(idStudent){
+      console.log("search")
+      request(config.STUDENT_SEMESTER_RELS_URL + idStudent, "delete").then(res=>{
+        this.listStudent();
+        console.log("delete");
+      }).catch(e=>console.log(e))
     },
     loadData: function () {
       request(config.SEMESTERS_URL).then(res => {
@@ -99,8 +122,9 @@ let component = {
       console.log("selectInte" + selectedItem);
       this.semesterData.semesterIndex = selectedIdx
     },
-    searchFieldChanged: function(){
+    searchFieldChanged: function(selectedItem,selectedIdx){
       console.log("searchFieldChanged");
+      this.searchField = selectedItem.toLowerCase()
     }
   },
 

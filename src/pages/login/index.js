@@ -46,3 +46,4 @@ let component = {
 };
 
 export default { path:"/login/:loginType", component:component, props: true }
+

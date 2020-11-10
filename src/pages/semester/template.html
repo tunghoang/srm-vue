@@ -22,7 +22,7 @@
                         <p><b>Year:</b> {{content.year}} - {{content.year+1}}</p>
                     </div>
                     <div class="has-text-right">
-                        <span @click="currentSemesterId = content.idSemester;tabIdx = 5;">
+                        <span @click="currentSemester = content;tabIdx = 5;">
                             <a href="#" class="has-text-danger">
                                 <ion-icon name="list-outline"></ion-icon>
                                 <span>ListStudent</span>
@@ -86,9 +86,9 @@
         </div>
     </div>
     <div v-if="tabIdx === 5">
-        {{currentSemesterId}}
-        <form @submit="search(searchText, searchField)">
-            <div class="field has-addons m-0">
+        HK{{currentSemester.semesterIndex + 1}} {{currentSemester.year}}-{{currentSemester.year + 1}} 
+        <form @submit="searchStudent(searchText, searchField)">
+            <div class="field has-addons m-0 level">
                 <p class="control">
                     <dropdown-list class="min-width-8" :items='["Email","Fullname"]'
                         :on-select-changed="searchFieldChanged"></dropdown-list>
@@ -101,11 +101,20 @@
                         <ion-icon name="search-outline"></ion-icon>
                     </button>
                 </p>
+                <p class="control level-right">
+                    <button class="button ml-2 is-link " @click="tabIdx = 0;">
+                        <span class="icon">
+                            <ion-icon name="arrow-back-circle"></ion-icon>
+                        </span>
+                        <span>Back</span>
+                    </button>
+                </p>
                 <p v-if="errorMessage && errorMessage.length" class="control">
                 <div class="button is-borderless is-radiusless has-text-danger">{{errorMessage}}</div>
                 </p>
             </div>
         </form>
+        
         <div class="column">
             <table class="table is-fullwidth has-text-centered">
                 <thead>
@@ -126,14 +135,14 @@
                         <td></td>
                         <td>
                             <span class="Edit">
-                                <a href="#">
+                                <a href="#" @click="editStudent">
                                     <ion-icon name="create-outline"></ion-icon>
                                 </a>
                             </span>
                         </td>
                         <td>
                             <span class="Delete" >
-                                <a href="#" class="has-text-danger">
+                                <a href="#" class="has-text-danger" @click="deleteStudent">
                                     <ion-icon name="trash-outline"></ion-icon>
                                 </a>
                             </span>

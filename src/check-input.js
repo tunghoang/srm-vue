@@ -1,21 +1,18 @@
-const isEmailError = (n) => {
+function isEmailError(n){
   // console.log(typeof n)
   for (i of n) {
-    if (i === "@") {
+    if (i === "@") 
       return false;
-    }
   }
   return true;
 };
 
-const isEmpty = (n) => {
-  if (n==null||n==""||n==undefined) {
+function isEmpty(n){
+  if (n==null || n=="" || n==undefined)
     return true;
-  }
   for (i in n) {
-    if (i == ""|| i==" ") {
+    if (i == ""|| i==" ")
       return true;
-    }
   }
   return false;
 };

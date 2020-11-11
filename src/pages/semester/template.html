@@ -23,9 +23,9 @@
                     </div>
                     <div class="has-text-right">
                         <span @click="currentSemester = content;tabIdx = 5;">
-                            <a href="#" class="has-text-black">
+                            <a href="#" class="has-text-primary-dark">
                                 <ion-icon name="list-outline"></ion-icon>
-                                <span>ListStudent</span>
+                                <span>View</span>
                             </a>
                         </span>
                         <span class="Upload ml-4" @click="currentSemesterId = content.idSemester;tabIdx = 4;">
@@ -88,9 +88,9 @@
         </form>
     </div>
     <div v-if="tabIdx === 5">
-        HK{{currentSemester.semesterIndex + 1}} {{currentSemester.year}}-{{currentSemester.year + 1}} 
+        <h2 class="menu-label is-size-5">HK{{currentSemester.semesterIndex + 1}} {{currentSemester.year}}-{{currentSemester.year + 1}}</h2>
         <div class="level">
-            <form @submit="searchStudent(searchText, searchField)">
+            <form @submit="searchStudentSemesterRels()">
                 <div class="field has-addons m-0">
                     <p class="control">
                         <dropdown-list class="min-width-8" :items='["Email","Fullname"]'
@@ -124,7 +124,7 @@
                     <span>Back</span>
                 </button>
             </p>
-       </div>
+        </div>
         <div class="column">
             <table class="table is-fullwidth has-text-centered">
                 <thead>
@@ -133,26 +133,18 @@
                         <th>email</th>
                         <th>fullname</th>
                         <th>dob</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
+                        <th>Remove</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                            <span class="Edit">
-                                <a href="#" @click="editStudent">
-                                    <ion-icon name="create-outline"></ion-icon>
-                                </a>
-                            </span>
-                        </td>
+                    <tr v-for="ssRel in studentSemesterRels" :key="ssRel.idStudentSemesterRel">
+                        <td>{{ssRel.studentNumber}}</td>
+                        <td>{{ssRel.email}}</td>
+                        <td>{{ssRel.fullname}}</td>
+                        <td>{{ssRel.dob}}</td>
                         <td>
                             <span class="Delete" >
-                                <a href="#" class="has-text-danger" @click="deleteStudent">
+                                <a href="#" class="has-text-danger" @click="deleteStudentSemesterRel(ssRel.idStudentSemesterRel)">
                                     <ion-icon name="trash-outline"></ion-icon>
                                 </a>
                             </span>
@@ -263,7 +255,6 @@
             </form>
         </div>
     </div>
-<<<<<<< Updated upstream
     <div v-if="tabIdx === 6">
         <div class='columns is-centered'>
             <div class='column is-three-quarters'>
@@ -272,10 +263,10 @@
                         Add Student
                     </div>
                     <div class="panel-block">
-                        <form @submit="">
+                        <form @submit="searchStudent(searchText)">
                             <div class="field has-addons">
                                 <div class="control">
-                                    <input class="input" type="text" placeholder="Find student" v-model="searchText">
+                                    <input class="input" type="text" placeholder="Find student" v-model="searchText1">
                                 </div>
                                 <div class="control">
                                     <button type="submit" class="button is-link">
@@ -289,7 +280,8 @@
                         </form>
                     </div>
                     <div class="panel-block">
-                        <dropdown-list :items="advisorList" :item-label-fn="getFullname" :on-select-changed="selectAdvisor"> </dropdown-list>
+                        <dropdown-list :items="studentList" :item-label-fn="getFullname" :on-select-changed="selectStudent">
+                        </dropdown-list>
                     </div>
                     <div class='field is-grouped pl-3 pt-3 pb-3'>
                         <div class='control'>

@@ -16,10 +16,13 @@ let component = {
       contentEdit: {},
       yearError: false,
       errorMessage: "",
+      currentSemester: null,
       currentSemesterId: "",
-      listStudent:{},
+      studentSemesterRels:[],
       searchText:"",
       searchField:"email",
+      searchText1: "",
+      studentList: [],
       loading: false
     };
   },
@@ -40,35 +43,29 @@ let component = {
         console.log(res.data);
       }).catch(e => console.error(e)).finally(() => this.loading=false);
     },
-    ListStudent: function(){
-      console.log("listStudent");
-      request(config.STUDENT_SEMESTER_RELS_URL, "GET").then(res=>{
-        console.log(res.data);
-        this.listStudent = res.data;
-      }).catch(e=> console.error(e))
-    },
-    searchStudent: function(searchField,searchText){
-      console.log("search")
-      let data = {[searchField]:searchText};
+    searchStudentSemesterRels: function($event){
+      if ($event) {
+        $event.stopPropagation();
+        $event.preventDefault();
+      }
+      let data = {[this.searchField]: this.searchText};
       console.log(data)
-      request(config.STUDENT_SEMESTER_RELS_URL,"put",data).then(res=>{
+      request(config.STUDENT_SEMESTER_RELS_URL, "PUT", data).then(res => {
         console.log(res.data + "---------");
-        this.listStudent=res.data;
+        this.studentSemesterRels = res.data;
       }).catch(e=>console.log(e))
     },
-    editStudent: function(){
-      console.log("edit")
-      request(config.STUDENT_SEMESTER_RELS_URL,"put").then(res=>{
-        console.log(res.data);
-        this.listStudent=res.data;
+    deleteStudentSemesterRel: function(idStudentSemesterRel){
+      request(config.STUDENT_SEMESTER_RELS_URL + idStudentSemesterRel, "DELETE").then(res => {
+        this.searchStudentSemesterRels();
       }).catch(e=>console.log(e))
     },
-    deleteStudent: function(idStudent){
-      console.log("search")
-      request(config.STUDENT_SEMESTER_RELS_URL + idStudent, "delete").then(res=>{
-        this.listStudent();
-        console.log("delete");
-      }).catch(e=>console.log(e))
+    searchStudents: function(searchText) {
+      request(config.STUDENT_URL, "PUT", {email: searchText}).then(res => {
+        
+      }).catch(e => {
+        console.error(e);
+      })
     },
     loadData: function () {
       request(config.SEMESTERS_URL).then(res => {

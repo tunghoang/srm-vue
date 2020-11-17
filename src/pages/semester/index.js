@@ -4,6 +4,8 @@ import style from './style.scss';
 import DropdownList from '../../components/dropdown-list';
 import config from '../../config';
 import request from '../../apis';
+import {uploadRequest} from '../../apis';
+import {isEmailError,isEmpty} from '../../check-input'
 
 let component = {
   data: function () {
@@ -14,54 +16,53 @@ let component = {
       semesterData: {},
       contentEdit: {},
       yearError: false,
-      errorMessage: "",
+      currentSemester: null,
       currentSemesterId: "",
-      listStudent:{},
+      studentSemesterRels:[],
+      searchText1: "",
+      loading: false,
       searchText:"",
-      searchField:"email"
+      errorMessage: "",
+      memberList:[{'fullname':'<No selected>'}],
+      student:{}
     };
   },
   created: function () {
     this.loadData();
   },
   methods: {
-    previewFiles() {
-      this.files = this.$refs.myFiles.files;
-      console.log("file", this.files);
+    onChangeFile($event) {
+      this.files = $event.target.files;
     },
-    Upload: function () {
-      console.log("Upload!!!", "idSemester:" + this.currentSemesterId, "choosefile : " + this.files);
-    },
-    ListStudent: function(){
-      console.log("listStudent");
-      request(config.STUDENT_SEMESTER_RELS_URL, "GET").then(res=>{
+    upload: function (event) {
+      event.stopPropagation();
+      event.preventDefault();
+      this.loading = true;
+      uploadRequest('/upload/studentSemesterXlsx', 'POST', {
+        'xlsx_file': this.files[0]
+      }).then(res => {
         console.log(res.data);
-        this.listStudent = res.data;
-      }).catch(e=> console.error(e))
+      }).catch(e => console.error(e)).finally(() => this.loading=false);
     },
-    searchStudent: function(searchField,searchText){
-      console.log("search")
-      let data = {[searchField]:searchText};
+    searchStudentSemesterRels: function($event){
+      if ($event) {
+        $event.stopPropagation();
+        $event.preventDefault();
+      }
+      let data = {[this.searchField]: this.searchText};
       console.log(data)
-      request(config.STUDENT_SEMESTER_RELS_URL,"put",data).then(res=>{
+      request(config.STUDENT_SEMESTER_RELS_URL, "PUT", data).then(res => {
         console.log(res.data + "---------");
-        this.listStudent=res.data;
+        this.studentSemesterRels = res.data;
       }).catch(e=>console.log(e))
     },
-    editStudent: function(){
-      console.log("edit")
-      request(config.STUDENT_SEMESTER_RELS_URL,"put").then(res=>{
-        console.log(res.data);
-        this.listStudent=res.data;
+    deleteStudentSemesterRel: function(idStudentSemesterRel){
+      request(config.STUDENT_SEMESTER_RELS_URL + idStudentSemesterRel, "DELETE").then(res => {
+        this.searchStudentSemesterRels();
       }).catch(e=>console.log(e))
     },
-    deleteStudent: function(idStudent){
-      console.log("search")
-      request(config.STUDENT_SEMESTER_RELS_URL + idStudent, "delete").then(res=>{
-        this.listStudent();
-        console.log("delete");
-      }).catch(e=>console.log(e))
-    },
+    //
+    
     loadData: function () {
       request(config.SEMESTERS_URL).then(res => {
         this.contents = res.data.sort((item1, item2) => (item2.idSemester - item1.idSemester));
@@ -125,7 +126,40 @@ let component = {
     searchFieldChanged: function(selectedItem,selectedIdx){
       console.log("searchFieldChanged");
       this.searchField = selectedItem.toLowerCase()
-    }
+    },
+    //
+    addStudent: function(){
+      console.log("---Add Student ---" );
+    },
+    searchStudent: function(searchText1,event){
+      event.stopPropagation();
+      event.preventDefault();
+      console.log(searchText1);
+      if (isEmpty(searchText1) ) {
+        this.errorMessage = "Search data empty";
+        return;
+      }
+      this.errorMessage = "";
+      let data = {['fullname']: searchText1};
+      this.student = {};
+      console.log(data);
+      request(config.STUDENT_URL, 'PUT', data).then(res => {
+        this.memberList = res.data;
+        console.log("MemberList-----"+ this.memberList);
+        if (this.memberList.length)
+          this.student = this.memberList[0];
+          console.log(this.student);
+      }).catch(e => {
+        console.error(e);
+        this.errorMessage = e.message;
+      });
+    },
+    selectMember: function(selectedItem, selectedIndex) {
+      this.student = selectedItem;
+    },
+    getFullname: function (instance) {
+      return instance.fullname;
+    },
   },
 
   template,

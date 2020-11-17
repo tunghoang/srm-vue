@@ -76,6 +76,8 @@ module.exports = {
       '/logout': backend,
       '/projectStudentRels': backend,
       '/projectAdvisorRels': backend,
+      '/studentSemesterRels': backend,
+      '/upload': backend,
       '/static/icons':backend
     }
   }

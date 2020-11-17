@@ -263,6 +263,7 @@
                         Add Student
                     </div>
                     <div class="panel-block">
+<<<<<<< HEAD
                         <form @submit="searchStudent(searchText1,$event)">
                            <div class="field has-addons">
                             <div class="control">
@@ -272,6 +273,21 @@
                                 <button type="submit" class="button is-link">
                                     <ion-icon name="search-outline"></ion-icon>
                                 </button>
+=======
+                        <form @submit="searchStudent(searchText)">
+                            <div class="field has-addons">
+                                <div class="control">
+                                    <input class="input" type="text" placeholder="Find student" v-model="searchText1">
+                                </div>
+                                <div class="control">
+                                    <button type="submit" class="button is-link">
+                                        <ion-icon name="search-outline"></ion-icon>
+                                    </button>
+                                </div>
+                                <div v-if="errorMessage && errorMessage.length" class="control">
+                                    <div class="button is-borderless is-radiusless has-text-danger">{{errorMessage}}</div>
+                                </div>
+>>>>>>> fa38a83b14c62a3d7b7ef51bfe32bfde98299235
                             </div>
                             <div v-if="errorMessage && errorMessage.length" class="control">
                                 <div class="button is-borderless is-radiusless has-text-danger">{{errorMessage}}</div>
@@ -280,7 +296,12 @@
                         </form>
                     </div>
                     <div class="panel-block">
+<<<<<<< HEAD
                         <dropdown-list :items="memberList" :item-label-fn="getFullname" :on-select-changed="selectMember"> </dropdown-list>
+=======
+                        <dropdown-list :items="studentList" :item-label-fn="getFullname" :on-select-changed="selectStudent">
+                        </dropdown-list>
+>>>>>>> fa38a83b14c62a3d7b7ef51bfe32bfde98299235
                     </div>
                     <div class='field is-grouped pl-3 pt-3 pb-3'>
                         <div class='control'>
@@ -313,4 +334,8 @@
             </div>
         </div>
     </div>
+<<<<<<< HEAD
 </div>
+=======
+</div>
+>>>>>>> fa38a83b14c62a3d7b7ef51bfe32bfde98299235

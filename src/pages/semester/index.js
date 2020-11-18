@@ -140,7 +140,7 @@ let component = {
         return;
       }
       this.errorMessage = "";
-      let data = {['fullname']: searchText1};
+      let data = {['email']: searchText1};
       this.student = {};
       console.log(data);
       request(config.STUDENT_URL, 'PUT', data).then(res => {

@@ -70,7 +70,8 @@
     </div>
     <div class="card m-4 p-4 border-redish" v-if="tabIdx === 4">
         <form @submit="upload($event)">
-            <input type="file" name="xlsx_file" class="custom-file-input" @change="onChangeFile($event)" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+            <input type="file" name="xlsx_file" class="custom-file-input" @change="onChangeFile($event)"
+                accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
             <div class="field is-grouped is-grouped-right">
                 <button :disabled="!files || !files.length" type="submit" class="button is-link">
                     <span class="icon">
@@ -88,7 +89,8 @@
         </form>
     </div>
     <div v-if="tabIdx === 5">
-        <h2 class="menu-label is-size-5">HK{{currentSemester.semesterIndex + 1}} {{currentSemester.year}}-{{currentSemester.year + 1}}</h2>
+        <h2 class="menu-label is-size-5">HK{{currentSemester.semesterIndex + 1}}
+            {{currentSemester.year}}-{{currentSemester.year + 1}}</h2>
         <div class="level">
             <form @submit="searchStudentSemesterRels()">
                 <div class="field has-addons m-0">
@@ -100,18 +102,18 @@
                         <input class="input" type="text" placeholder="Find student" v-model="searchText">
                     </p>
                     <p class="control">
-                        <button class="button is-link" >
+                        <button class="button is-link">
                             <ion-icon name="search-outline"></ion-icon>
                         </button>
                     </p>
-    
+
                     <p v-if="errorMessage && errorMessage.length" class="control">
                     <div class="button is-borderless is-radiusless has-text-danger">{{errorMessage}}</div>
                     </p>
                 </div>
             </form>
             <p class="control level-right">
-                <button class="button ml-2 is-light" @click="tabIdx=6" >
+                <button class="button ml-2 is-light" @click="tabIdx=6">
                     <span class="icon">
                         <ion-icon name="add-outline"></ion-icon>
                     </span>
@@ -143,8 +145,9 @@
                         <td>{{ssRel.fullname}}</td>
                         <td>{{ssRel.dob}}</td>
                         <td>
-                            <span class="Delete" >
-                                <a href="#" class="has-text-danger" @click="deleteStudentSemesterRel(ssRel.idStudentSemesterRel)">
+                            <span class="Delete">
+                                <a href="#" class="has-text-danger"
+                                    @click="deleteStudentSemesterRel(ssRel.idStudentSemesterRel)">
                                     <ion-icon name="trash-outline"></ion-icon>
                                 </a>
                             </span>
@@ -263,21 +266,10 @@
                         Add Student
                     </div>
                     <div class="panel-block">
-<<<<<<< HEAD
                         <form @submit="searchStudent(searchText1,$event)">
-                           <div class="field has-addons">
-                            <div class="control">
-                                <input class="input" type="text" placeholder="Find student" v-model="searchText1">
-                            </div>
-                            <div class="control">
-                                <button type="submit" class="button is-link">
-                                    <ion-icon name="search-outline"></ion-icon>
-                                </button>
-=======
-                        <form @submit="searchStudent(searchText)">
                             <div class="field has-addons">
                                 <div class="control">
-                                    <input class="input" type="text" placeholder="Find student" v-model="searchText1">
+                                    <input class="input" type="text" placeholder="MSSV" v-model="searchText1">
                                 </div>
                                 <div class="control">
                                     <button type="submit" class="button is-link">
@@ -285,23 +277,15 @@
                                     </button>
                                 </div>
                                 <div v-if="errorMessage && errorMessage.length" class="control">
-                                    <div class="button is-borderless is-radiusless has-text-danger">{{errorMessage}}</div>
+                                    <div class="button is-borderless is-radiusless has-text-danger">{{errorMessage}}
+                                    </div>
                                 </div>
->>>>>>> fa38a83b14c62a3d7b7ef51bfe32bfde98299235
                             </div>
-                            <div v-if="errorMessage && errorMessage.length" class="control">
-                                <div class="button is-borderless is-radiusless has-text-danger">{{errorMessage}}</div>
-                            </div>
-                           </div>
                         </form>
                     </div>
                     <div class="panel-block">
-<<<<<<< HEAD
-                        <dropdown-list :items="memberList" :item-label-fn="getFullname" :on-select-changed="selectMember"> </dropdown-list>
-=======
-                        <dropdown-list :items="studentList" :item-label-fn="getFullname" :on-select-changed="selectStudent">
-                        </dropdown-list>
->>>>>>> fa38a83b14c62a3d7b7ef51bfe32bfde98299235
+                        <dropdown-list :items="memberList" :item-label-fn="getFullname"
+                            :on-select-changed="selectMember"> </dropdown-list>
                     </div>
                     <div class='field is-grouped pl-3 pt-3 pb-3'>
                         <div class='control'>
@@ -329,13 +313,9 @@
         <div class="modal-background"></div>
         <div class="modal-content">
             <div class='box'>
-              <h3 class="is-size-4 has-text-centered">Uploading ...</h3>
-              <progress class="progress is-small is-info" max="100"></progress>
+                <h3 class="is-size-4 has-text-centered">Uploading ...</h3>
+                <progress class="progress is-small is-info" max="100"></progress>
             </div>
         </div>
     </div>
-<<<<<<< HEAD
 </div>
-=======
-</div>
->>>>>>> fa38a83b14c62a3d7b7ef51bfe32bfde98299235

@@ -6,7 +6,7 @@
         <div class="level-right">
             <a class="button" @click="tabIdx = 1;" v-show="tabIdx==0">
                 <span class="icon">
-                    <ion-icon name="add-outline"></ion-icon>
+                    <span class="icon-plus"></span>
                 </span>
                 <span> New Semester</span>
             </a>
@@ -24,25 +24,25 @@
                     <div class="has-text-right">
                         <span @click="currentSemester = content;tabIdx = 5;">
                             <a href="#" class="has-text-primary-dark">
-                                <ion-icon name="list-outline"></ion-icon>
+                                <span class="icon-list"></span>
                                 <span>View</span>
                             </a>
                         </span>
                         <span class="Upload ml-4" @click="currentSemesterId = content.idSemester;tabIdx = 4;">
                             <a href="#" class="has-text-primary-dark">
-                                <ion-icon name="cloud-upload-outline"></ion-icon>
+                                <span class="icon-upload"></span>
                                 <span>Upload</span>
                             </a>
                         </span>
                         <span class="Edit ml-4" @click="tabIdx=2; contentEdit = content">
                             <a href="#">
-                                <ion-icon name="create-outline"></ion-icon>
+                                <span class="icon-pencil-alt"></span>
                                 <span>Edit</span>
                             </a>
                         </span>
-                        <span class="Delete ml-4" @click="currentSemesterId = content.idSemester;tabIdx = 3;">
+                        <span class="Delete ml-4" @click="pendingAction = {fn: deleteSemester, param: content.idSemester};tabIdx = 3;">
                             <a href="#" class="has-text-danger">
-                                <ion-icon name="trash-outline"></ion-icon>
+                                <span class="icon-trash"></span>
                                 <span>Delete</span>
                             </a>
                         </span>
@@ -54,15 +54,15 @@
     <div class="card m-4 p-4 border-redish" v-if="tabIdx === 3">
         <h2 class="is-size-5 has-text-danger">Are you sure?</h2>
         <div class="field is-grouped is-grouped-right">
-            <button class="button is-link is-danger" @click="deleteSemester(currentSemesterId)">
+            <button class="button is-link is-danger" @click="pendingAction.fn(pendingAction.param)">
                 <span class="icon">
-                    <ion-icon name="shield-checkmark"></ion-icon>
+                    <span class="icon-check"></span>
                 </span>
                 <span>Sure</span>
             </button>
-            <button class="button ml-2 is-link is-light" @click="tabIdx = 0;">
+            <button class="button ml-2 is-light" @click="tabIdx = 0;">
                 <span class="icon">
-                    <ion-icon name="arrow-back-circle"></ion-icon>
+                    <span class="icon-arrow-left"></span>
                 </span>
                 <span>Back</span>
             </button>
@@ -75,13 +75,13 @@
             <div class="field is-grouped is-grouped-right">
                 <button :disabled="!files || !files.length" type="submit" class="button is-link">
                     <span class="icon">
-                        <ion-icon name="shield-checkmark"></ion-icon>
+                        <span class="icon-check"></span>
                     </span>
                     <span>Submit</span>
                 </button>
-                <button type="reset" class="button ml-2 is-link is-light" @click="tabIdx = 0;">
+                <button type="reset" class="button ml-2 is-light" @click="tabIdx = 0;">
                     <span class="icon">
-                        <ion-icon name="arrow-back-circle"></ion-icon>
+                        <span class="icon-arrow-left"></span>
                     </span>
                     <span>Back</span>
                 </button>
@@ -92,7 +92,7 @@
         <h2 class="menu-label is-size-5">HK{{currentSemester.semesterIndex + 1}}
             {{currentSemester.year}}-{{currentSemester.year + 1}}</h2>
         <div class="level">
-            <form @submit="searchStudentSemesterRels()">
+            <form @submit="searchStudentSemesterRels($event)">
                 <div class="field has-addons m-0">
                     <p class="control">
                         <dropdown-list class="min-width-8" :items='["Email","Fullname"]'
@@ -103,7 +103,7 @@
                     </p>
                     <p class="control">
                         <button class="button is-link">
-                            <ion-icon name="search-outline"></ion-icon>
+                            <span class="icon-search"></span>
                         </button>
                     </p>
 
@@ -115,20 +115,44 @@
             <p class="control level-right">
                 <button class="button ml-2 is-light" @click="tabIdx=6">
                     <span class="icon">
-                        <ion-icon name="add-outline"></ion-icon>
+                        <span class="icon-plus"></span>
                     </span>
                     <span>New student</span>
                 </button>
                 <button class="button ml-2 is-link " @click="tabIdx = 0;">
                     <span class="icon">
-                        <ion-icon name="arrow-back-circle"></ion-icon>
+                        <span class="icon-arrow-left"></span>
                     </span>
                     <span>Back</span>
                 </button>
             </p>
         </div>
         <div class="column">
-            <table class="table is-fullwidth has-text-centered">
+            <Pagination :items='studentSemesterRels' :fields="[{
+                value: 'student_fullname',
+                label: 'Student'
+              },{
+                value: 'student_studentNumber',
+                label: 'studentNo'
+              },{
+                value: 'project_title',
+                label: 'project'
+              },{
+                value: 'semester_year',
+                label: 'Year'
+              }]" :actions="[{
+                class: 'icon-trash has-text-danger',
+                fn: (item) => {
+                  pendingAction = {
+                    fn: deleteStudentSemesterRel,
+                    param: item
+                  }
+                  tabIdx = 3;
+                }
+              }]"
+            >
+            </Pagination>
+            <!--<table class="table is-fullwidth has-text-centered">
                 <thead>
                     <tr>
                         <th>studentNumber</th>
@@ -148,13 +172,13 @@
                             <span class="Delete">
                                 <a href="#" class="has-text-danger"
                                     @click="deleteStudentSemesterRel(ssRel.idStudentSemesterRel)">
-                                    <ion-icon name="trash-outline"></ion-icon>
+                                    <span class="icon-trash"></span>
                                 </a>
                             </span>
                         </td>
                     </tr>
                 </tbody>
-            </table>
+            </table>-->
         </div>
     </div>
     <div v-if="tabIdx === 1">
@@ -185,7 +209,7 @@
                                 <div class='control'>
                                     <button type="submit" class='button is-link'>
                                         <span class="icon">
-                                            <ion-icon name="checkmark-circle"></ion-icon>
+                                            <span class="icon-check"></span>
                                         </span>
                                         <span>Submit</span>
                                     </button>
@@ -193,7 +217,7 @@
                                 <div class='control'>
                                     <button class='button is-link is-light' @click="tabIdx = 0;">
                                         <span class="icon">
-                                            <ion-icon name="arrow-back-circle"></ion-icon>
+                                            <span class="icon-arrow-left"></span>
                                         </span>
                                         <span>Back</span>
                                     </button>
@@ -238,15 +262,15 @@
                                 <div class='control'>
                                     <button type="submit" class='button is-link'>
                                         <span class="icon">
-                                            <ion-icon name="checkmark-circle"></ion-icon>
+                                            <span class="icon-check"></span>
                                         </span>
                                         <span>Submit</span>
                                     </button>
                                 </div>
                                 <div class='control'>
-                                    <button class='button is-link is-light' @click="tabIdx = 0;">
+                                    <button class='button is-light' @click="tabIdx = 0;">
                                         <span class="icon">
-                                            <ion-icon name="arrow-back-circle"></ion-icon>
+                                            <span class="icon-arrow-left"></span>
                                         </span>
                                         <span>Back</span>
                                     </button>
@@ -273,7 +297,7 @@
                                 </div>
                                 <div class="control">
                                     <button type="submit" class="button is-link">
-                                        <ion-icon name="search-outline"></ion-icon>
+                                        <span class="icon-search"></span>
                                     </button>
                                 </div>
                                 <div v-if="errorMessage && errorMessage.length" class="control">
@@ -284,22 +308,22 @@
                         </form>
                     </div>
                     <div class="panel-block">
-                        <dropdown-list :items="memberList" :item-label-fn="getFullname"
-                            :on-select-changed="selectMember"> </dropdown-list>
+                        <dropdown-list :items="studentList" :item-label-fn="getFullname"
+                            :on-select-changed="selectStudent"> </dropdown-list>
                     </div>
                     <div class='field is-grouped pl-3 pt-3 pb-3'>
                         <div class='control'>
                             <button type="submit" class='button is-link' @click="addStudent()">
                                 <span class="icon">
-                                    <ion-icon name="checkmark-circle"></ion-icon>
+                                    <span class="icon-check"></span>
                                 </span>
                                 <Span>Submit</Span>
                             </button>
                         </div>
                         <div class='control'>
-                            <button type="reset" class='button is-link is-light' @click="tabIdx = 5">
+                            <button type="reset" class='button is-light' @click="tabIdx = 5">
                                 <span class="icon">
-                                    <ion-icon name="arrow-back-circle"></ion-icon>
+                                    <span class="icon-arrow-left"></span>
                                 </span>
                                 <span>Back</span>
                             </button>

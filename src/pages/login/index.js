@@ -24,7 +24,9 @@ let component = {
     };
   },
   methods: {
-    doLogin: function(account) {
+    doLogin: function(event, account) {
+      event.stopPropagation();
+      event.preventDefault();
       console.log('doLogin', this.loginType, JSON.stringify(account), getLoginUrl(this.loginType, this.isGuest));
       if(isEmailError(account.email)||isEmpty(account.password)){
         this.errorMessage = "Invalid email"

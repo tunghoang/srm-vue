@@ -21,7 +21,7 @@
             <div class='navbar-end'>
               <a class=' navbar-item' @click='doLogout()'>
                 <span class='icon'>
-                  <ion-icon size="large" name="person-circle-outline"></ion-icon>
+                  <span class='icon-user'></span>
                 </span>
                 <span class="ml-3">{{username}}</span>
               </a>
@@ -38,7 +38,7 @@
             <li>
               <router-link :to="`/project/on-going/${idAdvisor}`">
                 <span class='icon is-medium'>
-                  <ion-icon name="rocket-outline"></ion-icon>
+                  <span class='icon-rocket'></span>
                 </span>
                 <span>On-going Projects</span>
               </router-link>
@@ -46,7 +46,7 @@
             <li>
               <router-link :to="`/project/finished/${idAdvisor}`">
                 <span class='icon is-medium'>
-                  <ion-icon size='small' name="cloud-done-outline"></ion-icon>
+                  <span class="icon-check"></span>
                 </span>
                 <span>Finished Projects</span>
               </router-link>
@@ -55,16 +55,16 @@
           <p class="menu-label" style="padding: 0 0 0 1.5rem;">
             Actions
           </p>
-          <!-- <ul class='menu-list'>
-              <li>
-                <router-link to="/newadvisor">
-                  <span class='icon is-medium'>
-                    <ion-icon size='small' name="add-outline"></ion-icon>
-                  </span>
-                  <span>Add New Advisor</span>
-                </router-link>
-              </li>
-            </ul> -->
+          <ul class='menu-list'>
+            <li>
+              <router-link :to="`/profileadvisor/${idAdvisor}`">
+                <span class='icon is-medium'>
+                  <span class="icon-home"></span>
+                </span>
+                <span>Home</span>
+              </router-link>
+            </li>
+          </ul>
         </aside>
         <div class='tile is-parent'>
           <div class='tile is-child'>
@@ -74,7 +74,6 @@
       </div>
     </div>
   </div>
-  <script src="/vendors/dist/ionicons.js"></script>
 </body>
 
 </html>

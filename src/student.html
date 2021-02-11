@@ -21,7 +21,7 @@
             <div class='navbar-end'>
               <a class='navbar-item' @click='doLogout()'>
                 <span class='icon'>
-                  <ion-icon size="large" name="person-circle-outline"></ion-icon>
+                  <span class='icon-user'></span>
                 </span>
                 <span class="ml-3">{{username}}</span>
               </a>
@@ -38,7 +38,7 @@
             <li>
               <router-link :to="`/project/on-going/${idStudent}`">
                 <span class='icon is-medium'>
-                  <ion-icon size='small' name="rocket-outline"></ion-icon>
+                  <span class='icon-rocket'></span>
                 </span>
                 <span>On-going Projects</span>
               </router-link>
@@ -46,7 +46,7 @@
             <li>
               <router-link :to="`/project/finished/${idStudent}`">
                 <span class='icon is-medium'>
-                  <ion-icon size='small' name="cloud-done-outline"></ion-icon>
+                  <span class='icon-check'></span>
                 </span>
                 <span>Finished Projects</span>
               </router-link>
@@ -59,7 +59,7 @@
             <li>
               <router-link to="/newproject">
                 <span class='icon is-medium'>
-                  <ion-icon size='small' name="add-outline"></ion-icon>
+                  <span class='icon-plus'></span>
                 </span>
                 <span>Add New Project</span>
               </router-link>
@@ -74,6 +74,5 @@
       </div>
     </div>
   </div>
-  <script src="/vendors/dist/ionicons.js"></script>
 </body>
 </html>

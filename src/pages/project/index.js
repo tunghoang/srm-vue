@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import template from './template.html';
 import DropdownList from '../../components/dropdown-list';
+import Pagination from '../../components/pagination';
 import config from '../../config';
 import request from '../../apis';
 import {isEmailError,isEmpty} from '../../check-input'
@@ -26,19 +27,94 @@ let component = {
       searchStatus:"",
       searchIdSemester:null,
       searchIdAdvisor:null,
-      searchIdProjecttype: null
+      searchIdProjecttype: null,
+      projectFields: null,
+      projectActions: null
     };
   },
+  watch: {
+    status: function() {
+      this.doInit();
+    }
+  },
   created: function() {
-    if(this.idStudent || this.idAdvisor){
-      this.loadData();
+    if (this.idAdvisor) {
+      this.projectFields = [{
+        value: 'title', 
+        label: 'Title'
+      }, {
+        value: 'year',
+        label: 'Year'
+      }, {
+        value: 'semesterIndex',
+        label: 'HK',
+        fn: (v) => v + 1
+      }, {
+        value: 'status', 
+        label: 'Status'
+      }, {
+        value: 'grade', 
+        label: 'Grade'
+      }, {
+        value: 'confirmed',
+        label: 'Confirmed?',
+        fn: (v) =>  v === null ? "No": "Yes"
+      }];
+
+      this.projectActions = [{
+        class: 'icon-pencil-alt',
+        fn: this.gotoEditProject
+      }, {
+        classFn: (item) => ({
+          'icon-check-box has-text-success': true,
+          'is-hidden': item.confirmed
+        }),
+        tooltip:'Accept project',
+        fn: this.acceptProject
+      }, {
+        classFn: (item) => ({
+          'icon-na has-text-danger': true,
+          'is-hidden': item.confirmed
+        }),
+        tooltip:'Refuse project',
+        fn: this.refuseProject
+      }];
     }
     else {
-      this.loadDataStaff();
+      this.projectFields = [{
+        value: 'title', 
+        label: 'Title'
+      }, {
+        value: 'year',
+        label: 'Year'
+      }, {
+        value: 'semesterIndex',
+        label: 'HK',
+        fn: (v) => v + 1
+      }, {
+        value: 'status', 
+        label: 'Status'
+      }, {
+        value: 'grade', 
+        label: 'Grade'
+      }];
+      this.projectActions = [{
+        class: 'icon-pencil-alt',
+        fn: this.gotoEditProject
+      }]
     }
-    this.loadData();
+    this.doInit();
   },
   methods: {
+    doInit: async function() {
+      if(this.idStudent || this.idAdvisor){
+        this.loadData();
+      }
+      else {
+        await this.loadDataStaff();
+        //await this.loadData();
+      }
+    },
     semesterLabel: function(prj){
       console.log(prj);
       return `HK${prj.semesterIndex + 1} ${prj.year}-${prj.year + 1}`;
@@ -61,7 +137,7 @@ let component = {
         this.errorMessage = e.response.data.message;
       }
     },
-    loadData: function() {
+    loadData: async function() {
       let criteria = {};
       if (this.idAdvisor) {
         criteria.idAdvisor = this.idAdvisor;
@@ -76,14 +152,27 @@ let component = {
         criteria.idProjecttype = this.idProjecttype;
       }
       if (this.status) {
-        //criteria.status = this.status;
+        criteria.status = this.status;
       }
-      request(config.PROJECT_URL, 'put', criteria).then(res => {
-        this.contents = res.data.sort((item1, item2) => (item2.idProject - item1.idProject));
-      }).catch(e => {
+      try {
+        this.contents = (await request(config.PROJECT_URL, 'PUT', criteria)).data.sort((item1, item2) => (item2.idProject - item1.idProject));
+      }
+      catch(e) {
         console.error(e);
         this.errorMessage = e.response.data.message;
-      });
+      }
+    },
+    gotoEditProject: function(prj) {
+      let targetUrl = `/newproject/idProject/${prj.idProject}`;
+      if (this.idAdvisor) 
+        targetUrl += `/idAdvisor/${this.idAdvisor}`
+      this.$router.push({path:targetUrl});
+    },
+    acceptProject: function(prj) {
+      console.log('Confirm Project');
+    },
+    refuseProject: function(prj) {
+      console.log('Refuse Project');
     },
     editProject:function(contentEdit){
       console.log('editProject');
@@ -137,7 +226,7 @@ let component = {
   
   template,
   components: {
-    DropdownList
+    DropdownList, Pagination
   }
 };
 export default function(path, props) {

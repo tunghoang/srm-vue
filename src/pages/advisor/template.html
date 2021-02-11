@@ -13,7 +13,7 @@
                         </p>
                         <p class="control">
                             <button class="button is-link">
-                                <ion-icon name="search-outline"></ion-icon>
+                                <span class='icon-search'></span>
                             </button>
                         </p>
                         <p v-if="errorMessage && errorMessage.length" class="control">
@@ -23,54 +23,46 @@
                 </div>
             </form>
             
-            <div class="level-right">
-                <a class="button" @click="tabIdx=1">
-                    <span class="icon">
-                        <ion-icon name="add-outline"></ion-icon>
+            <div class="level-right field is-grouped">
+                <div class='control'>
+                  <a class='button' @click="downloadExcel">
+                    <span class='icon'>
+                      <span class='icon-export'></span>
                     </span>
-                    <span> New Guestadvisor</span>
-                    <!-- <router-link to="../newadvisor">
-                        <span class="icon">
-                            <ion-icon name="add-outline"></ion-icon>
-                        </span>
-                        <span> New Guestadvisor</span>
-                      </router-link> -->
-                </a>
+                    <span>Export XLSX</span>
+                  </a>
+                </div>
+                <div class='control'>
+                    <router-link to="../newadvisor" class='button'>
+                      <span class="icon">
+                          <span class='icon-plus'></span>
+                      </span>
+                      <span> New Guestadvisor</span>
+                    </router-link>
+                </div>
             </div>
         </div>
         <div class="column">
-            <table class="table is-fullwidth has-text-centered">
-                <thead>
-                    <tr>
-                        <th>Email</th>
-                        <th>Fullname</th>
-                        <th>Quota</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="content in contents" :key="content.idAvisor">
-                        <td>{{content.email}}</td>
-                        <td>{{content.fullname}}</td>
-                        <td>{{content.idQuota}}</td>
-                        <td>
-                            <span class="Edit" @click="tabIdx=2; contentEdit = content">
-                                <a href="#">
-                                    <ion-icon name="create-outline"></ion-icon>
-                                </a>
-                            </span>
-                        </td>
-                        <td>
-                            <span class="Delete" @click="currentAdvisorId = content.idAdvisor;tabIdx = 3;">
-                                <a href="#" class="has-text-danger">
-                                    <ion-icon name="trash-outline"></ion-icon>
-                                </a>
-                            </span>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <Pagination :items="contents" :fields="[{
+                value:'email', label:'Email'
+              },{
+                value:'fullname', label:'Fullname'
+              }, {
+                value:'idQuota', label:'Quota'
+              }]" :actions="[{
+                class: 'icon-pencil-alt',
+                fn: (item) => {
+                  tabIdx = 2;
+                  contentEdit = item;
+                }
+              },{
+                class: 'icon-trash has-text-danger',
+                fn: (item) => {
+                  currentAdvisorId = item.idAdvisor;
+                  tabIdx = 3;
+                }
+              }]"
+            ></Pagination>
         </div>
     </div>
     <div class="card m-4 p-4 border-redish" v-if="tabIdx === 3">
@@ -78,13 +70,13 @@
         <div class="field is-grouped is-grouped-right">
             <button class="button is-link is-danger" @click="deleteAdvisor(currentAdvisorId)">
                 <span class="icon">
-                    <ion-icon name="shield-checkmark"></ion-icon>
+                    <span class="icon-check"></span>
                 </span>
                 <span>Sure</span>
             </button>
             <button class="button ml-2 is-link is-light" @click="tabIdx = 0;">
                 <span class="icon">
-                    <ion-icon name="arrow-back-circle"></ion-icon>
+                    <span class="icon-arrow-left"></span>
                 </span>
                 <span>Back</span>
             </button>
@@ -122,7 +114,7 @@
                             <div class='control'>
                                 <button type="submit" class='button is-link'>
                                     <span class="icon">
-                                        <ion-icon name="checkmark-circle"></ion-icon>
+                                        <span class="icon-check"></span>
                                     </span>
                                     <span>Submit</span>
                                 </button>
@@ -130,7 +122,7 @@
                             <div class='control'>
                                 <button class='button is-link is-light' @click="tabIdx=0">
                                     <span class="icon">
-                                        <ion-icon name="arrow-back-circle"></ion-icon>
+                                        <span class="icon-arrow-left"></span>
                                     </span>
                                     <span>Back</span>
                                 </button>
@@ -182,15 +174,15 @@
                                 <div class='control'>
                                     <button type="submit" class='button is-link'>
                                         <span class="icon">
-                                            <ion-icon name="checkmark-circle"></ion-icon>
+                                            <span class="icon-check"></span>
                                         </span>
                                         <span>Submit</span>
                                     </button>
                                 </div>
                                 <div class='control'>
-                                    <button class='button is-link is-light' @click="tabIdx = 0;">
+                                    <button class='button is-light' @click="tabIdx = 0;">
                                         <span class="icon">
-                                            <ion-icon name="arrow-back-circle"></ion-icon>
+                                            <span class="icon-arrow-left"></span>
                                         </span>
                                         <span>Back</span>
                                     </button>

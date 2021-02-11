@@ -11,7 +11,6 @@ let component = {
       errorMessage:"",
       comfirmPassword:"",
       dataAdvisor:{
-        idGuestadvisor: 0,
         email: "",
         fullname: "",
         affiliation: "",

@@ -11,7 +11,7 @@
                 </p>
                 <p class="control">
                     <button class="button is-link" >
-                        <ion-icon name="search-outline"></ion-icon>
+                        <span class="icon-search"></span>
                     </button>
                 </p>
                 <p v-if="errorMessage && errorMessage.length" class="control">
@@ -42,14 +42,14 @@
                         <td>
                             <span class="Edit" @click="tabIdx=2; contentEdit = content">
                                 <a href="#">
-                                    <ion-icon name="create-outline"></ion-icon>
+                                    <span class="icon-pencil-alt"></span>
                                 </a>
                             </span>
                         </td>
                         <td>
                             <span class="Delete" @click="currentStudentId = content.idStudent;tabIdx = 3;">
                                 <a href="#" class="has-text-danger">
-                                    <ion-icon name="trash-outline"></ion-icon>
+                                    <span class="icon-trash"></span>
                                 </a>
                             </span>
                         </td>
@@ -63,13 +63,13 @@
         <div class="field is-grouped is-grouped-right">
             <button class="button is-link is-danger" @click="deleteStudent(currentStudentId)">
                 <span class="icon">
-                    <ion-icon name="shield-checkmark"></ion-icon>
+                    <span class="icon-check"></span>
                 </span>
                 <span>Sure</span>
             </button>
             <button class="button ml-2 is-link is-light" @click="tabIdx = 0;">
                 <span class="icon">
-                    <ion-icon name="arrow-back-circle"></ion-icon>
+                    <span class="icon-arrow-left"></span>
                 </span>
                 <span>Back</span>
             </button>
@@ -121,7 +121,7 @@
                                 <div class='control'>
                                     <button type="submit" class='button is-link'>
                                         <span class="icon">
-                                            <ion-icon name="checkmark-circle"></ion-icon>
+                                            <span class="icon-check"></span>
                                         </span>
                                         <span>Submit</span>
                                     </button>
@@ -129,7 +129,7 @@
                                 <div class='control'>
                                     <button class='button is-link is-light' @click="tabIdx = 0;">
                                         <span class="icon">
-                                            <ion-icon name="arrow-back-circle"></ion-icon>
+                                            <span class="icon-arrow-left"></span>
                                         </span>
                                         <span>Back</span>
                                     </button>

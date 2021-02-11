@@ -18,5 +18,6 @@ export default {
     staff: baseUrl + '/stafflogin/',
     guest: baseUrl + '/guestlogin/'
   },
-  LOGOUT_URL: baseUrl + '/logout/'
+  LOGOUT_URL: baseUrl + '/logout/',
+  EXPORT_ADVISORS_URL: baseUrl + '/exportAdvisors/'
 }

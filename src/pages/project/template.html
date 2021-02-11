@@ -30,29 +30,23 @@
                             </p>
                             <p class="column is-one-fifth p-0 control">
                                 <button type="submit" class="button is-link">
-                                    <ion-icon name="search-outline"></ion-icon>
+                                    <span class='icon-search'></span>
                                 </button>
                             </p>
                         </div>
                 </div>
             </form>
-            <!-- <div v-if="idStudent" class="level-right">
-                <div class="level-item">
-                    <router-link class="button" to='/newproject'>
-                        <span class="icon">
-                            <ion-icon name="add-outline"></ion-icon>
-                        </span>
-                        <span>
-                            New project
-                        </span>
-                    </router-link>
-                </div>
-            </div> -->
         </div>
         <div class="column">
             <p v-if="errorMessage && errorMessage.length" class="control">
             <div class="has-text-centered has-text-danger has-background-danger-light">{{errorMessage}}</div>
             </p>
+            <Pagination :items="contents" :fields="projectFields" 
+              :actions="projectActions"
+              :row-class-fn="(item) => ({ 'has-text-danger': !item.confirmed })"
+            >
+            </Pagination>
+            <!--
             <table class="table is-fullwidth has-text-centered">
                 <thead>
                     <tr>
@@ -73,15 +67,16 @@
                         <td>{{content.grade}}</td>
                         <td>
                             <router-link v-if="idAdvisor" :to="`/newproject/idProject/${content.idProject}/idAdvisor/${idAdvisor}`">
-                                <ion-icon name="create-outline"></ion-icon>
+                                <span class="icon-pencil-alt"></span>
                             </router-link>
                             <router-link v-if="!idAdvisor" :to="`/newproject/idProject/${content.idProject}`">
-                                <ion-icon name="create-outline"></ion-icon>
+                                <span class="icon-pencil-alt"></span>
                             </router-link>
                         </td>
                     </tr>
                 </tbody>
             </table>
+            -->
         </div>
     </div>
 </div>

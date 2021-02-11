@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import template from './template.html';
 import DropdownList from '../../components/dropdown-list';
+import Pagination from '../../components/pagination';
 import config from '../../config';
 import request from '../../apis';
 import {isEmpty} from '../../check-input'
@@ -91,11 +92,26 @@ let component = {
     //   console.log("selectInte" + selectedItem);
     //   this.advisorData.idQuota = selectedIdx
     // },
+    downloadExcel: function() {
+      request(config.EXPORT_ADVISORS_URL, "GET", null, null, 'blob').then(res => {
+        const url = URL.createObjectURL(new Blob([res.data]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', `advisors-${Date.now()}.xlsx`); //or any other extension
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+      }).catch(e => {
+        console.error(e);
+        this.errorMessage = e.message;
+      });
+    }
   },
   
   template,
   components: {
-    DropdownList
+    DropdownList,
+    Pagination
   }
 };
 export default { path: "/advisor", component: component }

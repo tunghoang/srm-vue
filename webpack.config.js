@@ -5,7 +5,7 @@ try {
 }
 catch(e) {
   backend = {
-    target: 'http://112.137.129.214:15980',
+    target: 'http://112.137.129.214:35280',
     secure: false,
   }
 }
@@ -35,6 +35,9 @@ module.exports = {
     }, {
       test: /\.scss$/,
       use: ['style-loader', 'css-loader', 'sass-loader']
+    },{
+      test: /\.(woff(2)?|ttf|eot|svg)/,
+      use: [ 'file-loader' ]
     }]
   },
   plugins: [
@@ -78,6 +81,7 @@ module.exports = {
       '/projectAdvisorRels': backend,
       '/studentSemesterRels': backend,
       '/upload': backend,
+      '/exportAdvisors': backend,
       '/static/icons':backend
     }
   }

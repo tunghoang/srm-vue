@@ -1,19 +1,47 @@
-<div class="column">
-    <table class="table is-fullwidth has-text-left">
-        <thead>
-            <tr>
-                <th>On-going project</th>
-                <th>Finish project</th>
-                <th>Confirm project</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-        </tbody>
-    </table>
+<div class="m-5">
+  <p v-if="errorMessage && errorMessage.length" class="control">
+    <div class="has-text-centered has-text-danger has-background-danger-light">{{errorMessage}}</div>
+  </p>
+  <div class="m-5">
+    <h3 class='title is-size-4'>Basic information</h3>
+    <p class='has-text-weight-bold has-text-link'>{{fullname}}</p>
+    <p><div style="display:inline-block;width:5em;">ID:</div><span class='has-text-weight-bold'>{{idAdvisor}}</span></p>
+    <p><div style="display:inline-block;width:5em;">Email:</div><span class='has-text-weight-bold'>{{email}}</span></p>
+    <p><div style="display:inline-block;width:5em;">Affilation:</div><span class='has-text-weight-bold'>{{affiliation || "VNU-UET"}}</span></p>
+  </div>
+  <div class="m-5">
+    <h3 class='title is-size-4'>Activities</h3>
+    <div class='columns'>
+      <div class='column card is-one-quarter'>
+        <div class='card-content has-text-danger'>
+          <p class='title is-size-6'>
+            Unconfirmed projects
+          </p>
+          <div class='has-text-centered is-size-2'>
+            {{unconfirmed}}
+          </div>
+        </div>
+      </div>
+      <div class='column card is-one-quarter'>
+        <div class='card-content has-text-primary'>
+          <p class='title is-size-6'>
+            On-going projects
+          </p>
+          <div class='has-text-centered is-size-2'>
+            {{onGoing}}
+          </div>
+        </div>
+      </div>
+      <div class='column card is-one-quarter'>
+        <div class='card-content has-text-success'>
+          <p class='title is-size-6'>
+            Finished projects
+          </p>
+          <div class='has-text-centered is-size-2'>
+            {{finished}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

@@ -6,7 +6,7 @@
         <div class="level-right">
             <a class="button"  @click="tabIdx = 1;" v-show="tabIdx==0">
                 <span class="icon">
-                    <ion-icon name="add-outline"></ion-icon>
+                    <span class="icon-plus"></span>
                 </span>
                 <span> New Quota</span>
             </a>
@@ -26,13 +26,13 @@
                     <div class="has-text-right">
                         <span class="Edit" @click="tabIdx=2; contentEdit = content">
                             <a href="#">
-                                <ion-icon name="create-outline"></ion-icon>
+                                <span class="icon-pencil-alt"></span>
                                 <span>Edit</span>
                             </a>
                         </span>
                         <span class="Delete ml-4" @click="currentQuotaId = content.idQuota;tabIdx = 3;">
                             <a href="#" class="has-text-danger">
-                                <ion-icon name="trash-outline"></ion-icon>
+                                <span class="icon-trash"></span>
                                 <span>Delete</span>
                             </a>
                         </span>
@@ -46,13 +46,13 @@
         <div class="field is-grouped is-grouped-right">
             <button class="button is-link is-danger" @click="deleteQuota(currentQuotaId)">
                 <span class="icon">
-                    <ion-icon name="shield-checkmark"></ion-icon>
+                    <span class="icon-check"></span>
                 </span>
                 <span>Sure</span>
             </button>
-            <button class="button ml-2 is-link is-light" @click="tabIdx = 0;">
+            <button class="button ml-2 is-light" @click="tabIdx = 0;">
                 <span class="icon">
-                    <ion-icon name="arrow-back-circle"></ion-icon>
+                    <span class="icon-arrow-left"></span>
                 </span>
                 <span>Back</span>
             </button>
@@ -97,12 +97,17 @@
                             </div>
                             <div class='field is-grouped'>
                                 <div class='control'>
-                                    <button type="submit" class='button is-link'>Submit</button>
+                                    <button type="submit" class='button is-link'>
+                                        <span class="icon">
+                                          <span class="icon-check"></span>
+                                        </span>
+                                        <span>Submit</span>
+                                    </button>
                                 </div>
                                 <div class='control'>
-                                    <button class='button is-link is-light' @click='tabIdx =0;'>
+                                    <button class='button is-light' @click='tabIdx =0;'>
                                         <span class="icon">
-                                            <ion-icon name="arrow-back-circle"></ion-icon>
+                                          <span class="icon-arrow-left"></span>
                                         </span>
                                         <span>Back</span>
                                     </button>
@@ -155,15 +160,15 @@
                                 <div class='control'>
                                     <button type='submit' class='button is-link'>
                                         <span class="icon">
-                                            <ion-icon name="checkmark-circle"></ion-icon>
+                                          <span class="icon-check"></span>
                                         </span>
                                         <span>Submit</span>
                                     </button>
                                 </div>
                                 <div class='control'>
-                                    <button class='button is-link is-light' @click="tabIdx = 0;">
+                                    <button class='button is-light' @click="tabIdx = 0;">
                                         <span class="icon">
-                                            <ion-icon name="arrow-back-circle"></ion-icon>
+                                          <span class="icon-arrow-left"></span>
                                         </span>
                                         <span>Back</span>
                                     </button>

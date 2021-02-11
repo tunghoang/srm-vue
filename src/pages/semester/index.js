@@ -2,6 +2,7 @@ import Vue from 'vue';
 import template from './template.html';
 import style from './style.scss';
 import DropdownList from '../../components/dropdown-list';
+import Pagination from '../../components/pagination';
 import config from '../../config';
 import request from '../../apis';
 import {uploadRequest} from '../../apis';
@@ -21,10 +22,15 @@ let component = {
       studentSemesterRels:[],
       searchText1: "",
       loading: false,
+      searchField: 'email',
       searchText:"",
       errorMessage: "",
-      memberList:[{'fullname':'<No selected>'}],
-      student:{}
+      studentList:[{'fullname':'<No selected>'}],
+      student:{},
+      pendingAction: {
+        fn: null,
+        param: null
+      }
     };
   },
   created: function () {
@@ -49,19 +55,24 @@ let component = {
         $event.stopPropagation();
         $event.preventDefault();
       }
-      let data = {[this.searchField]: this.searchText};
+      let data = {
+        [this.searchField]: this.searchText,
+        idSemester: this.currentSemester.idSemester
+      };
       console.log(data)
       request(config.STUDENT_SEMESTER_RELS_URL, "PUT", data).then(res => {
         console.log(res.data + "---------");
         this.studentSemesterRels = res.data;
       }).catch(e=>console.log(e))
     },
-    deleteStudentSemesterRel: function(idStudentSemesterRel){
+    deleteStudentSemesterRel: function(item){
+      let idStudentSemesterRel = item.idStudentSemesterRel;
+      console.log(item);
       request(config.STUDENT_SEMESTER_RELS_URL + idStudentSemesterRel, "DELETE").then(res => {
         this.searchStudentSemesterRels();
+        this.tabIdx = 0;
       }).catch(e=>console.log(e))
     },
-    //
     
     loadData: function () {
       request(config.SEMESTERS_URL).then(res => {
@@ -129,7 +140,18 @@ let component = {
     },
     //
     addStudent: function(){
-      console.log("---Add Student ---" );
+      console.log("---Add Student ---", this.student);
+      if (!this.student) return;
+      request(config.STUDENT_SEMESTER_RELS_URL, 'POST', {
+        idStudent: this.student.idStudent,
+        idSemester: this.currentSemester.idSemester
+      }).then(res => {
+        console.log(res.data);
+        this.tabIdx = 0;
+      }).catch(e => {
+        console.error(e);
+        this.errorMessage = e.message;
+      });
     },
     searchStudent: function(searchText1,event){
       event.stopPropagation();
@@ -144,17 +166,17 @@ let component = {
       this.student = {};
       console.log(data);
       request(config.STUDENT_URL, 'PUT', data).then(res => {
-        this.memberList = res.data;
-        console.log("MemberList-----"+ this.memberList);
-        if (this.memberList.length)
-          this.student = this.memberList[0];
+        this.studentList = res.data;
+        console.log("MemberList-----"+ this.studentList);
+        if (this.studentList.length)
+          this.student = this.studentList[0];
           console.log(this.student);
       }).catch(e => {
         console.error(e);
         this.errorMessage = e.message;
       });
     },
-    selectMember: function(selectedItem, selectedIndex) {
+    selectStudent: function(selectedItem, selectedIndex) {
       this.student = selectedItem;
     },
     getFullname: function (instance) {
@@ -164,7 +186,8 @@ let component = {
 
   template,
   components: {
-    DropdownList
+    DropdownList,
+    Pagination
   }
 };
 export default { path: "/semester", component: component }

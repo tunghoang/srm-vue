@@ -14,13 +14,14 @@ function fetchRequest(url, method = 'GET', body = null, headers = null) {
     return res.json();
   })
 }
-function request(url, method = 'GET', body = null, headers = null){
+function request(url, method = 'GET', body = null, headers = null, responseType=null){
   let options = {
     method,
     headers: {
       'Content-Type':'application/json',
       ...headers
     },
+    responseType,
     withCredentials: true,
     data: body
   }

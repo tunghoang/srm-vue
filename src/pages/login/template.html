@@ -2,11 +2,11 @@
   <div class='column is-half'>
     <div class='panel'>
       <div class='panel-heading'>
-        Login {{loginType}}
+        Login {{loginType}} <span class='icon-brush'></span>
       </div>
       <div class='panel-block'>
         <div class='container'>
-          <form @submit="doLogin(account)">
+          <form @submit="doLogin($event, account)">
             <h4 class="p-1 has-text-danger has-background-danger-light has-text-centered"
               v-show="errorMessage && errorMessage.length > 0">{{errorMessage}}</h4>
             <div class="field">

@@ -47,15 +47,17 @@
               </div>
               <ul class="item-list">
                 <li v-for="advisor in advisors" :key="advisor.idProjectadvisorrel">
-                  {{advisor.fullname}}-{{advisor.idProjectadvisorrel}}
-                  <a class="ml-2 is-size-7" @click="deleteAdvisorRel(advisor.idProjectadvisorrel)">
-                    [x]
-                  </a>
-                  <a v-if="idAdvisor" class="ml-2 is-size-7 has-text-danger" @click="tabIdx=1;currentIdProjectAdvisorRel=advisor.idProjectadvisorrel">
-                    <!-- [waiting] -->
-                    {{idProject == advisor.idProjectadvisorrel ? "[waiting]":""}}
-                  </a>
-                  <a v-if="!idAdvisor" class="ml-2 is-size-7 has-text-danger">
+                  {{advisor.fullname}}
+                  <span v-if="idAdvisor && (idAdvisor === ('' + advisor.idAdvisor)) && !advisor.status" class="is-size-7">
+                    <a class="mx-2 has-text-danger" @click="deleteAdvisorRel(advisor.idProjectadvisorrel)">
+                      [Reject]
+                    </a>
+                    or
+                    <a class="ml-2" @click="tabIdx=1;currentIdProjectAdvisorRel=advisor.idProjectadvisorrel">
+                      [Accept]
+                    </a>
+                  </span>
+                  <a v-if="!idAdvisor && !advisor.status" class="ml-2 is-size-7 has-text-danger">
                     [waiting]
                   </a>
                 </li>
@@ -80,19 +82,19 @@
           </div>
         </div>
         <div class="level">
-          <div class="level-left">
+          <div class="level-left field is-grouped is-grouped">
             <div class='control'>
               <button @click="saveProject(dataProject)" class='button is-link'>
                 <span class="icon">
-                  <ion-icon name="checkmark-circle"></ion-icon>
+                  <span class="icon-check"></span>
                 </span>
                 <span>Submit</span>
               </button>
             </div>
             <div class='control'>
-              <button class='button is-link is-light' @click="goBack()">
+              <button class='button is-light' @click="goBack()">
                 <span class="icon">
-                  <ion-icon name="arrow-back-circle"></ion-icon>
+                  <span class="icon-arrow-left"></span>
                 </span>
                 <span>Back</span>
               </button>
@@ -102,7 +104,7 @@
             <div v-if="idProject" class='control'>
               <a class='has-text-danger button has-background-danger-light' @click="deleteProject(idProject)">
                 <span class="icon">
-                  <ion-icon name="trash-outline"></ion-icon>
+                  <span class="icon-trash"></span>
                 </span>
                 <span>Delete</span>
               </a>
@@ -118,13 +120,13 @@
     <div class="field is-grouped is-grouped-right">
       <button class="button is-link is-danger" @click="confirm(currentIdProjectAdvisorRel)">
         <span class="icon">
-          <ion-icon name="shield-checkmark"></ion-icon>
+          <span class="icon-check"></span>
         </span>
         <span>Sure</span>
       </button>
-      <button class="button ml-2 is-link is-light" @click="tabIdx = 0;">
+      <button class="button ml-2 is-light" @click="tabIdx = 0;">
         <span class="icon">
-          <ion-icon name="arrow-back-circle"></ion-icon>
+          <span class="icon-arrow-left"></span>
         </span>
         <span>Back</span>
       </button>

@@ -15,7 +15,7 @@ export default [
   {path:'/', redirect: '/profileadvisor', props: true}, 
   Login, 
   Project('/project/:status/:idAdvisor', true),
-  Profileadvisor('/profileadvisor'),
+  Profileadvisor('/profileadvisor/:idAdvisor', true),
   Newproject('/newproject/idProject/:idProject/idAdvisor/:idAdvisor', true),
   Newadvisor('/newadvisor'),
   Addadvisor('/newproject/addadvisor/idProject/:idProject', true),

@@ -6,7 +6,6 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/static/icons/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/static/icons/favicon-16x16.png">
   <link rel="manifest" href="/static/icons/site.webmanifest">
-
   <title>Student Research Management</title>
 </head>
 
@@ -22,7 +21,7 @@
             <div class='navbar-end'>
               <a class='navbar-item bg-staff' @click='doLogout()'>
                 <span class='icon'>
-                  <ion-icon size="large" name="person-circle-outline"></ion-icon>
+                  <span class="icon-user"></span>
                 </span>
                 <span class="ml-3">{{username}}</span>
               </a>
@@ -39,7 +38,7 @@
             <li>
               <router-link to="/student">
                 <span class='icon is-medium'>
-                  <ion-icon size='small' name="person-add-outline"></ion-icon>
+                  <span class='icon-book'></span>
                 </span>
                 <span>Student Management</span>
               </router-link>
@@ -48,7 +47,7 @@
             <li>
               <router-link to="/advisor">
                 <span class='icon is-medium'>
-                  <ion-icon size='small' name="eye-outline"></ion-icon>
+                  <span class='icon-medall'></span>
                 </span>
                 <span>Advisor Management</span>
               </router-link>
@@ -58,7 +57,7 @@
             <li>
               <router-link to="/semester">
                 <span class='icon is-medium'>
-                  <ion-icon size='small' name="school-outline"></ion-icon>
+                  <span class="icon-agenda"></span>
                 </span>
                 <span>Semester Management</span>
               </router-link>
@@ -67,7 +66,7 @@
             <li>
               <router-link to="/project">
                 <span class='icon is-medium'>
-                  <ion-icon size='small' name="briefcase-outline"></ion-icon>
+                  <span class="icon-briefcase"></span>
                 </span>
                 <span>Project Management</span>
               </router-link>
@@ -80,7 +79,7 @@
             <li>
               <router-link to="/staff">
                 <span class='icon is-medium'>
-                  <ion-icon name="ribbon-outline"></ion-icon>
+                  <span class='icon-tag'></span>
                 </span>
                 <span>Staff Management</span>
               </router-link>
@@ -89,7 +88,7 @@
             <li>
               <router-link to="/quota">
                 <span class='icon is-medium'>
-                  <ion-icon size='small' name="newspaper-outline"></ion-icon>
+                  <span class='icon-server'></span>
                 </span>
                 <span>Quota Management</span>
               </router-link>
@@ -97,7 +96,7 @@
             <li>
               <router-link to="/projecttype">
                 <span class='icon is-medium'>
-                  <ion-icon name="bar-chart-outline"></ion-icon>
+                  <span class='icon-list'></span>
                 </span>
                 <span>Projecttype Management</span>
               </router-link>
@@ -112,7 +111,7 @@
       </div>
     </div>
   </div>
-  <script src="/vendors/dist/ionicons.js"></script>
+  <!-- <script src="vendors/dist/ionicons.js"></script> -->
   <!-- <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script> -->
 </body>
 

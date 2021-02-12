@@ -57,6 +57,9 @@
                       [Accept]
                     </a>
                   </span>
+                  <a v-if="!idAdvisor && !idStudent" class='ml-2 is-size-7' @click="deleteAdvisorRel(advisor.idProjectadvisorrel)">
+                    [x]
+                  </a>
                   <a v-if="!idAdvisor && !advisor.status" class="ml-2 is-size-7 has-text-danger">
                     [waiting]
                   </a>

@@ -20,7 +20,50 @@
             </div>
         </form>
         <div class="column">
-            <table class="table is-fullwidth has-text-centered">
+            <Pagination :items="contents" :fields="[
+                {
+                  value:'studentNumber',
+                  label:'MSSV', 
+                  klass: {
+                    'icon-arrow-down': orderField === 'studentNumber' && descending,
+                    'icon-arrow-up': orderField === 'studentNumber' && !descending
+                  }
+                },
+                {
+                  value:'fullname',
+                  label:'Name', 
+                  klass: {
+                    'icon-arrow-down': orderField === 'fullname' && descending,
+                    'icon-arrow-up': orderField === 'fullname' && !descending
+                  }
+                },
+                {
+                  value:'klass',
+                  label:'Class', 
+                  klass: {
+                    'icon-arrow-down': orderField === 'klass' && descending,
+                    'icon-arrow-up': orderField === 'klass' && !descending
+                  }
+                },
+                {
+                  value:'dob', 
+                  label: 'Date of birth', 
+                  klass: {
+                    'icon-arrow-down': orderField === 'dob' && descending,
+                    'icon-arrow-up': orderField === 'dob' && !descending
+                  }
+                }
+              ]" :on-header-clicked="headerClicked"
+              :actions="[{
+                class: 'icon-pencil-alt has-text-success',
+                fn: () => {tabIdx=2; contentEdit = content}
+              }, {
+                class: 'icon-trash has-text-danger',
+                fn: () => {currentStudentId = content.idStudent;tabIdx = 3;}
+              }]"
+            >
+            </Pagination>
+            <!--<table class="table is-fullwidth has-text-centered">
                 <thead>
                     <tr>
                         <th>studentNumber</th>
@@ -55,7 +98,7 @@
                         </td>
                     </tr>
                 </tbody>
-            </table>
+            </table> -->
         </div>
     </div>
     <div class="card m-4 p-4 border-redish" v-if="tabIdx === 3">

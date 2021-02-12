@@ -18,8 +18,8 @@
                 <div class="card-content">
                     <div>
                         <h4 class='is-size-7 is-lightgray'>ID: {{content.idSemester}}</h4>
-                        <p><b>Semester:</b> {{content.semesterIndex +1 }}</p>
-                        <p><b>Year:</b> {{content.year}} - {{content.year+1}}</p>
+                        <p>{{content.year}}-{{content.year+1}}</p>
+                        <p>Học kỳ {{content.semesterIndex+1}}</p>
                     </div>
                     <div class="has-text-right">
                         <span @click="currentSemester = content;tabIdx = 5;">
@@ -112,20 +112,32 @@
                     </p>
                 </div>
             </form>
-            <p class="control level-right">
-                <button class="button ml-2 is-light" @click="tabIdx=6">
-                    <span class="icon">
-                        <span class="icon-plus"></span>
+            <div class="level-right field is-grouped">
+                <div class='control'>
+                  <a class='button' @click="downloadExcel">
+                    <span class='icon'>
+                      <span class='icon-export'></span>
                     </span>
-                    <span>New student</span>
-                </button>
-                <button class="button ml-2 is-link " @click="tabIdx = 0;">
-                    <span class="icon">
-                        <span class="icon-arrow-left"></span>
-                    </span>
-                    <span>Back</span>
-                </button>
-            </p>
+                    <span>Export XLSX</span>
+                  </a>
+                </div>
+                <div class='control'>
+                  <a class="button" @click="tabIdx=6">
+                      <span class="icon">
+                          <span class="icon-plus"></span>
+                      </span>
+                      <span>New student</span>
+                  </a>
+                </div>
+                <div class='control'>
+                  <a class="button is-link " @click="tabIdx = 0;">
+                      <span class="icon">
+                          <span class="icon-arrow-left"></span>
+                      </span>
+                      <span>Back</span>
+                  </a>
+                </div>
+            </div>
         </div>
         <div class="column">
             <Pagination :items='studentSemesterRels' :fields="[{

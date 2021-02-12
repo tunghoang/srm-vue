@@ -19,5 +19,6 @@ export default {
     guest: baseUrl + '/guestlogin/'
   },
   LOGOUT_URL: baseUrl + '/logout/',
-  EXPORT_ADVISORS_URL: baseUrl + '/exportAdvisors/'
+  EXPORT_ADVISORS_URL: baseUrl + '/exportAdvisors/',
+  EXPORT_STUDENT_SEMESTER_URL: baseUrl + '/exportStudentSemester/'
 }

@@ -182,6 +182,22 @@ let component = {
     getFullname: function (instance) {
       return instance.fullname;
     },
+    downloadExcel: function() {
+      request(config.EXPORT_STUDENT_SEMESTER_URL + this.currentSemester.idSemester, "GET", null, null, 'blob').then(res => {
+        const url = URL.createObjectURL(new Blob([res.data]));
+        const link = document.createElement('a');
+        link.href = url;
+        let filename = `HK${this.currentSemester.semesterIndex + 1}-${this.currentSemester.year}-${this.currentSemester.year + 1}.xlsx`;
+        console.log(filename);
+        link.setAttribute('download', filename);
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+      }).catch(e => {
+        console.error(e);
+        this.errorMessage = e.message;
+      });
+    }
   },
 
   template,

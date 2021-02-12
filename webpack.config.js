@@ -82,6 +82,7 @@ module.exports = {
       '/studentSemesterRels': backend,
       '/upload': backend,
       '/exportAdvisors': backend,
+      '/exportStudentSemester':backend,
       '/static/icons':backend
     }
   }

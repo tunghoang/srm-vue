@@ -1,0 +1,38 @@
+<div>
+  <nav v-if="this.cPageNum > 1" class='pagination'>
+    <a class='pagination-previous' @click="navigate(rCurrentPage - 1)">Previous</a>
+    <a class='pagination-next' @click='navigate(rCurrentPage + 1)'>Next</a>
+    <ul class='pagination-list'>
+      <li v-for="(page, idx) in cPaginationList" :key="idx" @click="navigate(page.pageIndex)">
+        <a v-if="!!page.pageIndex" :class='{"pagination-link": page.type === "pagination-link", "is-current": rCurrentPage === page.pageIndex}'>{{page.pageIndex}}</a>
+        <span v-if="!page.pageIndex" :class='page.type'>&hellip;</span>
+      </li>
+    </ul>
+  </nav>
+  <table class="table is-fullwidth has-text-centered">
+    <thead>
+      <tr>
+        <th v-for="(field,idx) in fields" :key="idx">
+          <a @click="() => headerClick(field)"><span :class="field.klass"></span>{{field.label || field.value || field}}</a>
+        </th>
+        <th v-if="actions && actions.length">
+          Actions
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="(content, idx) in cItems" :key="idx" :class="rowClassFn && rowClassFn(content, idx)">
+        <td v-for="(field, idx1) in fields" :key="idx1">
+          {{showField(field, content)}}
+        </td>
+        <td v-if="actions && actions.length">
+          <span v-for="(action,idx) in actions" :key="idx" @click="action.fn(content)">
+            <a class="px-1" :title="action.tooltip">
+              <span :class="action.class || (action.classFn && action.classFn(content))"></span>
+            </a>
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

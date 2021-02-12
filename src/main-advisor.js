@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import './advisor.scss';
-//import './themify-icons.scss';
 import './styles.scss';
 
 import jwtDecode from 'jwt-decode';

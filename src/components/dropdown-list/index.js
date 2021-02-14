@@ -59,7 +59,7 @@ let component = {
       if (this.dataItems[this.selectedIdx]) {
         return this.itemLabel(this.dataItems[this.selectedIdx]);
       }
-      return "nothing";
+      return "--";
     }
   }
 }

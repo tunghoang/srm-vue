@@ -22,8 +22,10 @@ let component = {
       studentSemesterRels:[],
       searchText1: "",
       loading: false,
-      searchField: 'email',
-      searchText:"",
+      searchAdvisors: null,
+      searchFullname: null,
+      searchStudentNumber: null,
+      searchTitle: null,
       errorMessage: "",
       studentList:[{'fullname':'<No selected>'}],
       student:{},
@@ -56,9 +58,20 @@ let component = {
         $event.preventDefault();
       }
       let data = {
-        [this.searchField]: this.searchText,
         idSemester: this.currentSemester.idSemester
       };
+      if (this.searchAdvisors && this.searchAdvisors.length) {
+        data.advisors = this.searchAdvisors;
+      }
+      if (this.searchStudentNumber && this.searchStudentNumber.length) {
+        data.studentNumber = this.searchStudentNumber;
+      }
+      if (this.searchFullname && this.searchFullname.length) {
+        data.fullname = this.searchFullname;
+      }
+      if (this.searchTitle && this.searchTitle.length) {
+        data.title = this.searchTitle;
+      }
       console.log(data)
       request(config.STUDENT_SEMESTER_RELS_URL, "PUT", data).then(res => {
         console.log(res.data + "---------");
@@ -133,10 +146,6 @@ let component = {
     selectChanged: function (selectedItem, selectedIdx) {
       console.log("selectInte" + selectedItem);
       this.semesterData.semesterIndex = selectedIdx
-    },
-    searchFieldChanged: function(selectedItem,selectedIdx){
-      console.log("searchFieldChanged");
-      this.searchField = selectedItem.toLowerCase()
     },
     //
     addStudent: function(){

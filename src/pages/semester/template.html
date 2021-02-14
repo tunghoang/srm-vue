@@ -93,23 +93,26 @@
             {{currentSemester.year}}-{{currentSemester.year + 1}}</h2>
         <div class="level">
             <form @submit="searchStudentSemesterRels($event)">
-                <div class="field has-addons m-0">
-                    <p class="control">
-                        <dropdown-list class="min-width-8" :items='["Email","Fullname"]'
-                            :on-select-changed="searchFieldChanged"></dropdown-list>
-                    </p>
-                    <p class="control">
-                        <input class="input" type="text" placeholder="Find student" v-model="searchText">
-                    </p>
-                    <p class="control">
-                        <button class="button is-link">
-                            <span class="icon-search"></span>
-                        </button>
-                    </p>
-
-                    <p v-if="errorMessage && errorMessage.length" class="control">
-                    <div class="button is-borderless is-radiusless has-text-danger">{{errorMessage}}</div>
-                    </p>
+                <div class="level-left">
+                    <div class="field has-addons">
+                        <p class="column is-one-fifth p-0 control">
+                            <input class="input" type="text" placeholder="Title project" v-model="searchTitle" @focus="errorMessage=''">
+                        </p>
+                        <p class="column is-one-fifth p-0 control">
+                            <input class="input" type="text" placeholder="Advisors" v-model="searchAdvisors" @focus="errorMessage=''">
+                        </p>
+                        <p class="column is-one-fifth p-0 control">
+                            <input class="input" type="text" placeholder="MSSV" v-model="searchStudentNumber" @focus="errorMessage=''">
+                        </p>
+                        <p class="column is-one-fifth p-0 control">
+                            <input class="input" type="text" placeholder="Student name" v-model="searchFullname" @focus="errorMessage=''">
+                        </p>
+                        <p class="column is-one-fifth p-0 control">
+                            <button type="submit" class="button is-link">
+                                <span class='icon-search'></span>
+                            </button>
+                        </p>
+                    </div>
                 </div>
             </form>
             <div class="level-right field is-grouped">
@@ -150,8 +153,8 @@
                 value: 'project_title',
                 label: 'project'
               },{
-                value: 'semester_year',
-                label: 'Year'
+                value: 'advisors',
+                label: 'Advisors'
               }]" :actions="[{
                 class: 'icon-trash has-text-danger',
                 fn: (item) => {

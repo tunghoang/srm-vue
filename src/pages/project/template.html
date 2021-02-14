@@ -4,36 +4,26 @@
             <form @submit="search()">
                 <div class="level-left">
                     <div class="field has-addons">
-                            <p class="column is-one-third p-0 control ml-2">
-                                <input class="input" type="text" placeholder="Title project" v-model="searchTitle" @focus="errorMessage=''">
-                            </p>
-                            <p class="column is-one-third p-0 control">
-                                <dropdown-list class="min-width-8" :items="semesters" 
-                                    :item-label-fn="(item) => (item.idSemester?('HK' + (item.semesterIndex + 1) + ' ' + item.year):'--semesters--')"
-                                    :on-select-changed="(selectedItem,selectedIndex) => searchIdSemester = selectedItem.idSemester"
-                                ></dropdown-list>
-                            </p>
-                            <!-- <p class="column is-one-quarter p-0 control">
-                                <dropdown-list class="min-width-8" :items="advisors" :item-label-fn="getFullname"
-                                    :on-select-changed="(selectedItem,selectedIndex) => searchIdAdvisor = selectedItem.idAdvisor">
-                                </dropdown-list>
-                            </p> -->
-                            <p class="column is-one-quarter p-0 control">
-                                <dropdown-list class="min-width-8" :items="projectStatuses" :item-label-fn="(item) => item.length?item:'--status--'"
-                                    :on-select-changed="(selectedItem, selectedIndex) => searchStatus = selectedItem">
-                                </dropdown-list>
-                            </p>
-                            <p class="column is-one-third p-0 control">
-                                <dropdown-list class="min-width-10" :items="projecttypes" :item-label-fn="getName"
-                                    :on-select-changed="(selectedItem, selectedIndex) => searchIdProjecttype = selectedItem.idProjecttype"
-                                ></dropdown-list>
-                            </p>
-                            <p class="column is-one-fifth p-0 control">
-                                <button type="submit" class="button is-link">
-                                    <span class='icon-search'></span>
-                                </button>
-                            </p>
-                        </div>
+                        <p class="column is-one-quarter p-0 control">
+                            <input class="input" type="text" placeholder="Title project" v-model="searchTitle" @focus="errorMessage=''">
+                        </p>
+                        <p class="column is-one-quarter p-0 control">
+                            <input class="input" type="text" placeholder="advisors" v-model="searchAdvisors" @focus="errorMessage=''">
+                        </p>
+                        <p class="column is-one-quarter p-0 control">
+                            <input class="input" type="text" placeholder="members" v-model="searchMembers" @focus="errorMessage=''">
+                        </p>
+                        <p class="column is-one-quarter p-0 control">
+                            <dropdown-list class="min-width-10" :items="projecttypes" :item-label-fn="getName"
+                                :on-select-changed="(selectedItem, selectedIndex) => searchIdProjecttype = selectedItem.idProjecttype"
+                            ></dropdown-list>
+                        </p>
+                        <p class="column is-one-quarter p-0 control">
+                            <button type="submit" class="button is-link">
+                                <span class='icon-search'></span>
+                            </button>
+                        </p>
+                    </div>
                 </div>
             </form>
         </div>

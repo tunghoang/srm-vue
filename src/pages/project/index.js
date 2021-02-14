@@ -21,15 +21,15 @@ let component = {
       projecttypes:[],
       semesters: [],
       advisors: [],
-      projectStatuses:["","on-going",'finish'],
+      projectStatuses:["--status--","on-going",'finish'],
       searchText:"",
       searchTitle:"",
-      searchStatus:"",
-      searchIdSemester:null,
       searchIdAdvisor:null,
       searchIdProjecttype: null,
       projectFields: null,
-      projectActions: null
+      projectActions: null,
+      searchAdvisors: null,
+      searchMembers: null
     };
   },
   watch: {
@@ -40,19 +40,25 @@ let component = {
   created: function() {
     if (this.idAdvisor) {
       this.projectFields = [{
-        value: 'title', 
+        value: 'project_title', 
         label: 'Title'
       }, {
-        value: 'year',
+        value: 'semester_year',
         label: 'Year'
       }, {
-        value: 'semesterIndex',
+        value: 'semester_semesterIndex',
         label: 'HK',
         fn: (v) => v + 1
       }, {
-        value: 'status', 
+        value: 'project_status', 
         label: 'Status'
       }, {
+        value: 'members',
+        label: 'Members'
+      }, {
+        value: 'advisors',
+        label: 'Advisors'
+      },{
         value: 'grade', 
         label: 'Grade'
       }, {
@@ -82,19 +88,28 @@ let component = {
     }
     else {
       this.projectFields = [{
-        value: 'title', 
+        value: 'project_title', 
         label: 'Title'
       }, {
-        value: 'year',
+        value: 'semester_year',
         label: 'Year'
       }, {
-        value: 'semesterIndex',
+        value: 'semester_semesterIndex',
         label: 'HK',
         fn: (v) => v + 1
       }, {
-        value: 'status', 
+        value: 'project_status', 
         label: 'Status'
       }, {
+        value: 'members',
+        label: 'Members'
+      }, {
+        value: 'advisors',
+        label: 'Advisors'
+      },{
+        value: 'project_type',
+        label: 'Type'
+      },{
         value: 'grade', 
         label: 'Grade'
       }];
@@ -197,14 +212,14 @@ let component = {
       if (this.searchTitle && this.searchTitle.length>0){
         searchProject.title = this.searchTitle;
       }
+      if (this.searchAdvisors) {
+        searchProject.advisors = this.searchAdvisors;
+      }
+      if (this.searchMembers) {
+        searchProject.members = this.searchMembers;
+      }
       if( this.searchIdProjecttype ){
         searchProject.idProjecttype = this.searchIdProjecttype;
-      }
-      if(this.searchIdSemester){
-      searchProject.idSemester = this.searchIdSemester;
-      }
-      if(this.searchStatus){
-        searchProject.status = this.searchStatus;
       }
       console.log("searchProject", this.searchProject);
       request(config.PROJECT_URL, "PUT", searchProject).then(res => {

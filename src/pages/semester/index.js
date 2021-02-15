@@ -38,6 +38,11 @@ let component = {
   created: function () {
     this.loadData();
   },
+  computed: {
+    itemCount: function() {
+      return this.studentSemesterRels.length;
+    }
+  },
   methods: {
     onChangeFile($event) {
       this.files = $event.target.files;

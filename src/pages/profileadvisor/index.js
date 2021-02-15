@@ -34,14 +34,14 @@ let component = {
     onGoing: function() {
       if (!this.projects || !this.projects.length) return 0;
       return this.projects.reduce((total, prj) => {
-        if (prj.status === 'on-going') return total + 1;
+        if (prj.project_status === 'on-going') return total + 1;
         return total;
       }, 0);
     },
     finished: function() {
       if (!this.projects || !this.projects.length) return 0;
       return this.projects.reduce((total, prj) => {
-        if (prj.status === 'finished') return total + 1;
+        if (prj.project_status === 'finished') return total + 1;
         return total;
       }, 0);
     },

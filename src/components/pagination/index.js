@@ -83,7 +83,9 @@ let component = {
     },
     showField: function(field, item) {
       let v = item[field.value || field];
-      if (field.fn) return field.fn(v);
+      if (field.fn) {
+        return field.fn(v);
+      }
       return v
     },
     headerClick: function(field) {

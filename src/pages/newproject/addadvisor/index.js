@@ -29,7 +29,9 @@ let component = {
         this.$router.back();
       }).catch(e=> console.error(e));
     },
-    searchAdvisor: function(searchText){
+    searchAdvisor: function(searchText, evt){
+      evt.stopPropagation();
+      evt.preventDefault();
       console.log(searchText);
       this.advisor = {};
       if (isEmpty(searchText) ) {

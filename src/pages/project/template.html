@@ -1,7 +1,7 @@
 <div class="rows">
     <div v-if="tabIdx == 0">
         <div v-if="!idAdvisor && !idStudent" class="columns m-0">
-            <form @submit="search()">
+            <form @submit="search($event)">
                 <div class="level-left">
                     <div class="field has-addons">
                         <p class="column is-one-quarter p-0 control">

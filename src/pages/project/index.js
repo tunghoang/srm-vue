@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import _ from 'lodash';
 import template from './template.html';
 import DropdownList from '../../components/dropdown-list';
 import Pagination from '../../components/pagination';
@@ -40,6 +41,9 @@ let component = {
   created: function() {
     if (this.idAdvisor) {
       this.projectFields = [{
+        value: 'idProject',
+        label: 'id'
+      },{
         value: 'project_title', 
         label: 'Title'
       }, {
@@ -53,8 +57,8 @@ let component = {
         value: 'project_status', 
         label: 'Status'
       }, {
-        value: 'members',
-        label: 'Members'
+        value: 'student',
+        label: 'Student'
       }, {
         value: 'advisors',
         label: 'Advisors'
@@ -70,7 +74,7 @@ let component = {
       this.projectActions = [{
         class: 'icon-pencil-alt',
         fn: this.gotoEditProject
-      }, {
+      }/*, {
         classFn: (item) => ({
           'icon-check-box has-text-success': true,
           'is-hidden': item.confirmed
@@ -84,10 +88,13 @@ let component = {
         }),
         tooltip:'Refuse project',
         fn: this.refuseProject
-      }];
+      }*/];
     }
     else {
       this.projectFields = [{
+        value: 'idProject',
+        label: 'id'
+      },{
         value: 'project_title', 
         label: 'Title'
       }, {
@@ -101,8 +108,8 @@ let component = {
         value: 'project_status', 
         label: 'Status'
       }, {
-        value: 'members',
-        label: 'Members'
+        value: 'student',
+        label: 'Student'
       }, {
         value: 'advisors',
         label: 'Advisors'
@@ -170,7 +177,13 @@ let component = {
         criteria.status = this.status;
       }
       try {
-        this.contents = (await request(config.PROJECT_URL, 'PUT', criteria)).data.sort((item1, item2) => (item2.idProject - item1.idProject));
+        this.contents = (await request(config.PROJECT_URL, 'PUT', criteria)).data.map(item => {
+          let members = item.members.split(',');
+          item.members = _.uniq(members).join(',');
+          let advisors = item.advisors.split(',');
+          item.advisors = _.uniq(advisors).join(',');
+          return item;
+        }).sort((item1, item2) => (item2.idProject - item1.idProject));
       }
       catch(e) {
         console.error(e);
@@ -207,7 +220,9 @@ let component = {
         console.error(e);
       });
     },
-    search: function(){
+    search: function(evt){
+      evt.stopPropagation();
+      evt.preventDefault();
       let searchProject= {};
       if (this.searchTitle && this.searchTitle.length>0){
         searchProject.title = this.searchTitle;

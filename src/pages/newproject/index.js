@@ -27,42 +27,8 @@ let component = {
       semesters: []
     };
   },
-  created: async function () {
-    try {
-      let res = await this.listSemester();
-      this.semesters = res.data;
-      if (this.semesters.length > 0) {
-        this.dataProject.idSemester = this.semesters[0].idSemester;
-        this.semesterSelectedIdx = 0;
-      }
-      else {
-        this.dataProject.idSemester = null;
-      }
-      res = await this.listProjecttype();
-      this.projecttypes = res.data;
-      if (this.projecttypes.length > 0) {
-        this.dataProject.idProjecttype = this.projecttypes[0].idProjecttype;
-        this.projecttypeSelectedIdx = 0;
-      }
-      else {
-        this.dataProject.idProjecttype = null;
-      }
-
-      if (!this.idProject) return;
-      res = await this.getProject(this.idProject);
-      this.dataProject = res.data;
-      this.semesterSelectedIdx = this.semesters.findIndex(item => item.idSemester == this.dataProject.idSemester);
-      this.projecttypeSelectedIdx = this.projecttypes.findIndex(item => item.idProjecttype == this.dataProject.idProjecttype);
-
-      res = await this.loadDataAdvisor();
-      this.advisors = res.data;
-      res = await this.loadDataStudent();
-      this.members = res.data;
-    }
-    catch (e) {
-      console.error(e);
-      this.errorMessage = e.message;
-    }
+  created: function () {
+    this.doInit();
   },
   watch: {
     idProject: function (idPrj) {
@@ -73,12 +39,50 @@ let component = {
     }
   },
   methods: {
+    doInit: async function() {
+      try {
+        let res = await this.listSemester();
+        this.semesters = res.data;
+        if (this.semesters.length > 0) {
+          this.dataProject.idSemester = this.semesters[0].idSemester;
+          this.semesterSelectedIdx = 0;
+        }
+        else {
+          this.dataProject.idSemester = null;
+        }
+        res = await this.listProjecttype();
+        this.projecttypes = res.data;
+        if (this.projecttypes.length > 0) {
+          this.dataProject.idProjecttype = this.projecttypes[0].idProjecttype;
+          this.projecttypeSelectedIdx = 0;
+        }
+        else {
+          this.dataProject.idProjecttype = null;
+        }
+
+        if (!this.idProject) return;
+        res = await this.getProject(this.idProject);
+        this.dataProject = res.data;
+        this.semesterSelectedIdx = this.semesters.findIndex(item => item.idSemester == this.dataProject.idSemester);
+        this.projecttypeSelectedIdx = this.projecttypes.findIndex(item => item.idProjecttype == this.dataProject.idProjecttype);
+
+        res = await this.loadDataAdvisor();
+        this.advisors = res.data;
+        res = await this.loadDataStudent();
+        this.members = res.data;
+      }
+      catch (e) {
+        console.error(e);
+        this.errorMessage = e.message;
+      }
+    },
     confirm: function(idProjectAdvisorRel){
       console.log("confirm",idProjectAdvisorRel );
       request(config.PROJECT_ADVISOR_RELS_URL + idProjectAdvisorRel,"PUT",{
         status : 1
       }).then(res=> {
         console.log(res.data);
+        this.doInit();
       }).catch(e=> console.error(e))
     },
     deleteProject:function(idProject){
@@ -143,6 +147,10 @@ let component = {
           if (method === 'POST') {
             idProject = res.data.idProject;
             this.$router.replace('/newproject/idProject/' + idProject);
+          }
+          else {
+            console.log('Go back');
+            this.$router.back();
           }
         }).catch(e => console.error(e));
       }else{

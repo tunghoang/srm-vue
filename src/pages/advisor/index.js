@@ -10,6 +10,7 @@ let component = {
   data: function (){
     return {
       contents: [],
+      quotas: [],
       tabIdx: 0,
       advisorData: {},
       contentEdit: {},
@@ -26,13 +27,19 @@ let component = {
     this.loadData();
   },
   methods: {
-    loadData: function() {
-      request(config.ADVISOR_URL, 'GET').then(res => {
+    loadData: async function() {
+      try {
+        let res = await request(config.QUOTAS_URL, 'GET');
+        this.quotas = [{name: "-----", idQuota: null}];
+        res.data.forEach(item => this.quotas.push(item));
+        
+        res = await request(config.ADVISOR_URL, 'GET');
         this.contents = res.data.sort((item1, item2) => (item2.idAdvisor - item1.idAdvisor));
-      }).catch(e => {
+      }
+      catch(e) {
         console.error(e);
         this.$router.push('/');
-      });
+      };
     },
     createAdvisor: function(dataAdvisor) {
       request(config.ADVISOR_URL, 'POST', dataAdvisor).then((res)=>{
@@ -74,7 +81,8 @@ let component = {
     search: function(searchText, searchField){
       console.log(searchText, searchField);
       if (isEmpty(searchText) || isEmpty(searchField)) {
-        this.errorMessage = "Search data empty";
+        //this.errorMessage = "Search data empty";
+        this.loadData()
         return;
       }
       this.errorMessage = "";
@@ -105,6 +113,9 @@ let component = {
         console.error(e);
         this.errorMessage = e.message;
       });
+    },
+    changeQuota: function(item, itemIdx) {
+      this.contentEdit.idQuota = item.idQuota;
     }
   },
   

@@ -5,7 +5,7 @@
                 Add Advisor
             </div>
             <div class="panel-block">
-                <form @submit="searchAdvisor(searchText)">
+                <form @submit="searchAdvisor(searchText, $event)">
                     <div class="field has-addons">
                         <div class="control">
                             <input class="input" type="text" placeholder="Find advisor" v-model="searchText">
@@ -26,7 +26,7 @@
             </div>
             <div class='field is-grouped pl-3 pt-3 pb-3'>
                 <div class='control'>
-                    <button type="submit" class='button is-link' @click="addAdvisor()">
+                    <button class='button is-link' @click="addAdvisor()">
                         <span class="icon">
                             <span class="icon-check"></span>
                         </span>

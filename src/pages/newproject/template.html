@@ -121,7 +121,7 @@
   <div class="card  p-4" v-if="tabIdx === 1">
     <h2 class="is-size-5 has-text-danger">Confirm?</h2>
     <div class="field is-grouped is-grouped-right">
-      <button class="button is-link is-danger" @click="confirm(currentIdProjectAdvisorRel)">
+      <button class="button is-link is-danger" @click="confirm(currentIdProjectAdvisorRel);tabIdx = 0;">
         <span class="icon">
           <span class="icon-check"></span>
         </span>

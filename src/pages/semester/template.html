@@ -147,17 +147,26 @@
         </div>
         <div class="column">
             <Pagination :items='studentSemesterRels' :fields="[{
-                value: 'student_fullname',
-                label: 'Student'
+                value: 'student_klass',
+                label: 'Class'
               },{
                 value: 'student_studentNumber',
                 label: 'studentNo'
               },{
+                value: 'student_fullname',
+                label: 'Student'
+              },{
+                value: 'student_dob',
+                label: 'DoB'
+              },{
                 value: 'project_title',
-                label: 'project'
+                label: 'Project'
               },{
                 value: 'advisors',
                 label: 'Advisors'
+              },{
+                value: 'affiliations',
+                label: 'Affiliations'
               }]" :actions="[{
                 class: 'icon-trash has-text-danger',
                 fn: (item) => {
@@ -220,7 +229,7 @@
                             </div>
                             <div class=field>
                                 <label class='label'>Semester</label>
-                                <dropdown-list :items="['Fall', 'Spring']" :on-select-changed='selectChanged'>
+                                <dropdown-list :items="['HK1', 'HK2']" :on-select-changed='selectChanged'>
                                 </dropdown-list>
                             </div>
                             <div class='field is-grouped'>

@@ -48,7 +48,9 @@
               },{
                 value:'fullname', label:'Fullname'
               }, {
-                value:'idQuota', label:'Quota'
+                value:'idQuota', label: 'Title',
+                fn: (idQuota) => ((!idQuota)?'':quotas.find(item => item.idQuota === idQuota).name)
+                
               }]" :actions="[{
                 class: 'icon-pencil-alt',
                 fn: (item) => {
@@ -158,8 +160,13 @@
                             </div>
                             <div class="field">
                                 <label class='label'>quota</label>
-                                <div class='control'>
+                                <!--<div class='control'>
                                     <input class='input' type='text' v-model='contentEdit.idQuota'>
+                                </div>-->
+                                <div class="control">
+                                    <dropdown-list :items='quotas' :item-label-fn="item => item.name"
+                                        :selected-index="quotas.findIndex(item => item.idQuota === contentEdit.idQuota)"
+                                        :on-select-changed="changeQuota"></dropdown-list>
                                 </div>
                             </div>
                             <!-- <div class="field">

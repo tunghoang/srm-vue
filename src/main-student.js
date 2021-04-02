@@ -32,12 +32,13 @@ new Vue({
     },
     doLogout: function() {
       request(config.LOGOUT_URL).then(res => {
-        console.log(res.data);
         Cookies.remove('key');
         Cookies.remove('jwt');
         this.$router.push('/login/student');
       }).catch(e => {
         console.error(e);
+        Cookies.remove('key');
+        Cookies.remove('jwt');
         this.$router.push('/login/student');
       });
     },

@@ -11,15 +11,17 @@ import Newproject from './newproject';
 import Profilestudent from './profilestudent';
 import Addadvisor from './newproject/addadvisor';
 import Addmember from './newproject/addmember';
+import Manual from './manual';
 
 export default [{
-  path:'/', redirect: '/profilestudent'}, 
+  path:'/', redirect: '/manual/students'}, 
   Login,
   Project('/project/:status/:idStudent', true),
-  Newproject('/newproject/idProject/:idProject', true),
-  Newproject('/newproject'),
+  Newproject('/newproject/idProject/:idProject/idStudent/:idStudent', true),
+  Newproject('/newproject/idStudent/:idStudent', true),
   Newproject('/newproject/idProject'),
   Addadvisor('/newproject/addadvisor/idProject/:idProject', true),
   Addmember('/newproject/addmember/idProject/:idProject', true),
+  Manual('/manual/:userClass', true),
   Profilestudent('/profilestudent/')
 ];

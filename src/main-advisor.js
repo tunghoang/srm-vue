@@ -37,6 +37,8 @@ new Vue({
         this.$router.push('/login/advisor');
       }).catch(e => {
         console.error(e);
+        Cookies.remove('key');
+        Cookies.remove('jwt');
         this.$router.push('/login/advisor');
       });
     },

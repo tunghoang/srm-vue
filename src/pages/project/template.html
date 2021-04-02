@@ -33,7 +33,10 @@
             </p>
             <Pagination :items="contents" :fields="projectFields" 
               :actions="projectActions"
-              :row-class-fn="(item) => ({ 'has-text-danger': !item.confirmed && (idAdvisor||idStudent) })"
+              :on-header-clicked="headerClicked"
+              :row-class-fn="(item) => ({ 
+                'has-background-danger-light': !item.titleConfirm 
+              })"
             >
             </Pagination>
             <!--

@@ -1,7 +1,7 @@
 <div class="rows">
     <div v-if="tabIdx == 0">
         <div class="level m-0">
-            <form  @submit="search(searchText, searchField)">
+            <form  @submit="search($event, searchText, searchField)">
                 <div class="level-left">
                     <div class="field has-addons">
                         <p class="control">

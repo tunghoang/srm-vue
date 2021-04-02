@@ -8,9 +8,18 @@
         <h4 class="has-text-danger has-background-danger-light has-text-centered"
           v-show="errorMessage && errorMessage.length > 0">{{errorMessage}}</h4>
         <div class="field">
-          <label class='label'>Title</label>
-          <div class='control'>
-            <input class='input' type='text' v-model="dataProject.title" placeholder='title'>
+          <label class='label'>Title ( <span :class="{'has-text-danger':!dataProject.titleConfirm, 'has-text-success':dataProject.titleConfirm}">{{dataProject.titleConfirm?"confirmed":"unconfirmed"}}</span> )</label>
+          <div class='columns'>
+            <div v-if="idProject" class='column pr-0' style='flex:0'>
+              <button :class="{'button':true, 'has-background-info': dataProject.titleConfirm}"
+                @click="confirmTitle(dataProject)">
+                <span :class="{'icon-check':true, 'has-text-white': dataProject.titleConfirm}"></span>
+              </button>
+            </div>
+            <div class="column">
+              <input v-if="!(dataProject.titleConfirm && idStudent)" class='input' type='text' v-model="dataProject.title" placeholder='title'>
+              <div v-if="dataProject.titleConfirm && idStudent" class='input'>{{dataProject.title}}</div>
+            </div>
           </div>
         </div>
         <div class="field">
@@ -53,7 +62,7 @@
                       [Reject]
                     </a>
                     or
-                    <a class="ml-2" @click="tabIdx=1;currentIdProjectAdvisorRel=advisor.idProjectadvisorrel">
+                    <a class="ml-2" @click="tabIdx=1;pendingFn=confirm; pendingParams = advisor.idProjectadvisorrel">
                       [Accept]
                     </a>
                   </span>
@@ -76,7 +85,8 @@
               <ul class="item-list">
                 <li v-for="member in members" :key="member.idProjectStudentRel">
                   {{member.fullname}} ({{member.studentNumber}})
-                  <a v-if="!idAdvisor" class="ml-2 is-size-7" @click="deleteStudentRel(member.idProjectstudentrel)">
+                  <a v-if="!idAdvisor" class="ml-2 is-size-7" 
+                    @click="pendingFn = deleteStudentRel; pendingParams = member.idProjectstudentrel; tabIdx = 1;">
                     [x]
                   </a>
                 </li>
@@ -105,7 +115,8 @@
           </div>
           <div class="level-right">
             <div v-if="idProject" class='control'>
-              <a class='has-text-danger button has-background-danger-light' @click="deleteProject(idProject)">
+              <a class='has-text-danger button has-background-danger-light' 
+                @click="pendingFn = deleteProject; pendingParams = idProject; tabIdx = 1;">
                 <span class="icon">
                   <span class="icon-trash"></span>
                 </span>
@@ -121,13 +132,13 @@
   <div class="card  p-4" v-if="tabIdx === 1">
     <h2 class="is-size-5 has-text-danger">Confirm?</h2>
     <div class="field is-grouped is-grouped-right">
-      <button class="button is-link is-danger" @click="confirm(currentIdProjectAdvisorRel);tabIdx = 0;">
+      <button class="button is-link is-danger" @click="pendingFn && pendingFn(pendingParams);tabIdx = 0;">
         <span class="icon">
           <span class="icon-check"></span>
         </span>
         <span>Sure</span>
       </button>
-      <button class="button ml-2 is-light" @click="tabIdx = 0;">
+      <button class="button ml-2 is-light" @click="pendingFn = null; pendingParams = null; tabIdx = 0;">
         <span class="icon">
           <span class="icon-arrow-left"></span>
         </span>

@@ -1,31 +1,24 @@
 import axios from 'axios';
-function fetchRequest(url, method = 'GET', body = null, headers = null) {
-  let options = {
-    method,
-    headers: {
-      'Content-Type':'application/json',
-      ...headers
-    },
-    withCredentials: 'same-origin',
-    body: body?JSON.stringify(body):null
-  }
-  return fetch(url, options).then(res => {
-    console.log(res.headers);
-    return res.json();
-  })
-}
+import Cookies from 'js-cookie';
+import {startLoading, stopLoading} from './loading';
+
 function request(url, method = 'GET', body = null, headers = null, responseType=null){
   let options = {
     method,
     headers: {
       'Content-Type':'application/json',
+      'Cache-Control': 'no-cache',
       ...headers
     },
     responseType,
     withCredentials: true,
     data: body
   }
-  return axios(url, options).then(res => new Promise(r => {
+  startLoading();
+  return axios(url, options).finally(() => {
+    stopLoading();
+    console.log('request done');
+  }).then(res => new Promise(r => {
     console.log(res.headers)
     r(res);
   }));
@@ -39,6 +32,7 @@ export function uploadRequest(url, method, body, headers = null) {
     method,
     headers: {
       'Content-Type': 'multipart/form-data',
+      'Cache-Control': 'no-cache',
       ...headers
     },
     data: formData
@@ -49,5 +43,12 @@ export function uploadRequest(url, method, body, headers = null) {
 export default request;
 export function handleError(err) {
   console.error(err);
-  this.$router.push('/');
+  if (err.response && err.response.data.message) {
+    if (err.response.data.message === 'Not login') {
+      Cookies.remove('key');
+      Cookies.remove('jwt');
+    }
+    return err.response.data.message;
+  }
+  return err.message;
 }

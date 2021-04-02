@@ -5,6 +5,7 @@ import DropdownList from '../../components/dropdown-list';
 import Pagination from '../../components/pagination';
 import config from '../../config';
 import request from '../../apis';
+import {handleError} from '../../apis';
 import {uploadRequest} from '../../apis';
 import {isEmailError,isEmpty} from '../../check-input'
 
@@ -36,6 +37,7 @@ let component = {
     };
   },
   created: function () {
+    this.handleError = handleError.bind(this);
     this.loadData();
   },
   computed: {
@@ -55,7 +57,9 @@ let component = {
         'xlsx_file': this.files[0]
       }).then(res => {
         console.log(res.data);
-      }).catch(e => console.error(e)).finally(() => this.loading=false);
+      }).catch(e => {
+        this.errorMessage = this.handleError(e);
+      }).finally(() => this.loading=false);
     },
     searchStudentSemesterRels: function($event){
       if ($event) {
@@ -81,7 +85,9 @@ let component = {
       request(config.STUDENT_SEMESTER_RELS_URL, "PUT", data).then(res => {
         console.log(res.data + "---------");
         this.studentSemesterRels = res.data;
-      }).catch(e=>console.log(e))
+      }).catch(e=> {
+        this.errorMessage = this.handleError(e);
+      })
     },
     deleteStudentSemesterRel: function(item){
       let idStudentSemesterRel = item.idStudentSemesterRel;
@@ -89,15 +95,16 @@ let component = {
       request(config.STUDENT_SEMESTER_RELS_URL + idStudentSemesterRel, "DELETE").then(res => {
         this.searchStudentSemesterRels();
         this.tabIdx = 0;
-      }).catch(e=>console.log(e))
+      }).catch(e=>{
+        this.errorMessage = this.handleError(e);
+      })
     },
     
     loadData: function () {
       request(config.SEMESTERS_URL).then(res => {
         this.contents = res.data.sort((item1, item2) => (item2.idSemester - item1.idSemester));
       }).catch(e => {
-        console.error(e);
-        this.$router.push('/');
+        this.errorMessage = this.handleError(e);
       });
     },
     createSemester: function (semesterData, event) {
@@ -113,8 +120,7 @@ let component = {
         this.tabIdx = 0;
         this.loadData();
       }).catch(e => {
-        console.error(e);
-        this.$router.push('/');
+        this.errorMessage = this.handleError(e);
       });
     },
     editSemester: function (contentEdit, event) {
@@ -132,8 +138,7 @@ let component = {
         this.tabIdx = 0;
         this.loadData();
       }).catch(e => {
-        console.error(e);
-        this.$router.push('/');
+        this.errorMessage = this.handleError(e);
       });
     },
 
@@ -144,8 +149,7 @@ let component = {
         this.loadData();
         this.tabIdx = 0;
       }).catch(e => {
-        console.error(e);
-        this.$router.push('/');
+        this.errorMessage = this.handleError(e);
       });
     },
     selectChanged: function (selectedItem, selectedIdx) {
@@ -163,8 +167,7 @@ let component = {
         console.log(res.data);
         this.tabIdx = 0;
       }).catch(e => {
-        console.error(e);
-        this.errorMessage = e.message;
+        this.errorMessage = this.handleError(e);
       });
     },
     searchStudent: function(searchText1,event){
@@ -186,8 +189,7 @@ let component = {
           this.student = this.studentList[0];
           console.log(this.student);
       }).catch(e => {
-        console.error(e);
-        this.errorMessage = e.message;
+        this.errorMessage = this.handleError(e);
       });
     },
     selectStudent: function(selectedItem, selectedIndex) {
@@ -208,8 +210,7 @@ let component = {
         link.click();
         link.remove();
       }).catch(e => {
-        console.error(e);
-        this.errorMessage = e.message;
+        this.errorMessage = this.handleError(e);
       });
     }
   },

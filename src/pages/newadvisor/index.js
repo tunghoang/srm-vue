@@ -38,9 +38,10 @@ let component = {
       }
       request(config.GUESTADVISOR_URL, 'POST', dataAdvisor).then((res)=>{
         console.log(res.data);
-        this.loadData();
+        this.goBack();
+        //this.loadData();
       }).catch(e => {
-        // this.errorMessage="Input invalid";
+        this.errorMessage="e.message";
         console.error(e);
       });
     },

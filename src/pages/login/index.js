@@ -3,6 +3,7 @@ import template from './template.html';
 import config from '../../config';
 import request from '../../apis';
 import {isEmailError,isEmpty} from '../../check-input';
+import Cookies from 'js-cookie';
 
 function getLoginUrl(loginType, isGuest) {
   if (loginType !== 'advisor') 
@@ -23,6 +24,13 @@ let component = {
       },
     };
   },
+  created: function() {
+    if (Cookies.get('jwt')) {
+      Cookies.remove('jwt');
+      Cookies.remove('key');
+      //this.$router.replace('/');
+    }
+  },
   methods: {
     doLogin: function(event, account) {
       event.stopPropagation();
@@ -37,7 +45,12 @@ let component = {
         this.$router.push('/');
       }).catch(e => {
         console.error(e);
-        this.errorMessage = e.response.data.message;
+        try {
+          this.errorMessage = e.response.data.message;
+        }
+        catch(_e) {
+          this.errorMessage = e.message;
+        }
       })
     },
     goHome: function() {

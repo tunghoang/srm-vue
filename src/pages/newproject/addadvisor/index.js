@@ -59,12 +59,6 @@ let component = {
     selectAdvisor: function(selectedAdvisor, selectedIndex){
       console.log("selectAdvisor", selectedAdvisor, selectedIndex);
       this.advisor = selectedAdvisor;
-      request(config.PROJECT_ADVISOR_RELS_URL, "POST", {
-        idAdvisor: this.advisor.idAdvisor,
-        idProject: this.idProject
-      }).then(res => {
-        // this.$router.back();
-      }).catch(e => console.error(e));
     }
   },
   template,

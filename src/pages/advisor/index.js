@@ -78,7 +78,8 @@ let component = {
     searchFieldChanged: function(selectedItem, selectedIdx) {
       this.searchField = selectedItem.toLowerCase();
     },
-    search: function(searchText, searchField){
+    search: function($event, searchText, searchField){
+      $event.preventDefault();
       console.log(searchText, searchField);
       if (isEmpty(searchText) || isEmpty(searchField)) {
         //this.errorMessage = "Search data empty";

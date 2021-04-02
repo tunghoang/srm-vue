@@ -12,6 +12,7 @@ export default {
   PROJECT_STUDENT_RELS_URL : baseUrl + '/projectStudentRels/',
   GUESTADVISOR_URL : baseUrl + '/guestadvisors/',
   STUDENT_SEMESTER_RELS_URL : baseUrl + '/studentSemesterRels/',
+  KLASS_URL: baseUrl + '/klass/',
   LOGIN_URLS : {
     student: baseUrl + '/studentlogin/',
     advisor: baseUrl + '/advisorlogin/',
@@ -20,5 +21,6 @@ export default {
   },
   LOGOUT_URL: baseUrl + '/logout/',
   EXPORT_ADVISORS_URL: baseUrl + '/exportAdvisors/',
-  EXPORT_STUDENT_SEMESTER_URL: baseUrl + '/exportStudentSemester/'
+  EXPORT_STUDENT_SEMESTER_URL: baseUrl + '/exportStudentSemester/',
+  CONFIGS_URL: baseUrl + '/configs/'
 }

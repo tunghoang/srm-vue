@@ -10,15 +10,17 @@ import Profileadvisor from './profileadvisor';
 import Newadvisor from './newadvisor';
 import Newproject from './newproject';
 import Addadvisor from './newproject/addadvisor';
+import Manual from './manual';
 // redirect: '/project/unsupervised/0'
 export default [
-  {path:'/', redirect: '/profileadvisor', props: true}, 
+  {path:'/', redirect: '/manual/advisors'}, 
   Login, 
   Project('/project/:status/:idAdvisor', true),
   Profileadvisor('/profileadvisor/:idAdvisor', true),
   Newproject('/newproject/idProject/:idProject/idAdvisor/:idAdvisor', true),
   Newadvisor('/newadvisor'),
   Addadvisor('/newproject/addadvisor/idProject/:idProject', true),
+  Manual('/manual/:userClass', true)
 ];
 
 

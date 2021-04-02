@@ -6,6 +6,7 @@
     "ionicons": "^5.2.3",
     "js-cookie": "^2.2.1",
     "jwt-decode": "^3.0.0",
+    "spin.js": "^4.1.0",
     "themify-icons-sass": "git+https://github.com/aastrong/themify-icons.scss.git",
     "vue": "^2.6.12",
     "vue-router": "^3.4.6"
@@ -23,5 +24,9 @@
     "webpack": "^4.44.2",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0"
+  },
+  "scripts": {
+    "build": "rm -fr dist/*.js && MODE=production webpack",
+    "clean": "rm -fr dist/*.js"
   }
 }

@@ -5,6 +5,7 @@ import DropdownList from '../../components/dropdown-list';
 import Pagination from '../../components/pagination';
 import config from '../../config';
 import request from '../../apis';
+import {handleError} from '../../apis';
 import {isEmailError,isEmpty} from '../../check-input'
 import advisor from '../advisor';
 
@@ -30,7 +31,9 @@ let component = {
       projectFields: null,
       projectActions: null,
       searchAdvisors: null,
-      searchMembers: null
+      searchMembers: null,
+      orderField: null,
+      descending: false
     };
   },
   watch: {
@@ -39,6 +42,7 @@ let component = {
     }
   },
   created: function() {
+    this.handleError = handleError.bind(this);
     if (this.idAdvisor) {
       this.projectFields = [{
         value: 'idProject',
@@ -59,9 +63,24 @@ let component = {
       }, {
         value: 'student',
         label: 'Student'
+      },{
+        value: 'studentNumber',
+        label: 'MSSV',
+        klass: {
+          'icon-arrow-down': this.orderField === 'studentNumber' && this.descending,
+          'icon-arrow-up': this.orderField === 'studentNumber' && !this.descending
+        }
       }, {
-        value: 'advisors',
-        label: 'Advisors'
+        value: 'confirmedAdvisors',
+        label: 'Advisors',
+        klass: {
+          'icon-arrow-down': this.orderField === 'advisors' && this.descending,
+          'icon-arrow-up': this.orderField === 'advisors' && !this.descending
+        }
+      }, {
+        value: 'unconfirmedAdvisors',
+        label: 'Advisor (unconfirmed)',
+        klass: 'has-text-danger'
       },{
         value: 'grade', 
         label: 'Grade'
@@ -93,32 +112,83 @@ let component = {
     else {
       this.projectFields = [{
         value: 'idProject',
-        label: 'id'
+        label: 'id',
+        klass: {
+          'icon-arrow-down': this.orderField === 'idProject' && this.descending,
+          'icon-arrow-up': this.orderField === 'idProject' && !this.descending
+        }
+
       },{
         value: 'project_title', 
-        label: 'Title'
+        label: 'Title',
+        klass: {
+          'icon-arrow-down': this.orderField === 'project_title' && this.descending,
+          'icon-arrow-up': this.orderField === 'project_title' && !this.descending
+        }
+
       }, {
         value: 'semester_year',
-        label: 'Year'
+        label: 'Year',
+        klass: {
+          'icon-arrow-down': this.orderField === 'semester_year' && this.descending,
+          'icon-arrow-up': this.orderField === 'semester_year' && !this.descending
+        }
+
       }, {
         value: 'semester_semesterIndex',
         label: 'HK',
         fn: (v) => v + 1
       }, {
         value: 'project_status', 
-        label: 'Status'
+        label: 'Status',
+        klass: {
+          'icon-arrow-down': this.orderField === 'project_status' && this.descending,
+          'icon-arrow-up': this.orderField === 'project_status' && !this.descending
+        }
+
       }, {
         value: 'student',
-        label: 'Student'
+        label: 'Student',
+        klass: {
+          'icon-arrow-down': this.orderField === 'student' && this.descending,
+          'icon-arrow-up': this.orderField === 'student' && !this.descending
+        }
+
       }, {
-        value: 'advisors',
-        label: 'Advisors'
+        value: 'studentNumber',
+        label: 'MSSV',
+        klass: {
+          'icon-arrow-down': this.orderField === 'studentNumber' && this.descending,
+          'icon-arrow-up': this.orderField === 'studentNumber' && !this.descending
+        }
+
+      }, {
+        value: 'confirmedAdvisors',
+        label: 'Advisors',
+        klass: {
+          'icon-arrow-down': this.orderField === 'advisors' && this.descending,
+          'icon-arrow-up': this.orderField === 'advisors' && !this.descending
+        }
+      }, {
+        value: 'unconfirmedAdvisors',
+        label: 'Advisor (unconfirmed)',
+        klass: 'has-text-danger'
       },{
         value: 'project_type',
-        label: 'Type'
+        label: 'Type',
+        klass: {
+          'icon-arrow-down': this.orderField === 'project_type' && this.descending,
+          'icon-arrow-up': this.orderField === 'project_type' && !this.descending
+        }
+
       },{
         value: 'grade', 
-        label: 'Grade'
+        label: 'Grade',
+        klass: {
+          'icon-arrow-down': this.orderField === 'grade' && this.descending,
+          'icon-arrow-up': this.orderField === 'grade' && !this.descending
+        }
+
       }];
       this.projectActions = [{
         class: 'icon-pencil-alt',
@@ -155,8 +225,7 @@ let component = {
         this.advisors.unshift({fullname: "--advisor--"});
       }
       catch(e) {
-        console.error(e);
-        this.errorMessage = e.response.data.message;
+        this.errorMessage = this.handleError(e);
       }
     },
     loadData: async function() {
@@ -178,22 +247,36 @@ let component = {
       }
       try {
         this.contents = (await request(config.PROJECT_URL, 'PUT', criteria)).data.map(item => {
-          let members = item.members.split(',');
-          item.members = _.uniq(members).join(',');
-          let advisors = item.advisors.split(',');
-          item.advisors = _.uniq(advisors).join(',');
+          //let members = item.members.split(',');
+          //item.members = _.uniq(members).join(',');
+          let advisors = (item.advisors || "").split(',');
+          let confirmedAdvisors = [];
+          let unconfirmedAdvisors = [];
+          let confirmeds = JSON.parse(item.confirmeds)
+          for (let i = 0; i < confirmeds.length; i++) {
+            if (confirmeds[i]) {
+              confirmedAdvisors.push(advisors[i]);
+            }
+            else {
+              unconfirmedAdvisors.push(advisors[i]);
+            }
+          }
+          item.confirmedAdvisors = confirmedAdvisors.join(',');
+          item.unconfirmedAdvisors = unconfirmedAdvisors.join(',');
           return item;
         }).sort((item1, item2) => (item2.idProject - item1.idProject));
       }
       catch(e) {
-        console.error(e);
-        this.errorMessage = e.response.data.message;
+        this.errorMessage = this.handleError(e);
       }
     },
     gotoEditProject: function(prj) {
       let targetUrl = `/newproject/idProject/${prj.idProject}`;
+      if (this.idStudent) {
+        targetUrl += `/idStudent/${this.idStudent}`;
+      }
       if (this.idAdvisor) 
-        targetUrl += `/idAdvisor/${this.idAdvisor}`
+        targetUrl += `/idAdvisor/${this.idAdvisor}`;
       this.$router.push({path:targetUrl});
     },
     acceptProject: function(prj) {
@@ -220,7 +303,7 @@ let component = {
         console.error(e);
       });
     },
-    search: function(evt){
+    search: async function(evt){
       evt.stopPropagation();
       evt.preventDefault();
       let searchProject= {};
@@ -237,10 +320,28 @@ let component = {
         searchProject.idProjecttype = this.searchIdProjecttype;
       }
       console.log("searchProject", this.searchProject);
-      request(config.PROJECT_URL, "PUT", searchProject).then(res => {
-        console.log(res.data);
-        this.contents = res.data;
-      }).catch(e=> console.error)
+      try {
+        this.contents = (await request(config.PROJECT_URL, 'PUT', searchProject)).data.map(item => {
+          let advisors = (item.advisors || "").split(',');
+          let confirmedAdvisors = [];
+          let unconfirmedAdvisors = [];
+          let confirmeds = JSON.parse(item.confirmeds);
+          for (let i = 0; i < confirmeds.length; i++) {
+            if (confirmeds[i]) {
+              confirmedAdvisors.push(advisors[i]);
+            }
+            else {
+              unconfirmedAdvisors.push(advisors[i]);
+            }
+          }
+          item.confirmedAdvisors = confirmedAdvisors.join(',');
+          item.unconfirmedAdvisors = unconfirmedAdvisors.join(',');
+          return item;
+        }).sort((item1, item2) => (item2.idProject - item1.idProject));
+      }
+      catch(e) {
+        this.errorMessage = this.handleError(e);
+      }
     },
     
     getName: function(item){
@@ -251,6 +352,25 @@ let component = {
     },
     getFullname: function(item){
       return item.fullname;
+    },
+    headerClicked: function(field) {
+      console.log(field);
+      this.orderField = field.value || field;
+      this.descending = !this.descending;
+      this.contents = this.contents.sort(this.sorter);
+    },
+    sorter: function(item1, item2) {
+      if (!this.orderField) return 1; 
+      switch(this.orderField) {
+        case 'studentNumber':
+          if (!this.descending) 
+            return item2.studentNumber - item1.studentNumber;
+          return item1.studentNumber - item2.studentNumber;
+        default:
+          if (this.descending)
+            return item2[this.orderField].localeCompare(item1[this.orderField])
+          return item1[this.orderField].localeCompare(item2[this.orderField])
+      }
     },
   },
   

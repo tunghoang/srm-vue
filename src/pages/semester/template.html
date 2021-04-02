@@ -13,6 +13,9 @@
         </div>
     </div>
     <div v-if="tabIdx == 0">
+        <p v-if="errorMessage && errorMessage.length" class="control">
+          <div class="has-text-centered has-text-danger has-background-danger-light">{{errorMessage}}</div>
+        </p>
         <div v-for="content in contents" class="column" :key="content.idSemester">
             <div class="card">
                 <div class="card-content">
@@ -167,7 +170,11 @@
               },{
                 value: 'affiliations',
                 label: 'Affiliations'
-              }]" :actions="[{
+              }]" 
+              :row-class-fn="(item) => ({
+                'has-background-danger-light': !item.titleConfirm
+              })"
+              :actions="[{
                 class: 'icon-trash has-text-danger',
                 fn: (item) => {
                   pendingAction = {

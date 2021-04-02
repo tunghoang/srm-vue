@@ -3,6 +3,7 @@ import template from './template.html';
 import DropdownList from '../../components/dropdown-list';
 import config from '../../config';
 import request from '../../apis';
+import {handleError} from '../../apis';
 import { isEmailError, isEmpty } from '../../check-input'
 let component = {
   props: ['idProject','idAdvisor','idStudent'],
@@ -24,10 +25,13 @@ let component = {
       members: null,
       errorMessage: "",
       projecttypes: [],
-      semesters: []
+      semesters: [],
+      pendingFn: null,
+      pendingParams: null
     };
   },
   created: function () {
+    this.handleError = handleError.bind(this);
     this.doInit();
   },
   watch: {
@@ -35,7 +39,9 @@ let component = {
       this.getProject(idPrj).then(res => {
         console.log(res.data);
         this.dataProject.title = res.data.title;
-      }).catch(e => console.error(e));
+      }).catch(e => {
+        this.errorMessage = this.handleError(e);
+      });
     }
   },
   methods: {
@@ -72,8 +78,7 @@ let component = {
         this.members = res.data;
       }
       catch (e) {
-        console.error(e);
-        this.errorMessage = e.message;
+        this.errorMessage = this.handleError(e);
       }
     },
     confirm: function(idProjectAdvisorRel){
@@ -83,7 +88,9 @@ let component = {
       }).then(res=> {
         console.log(res.data);
         this.doInit();
-      }).catch(e=> console.error(e))
+      }).catch(e => {
+        this.errorMessage = this.handleError(e);
+      })
     },
     deleteProject:function(idProject){
       console.log("deletePrject" , idProject);
@@ -93,8 +100,7 @@ let component = {
         this.$router.back();
         console.log(res.data);
       }).catch(e=>{
-        console.error(e);
-        this.errorMessage = "Delete error: " + e.response.data.message;
+        this.errorMessage = this.handleError(e);
       });
     },
     labelSemester: function(semesterItem){
@@ -146,16 +152,28 @@ let component = {
           let idProject = null;
           if (method === 'POST') {
             idProject = res.data.idProject;
-            this.$router.replace('/newproject/idProject/' + idProject);
+            console.log('Go back to project');
+            if (this.idStudent) {
+              this.$router.replace('/newproject/idProject/' + idProject + '/idStudent/' + this.idStudent);
+            }
+            else {
+              this.$router.replace('/newproject/idProject/' + idProject);
+            }
           }
           else {
             console.log('Go back');
-            this.$router.back();
+            this.$router.go(-1);
           }
-        }).catch(e => console.error(e));
-      }else{
+        }).catch(e => this.errorMessage = this.handleError(e));
+      }
+      else {
         this.errorMessage = "Empty title";
       }
+    },
+    confirmTitle: function(project) {
+      if (this.idStudent) return;
+      project.titleConfirm = (project.titleConfirm + 1) % 2;
+      this.saveProject(project);
     },
     deleteAdvisorRel: function (idProjectAdvisorRel) {
       console.log('delete');
@@ -166,8 +184,7 @@ let component = {
       }).then(res => {
         this.advisors = res.data;
       }).catch(e => {
-        console.error(e);
-        this.errorMessage = e.response.data.message;
+        this.errorMessage = this.handleError(e);
       });
     },
     deleteStudentRel: function (idProjectStudentRel) {
@@ -177,8 +194,7 @@ let component = {
       }).then(res => {
         this.members = res.data;
       }).catch(e => {
-        console.error(e);
-        this.errorMessage = "deleteStudentRel: " +  e.response.data.message;
+        this.errorMessage = this.handleError(e);
       });
     },
     getProject: function (idPrj) {

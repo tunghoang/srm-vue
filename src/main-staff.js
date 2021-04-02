@@ -35,6 +35,8 @@ new Vue({
         this.$router.push('/login/staff');
       }).catch(e => {
         console.error(e);
+        Cookies.remove('key');
+        Cookies.remove('jwt');
         this.$router.push('/login/staff');
       });
     },

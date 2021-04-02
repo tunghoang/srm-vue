@@ -1,6 +1,6 @@
 <div class="rows">
     <div v-if="tabIdx == 0">
-        <form @submit="search(searchText, searchField)">
+        <form @submit="search($event, searchText, searchField)">
             <div class="field has-addons m-0">
                 <p class="control">
                     <dropdown-list class="min-width-8" :items='["Email","Fullname"]'
@@ -20,7 +20,7 @@
             </div>
         </form>
         <div class="column">
-            <Pagination :items="contents" :fields="[
+            <pagination :items="contents" :fields="[
                 {
                   value:'studentNumber',
                   label:'MSSV', 
@@ -38,8 +38,9 @@
                   }
                 },
                 {
-                  value:'klass',
-                  label:'Class', 
+                  value:'idKlass',
+                  label:'Class',
+                  fn: (v) => (klasses.find(c => c.idKlass === v)||{}).className,
                   klass: {
                     'icon-arrow-down': orderField === 'klass' && descending,
                     'icon-arrow-up': orderField === 'klass' && !descending
@@ -56,49 +57,13 @@
               ]" :on-header-clicked="headerClicked"
               :actions="[{
                 class: 'icon-pencil-alt has-text-success',
-                fn: () => {tabIdx=2; contentEdit = content}
+                fn: (content) => {tabIdx=2; contentEdit = content;}
               }, {
                 class: 'icon-trash has-text-danger',
-                fn: () => {currentStudentId = content.idStudent;tabIdx = 3;}
+                fn: (content) => {currentStudentId = content.idStudent;tabIdx = 3;}
               }]"
             >
-            </Pagination>
-            <!--<table class="table is-fullwidth has-text-centered">
-                <thead>
-                    <tr>
-                        <th>studentNumber</th>
-                        <th>email</th>
-                        <th>fullname</th>
-                        <th>dob</th>
-                        <th>gender</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="content in contents" :key="content.idStudent">
-                        <td>{{content.studentNumber}}</td>
-                        <td>{{content.email}}</td>
-                        <td>{{content.fullname}}</td>
-                        <td>{{content.dob}}</td>
-                        <td>{{content.gender}}</td>
-                        <td>
-                            <span class="Edit" @click="tabIdx=2; contentEdit = content">
-                                <a href="#">
-                                    <span class="icon-pencil-alt"></span>
-                                </a>
-                            </span>
-                        </td>
-                        <td>
-                            <span class="Delete" @click="currentStudentId = content.idStudent;tabIdx = 3;">
-                                <a href="#" class="has-text-danger">
-                                    <span class="icon-trash"></span>
-                                </a>
-                            </span>
-                        </td>
-                    </tr>
-                </tbody>
-            </table> -->
+            </pagination>
         </div>
     </div>
     <div class="card m-4 p-4 border-redish" v-if="tabIdx === 3">
@@ -145,7 +110,18 @@
                             <div class="field">
                                 <label class='label'>email</label>
                                 <div class='control'>
-                                    <input class='input' type='text' v-model='contentEdit.email'>
+                                    <input class='input' type='text' v-model='contentEdit.email' readonly>
+                                </div>
+                            </div>
+                            <div class='field'>
+                                <label class='label'>Class</label>
+                                <input class='input' type='text' placeholder="filter" v-model='classFilterTxt'>
+                                <div class='control'>
+                                    <dropdown-list :items="cClasses" :item-label-fn="(item) => (item.className)" 
+                                        :selected-index="cClassIdx"
+                                        :on-select-changed="(item) => contentEdit.idKlass = item.idKlass"    
+                                    >
+                                    </dropdown-list>
                                 </div>
                             </div>
                             <div class="field">

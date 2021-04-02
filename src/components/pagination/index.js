@@ -84,9 +84,12 @@ let component = {
     showField: function(field, item) {
       let v = item[field.value || field];
       if (field.fn) {
-        return field.fn(v);
+        return field.fn(v, item);
       }
       return v
+    },
+    seqNum: function(idx) {
+      return idx + 1 + (this.rCurrentPage - 1) * PAGE_SIZE;
     },
     headerClick: function(field) {
       if (this.onHeaderClicked) this.onHeaderClicked(field);

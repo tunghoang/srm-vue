@@ -10,6 +10,8 @@ let component = {
   data: function (){
     return {
       contents: [],
+      klasses: [],
+      classFilterTxt: "",
       tabIdx: 0,
       studentData: {},
       contentEdit: {},
@@ -38,13 +40,16 @@ let component = {
           return item1[this.orderField].localeCompare(item2[this.orderField])
       }
     },
-    loadData: function() {
-      request(config.STUDENT_URL, 'GET').then(res => {
-        this.contents = res.data.sort(this.sorter);
-      }).catch(e => {
+    loadData: async function() {
+      try {
+        this.klasses = (await request(config.KLASS_URL, 'GET')).data;
+        /*let res = await request(config.STUDENT_URL, 'GET');
+        this.contents = res.data.sort(this.sorter);*/
+      }
+      catch(e) {
         console.error(e);
         this.$router.push('/');
-      });
+      }
     },
     createStudent: function(studentData) {
       console.log(studentData.email)
@@ -55,7 +60,7 @@ let component = {
       request(config.STUDENT_URL, 'POST', studentData).then((res)=>{
         console.log(res.data);
         this.tabIdx = 0;
-        this.search(this.searchText, this.searchField);
+        this.search(null, this.searchText, this.searchField);
       }).catch(e => {
         console.error(e);
         this.$router.push('/');
@@ -78,7 +83,7 @@ let component = {
       console.log('delete');
       request(config.STUDENT_URL + idStudent, 'delete').then(res => {
         console.log(res.data);
-        this.search(this.searchText, this.searchField);
+        this.search(null, this.searchText, this.searchField);
         this.tabIdx = 0;
       }).catch(e => {
         console.error(e);
@@ -89,12 +94,9 @@ let component = {
     searchFieldChanged: function(selectedItem, selectedIdx) {
       this.searchField = selectedItem.toLowerCase();
     },
-    search: function(searchText, searchField){
+    search: function($event, searchText, searchField){
+      $event && $event.preventDefault();
       console.log(searchText, searchField);
-      if (isEmpty(searchText) || isEmpty(searchField)) {
-        this.errorMessage = "Search data empty";
-        return;
-      }
       this.errorMessage = "";
       let data = {[searchField]: searchText};
       console.log(data);
@@ -113,7 +115,16 @@ let component = {
       this.contents = this.contents.sort(this.sorter);
     }
   },
-  
+  computed: {
+    cClassIdx: function() {
+      if (!this.contentEdit) return -1;
+      return this.cClasses.findIndex((item) => item.idKlass === this.contentEdit.idKlass);
+    },
+    cClasses: function() {
+      if (!this.classFilterTxt || !this.classFilterTxt.length) return this.klasses;
+      return this.klasses.filter(item => item.className.includes(this.classFilterTxt));
+    }
+  },
   template,
   components: {
     DropdownList, Pagination

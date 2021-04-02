@@ -1,6 +1,7 @@
 let HtmlWebpackPlugin = require('html-webpack-plugin');
 let backend = null;
 let process = require('process');
+
 console.log(process.env.MODE);
 try {
   backend = require('./backend');
@@ -20,7 +21,7 @@ module.exports = {
     },
     output: {
       path: __dirname + '/dist',
-      filename: '[name].bundle.js'
+      filename: process.env.MODE === 'production'? `[name].bundle-${Date.now()}.js` : '[name].bundle.js'
     },
     resolve: {
       alias: {
@@ -73,6 +74,7 @@ module.exports = {
         '/quotas':backend,
         '/staffs': backend,
         '/students': backend,
+        '/klass': backend,
         '/advisors': backend,
         '/projecttypes': backend,
         '/projects': backend,
@@ -85,6 +87,7 @@ module.exports = {
         '/upload': backend,
         '/exportAdvisors': backend,
         '/exportStudentSemester':backend,
+        '/configs':backend,
         '/static/icons':backend
       }
     }

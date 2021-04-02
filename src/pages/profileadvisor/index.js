@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import request from '../../apis';
+import {handleError} from '../../apis';
 import DropdownList from '../../components/dropdown-list';
 import template from './template.html';
 import config from '../../config';
@@ -16,6 +17,7 @@ let component = {
     };
   },
   created: async function () {
+    this.handleError = handleError.bind(this);
     try {
       let res = await request(config.ADVISOR_URL + this.idAdvisor, 'GET');
       this.fullname = res.data.fullname;
@@ -26,8 +28,7 @@ let component = {
       this.projects = res1.data;
     }
     catch(e) {
-      console.error(e);
-      this.errorMessage = e.message
+      this.errorMessage = this.handleError(e);
     };
   },
   computed: {
@@ -48,7 +49,11 @@ let component = {
     unconfirmed: function() {
       if (!this.projects || !this.projects.length) return 0;
       return this.projects.reduce((total, prj) => {
-        if (!prj.confirmed) return total + 1;
+        let idAdvisors = JSON.parse(prj.idAdvisors);
+        let confirmeds = JSON.parse(prj.confirmeds);
+        let idx = idAdvisors.findIndex(id => parseInt(id) === parseInt(this.idAdvisor))
+        
+        if (!confirmeds[idx]) return total + 1;
         return total;
       }, 0);
     }

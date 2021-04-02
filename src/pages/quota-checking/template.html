@@ -1,0 +1,57 @@
+<div class="rows">
+    <div class="level">
+        <form @submit="checkQuota($event)">
+            <div class="field has-addons m-0">
+                <p class='control'>
+                    <dropdown-list class="min-width-15" :items='semesters'
+                        :item-label-fn="(s) => (s.idSemester?('HK' + (s.semesterIndex + 1) + '-' + s.year): '--')"
+                        :on-select-changed="(s) => idSemester = s.idSemester"></dropdown-list>
+                </p>
+                <p class='control'>
+                  <input type='text' class="input min-width-15" placeholder="Advisor" v-model="advisorSearch">
+                </p>
+                <p class="control">
+                    <button class="button is-link" >
+                        <span class="icon-search"></span>
+                    </button>
+                </p>
+                <p v-if="errorMessage && errorMessage.length" class="control">
+                <div class="button is-borderless is-radiusless has-text-danger">{{errorMessage}}</div>
+                </p>
+            </div>
+        </form>
+    </div>
+    <div>
+      <pagination :items="contents" :fields="[
+        {
+          value: 'idAdvisor',
+          label: 'idAdvisor'
+        },
+        {
+          value: 'advisor',
+          label: 'Advisor'
+        },
+        {
+          value: 'title',
+          label: 'Title'
+        },
+        {
+          value: 'count',
+          label: '#Project'
+        },
+        {
+          value: 'count1',
+          label: '#Project1'
+        },
+        {
+          value: 'quota',
+          label: 'Quota',
+          fn: (v,item) => (v/(item.idGuestadvisor>0?2.0:1.0))
+        }
+      ]" :row-class-fn="(content, idx) => ({
+        'has-background-info-light': content.idGuestadvisor, 
+        'has-text-danger': (content.quota/(content.idGuestadvisor?2:1)) < content.count1
+      })">
+      </pagination>
+    </div>
+</div>

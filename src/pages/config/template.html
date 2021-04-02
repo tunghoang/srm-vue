@@ -1,0 +1,22 @@
+<div class="rows">
+    <div class="level">
+        <div class="level-left ml-4">
+            <p class="is-size-5">List Configs</p>
+        </div>
+        <div class="level-right">
+            <a class="button"  @click="createConfig()">
+                <span class="icon">
+                    <span class="icon-plus"></span>
+                </span>
+                <span>New Config</span>
+            </a>
+        </div>
+    </div>
+    <div>
+        <div v-for="content in contents" class="column" :key="content.idConfig">
+            <button :class="{'is-link':content.value && content.value.length, 'button': true}" @click="toggle(content)">
+                {{content.key}}
+            </button>
+        </div>
+    </div>
+</div>

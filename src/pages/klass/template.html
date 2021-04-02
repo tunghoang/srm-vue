@@ -1,0 +1,178 @@
+<div class="rows">
+    <div class="level">
+        <div class="level-left ml-4" v-show="tabIdx==0">
+            <p class="is-size-5">List Class</p>
+        </div>
+        <div class="level-right">
+            <a class="button" @click="tabIdx = 1;" v-show="tabIdx==0">
+                <span class="icon">
+                    <span class="icon-plus"></span>
+                </span>
+                <span> New Class</span>
+            </a>
+        </div>
+    </div>
+    <div class='column' v-if="tabIdx == 0">
+        <Pagination :items="contents" :fields="[{
+          value: 'idKlass',
+          label: 'id'
+        },{
+          value: 'className',
+          label: 'Class'
+        }, {
+          value: 'category',
+          label: 'Category'
+        }]" :actions="[{
+          class:'icon-pencil-alt has-text-success',
+          fn: (item) => {tabIdx=2; contentEdit = item;}
+        }, {
+          class: 'icon-trash has-text-danger',
+          fn: (item) => {currentKlassId = item.idKlass;tabIdx = 3;}
+        }]">
+        </Pagination>
+        <!--<div v-for="content in contents" class="column" :key="content.idKlass">
+            <div class="card">
+                <div class="card-content ">
+                    <div>
+                        <h4 class='is-size-7 is-lightgray'>ID: {{content.idKlass}}</h4>
+                        <p><b>ClassName:</b> {{content.className}}</p>
+                        <p><b>Category:</b> {{content.category}}</p>
+                    </div>
+                    <div class="has-text-right">
+                        <span class="Edit" @click="tabIdx=2; contentEdit = content">
+                            <a href="#">
+                                <span class="icon-pencil-alt"></span>
+                                <span>Edit</span>
+                            </a>
+                        </span>
+                        <span class="Delete ml-4" @click="currentKlassId = content.idKlass;tabIdx = 3;">
+                            <a href="#" class="has-text-danger">
+                                <span class="icon-trash"></span>
+                                <span>Delete</span>
+                            </a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>-->
+    </div>
+    <div class="card m-4 p-4 border-redish" v-if="tabIdx === 3">
+        <h2 class="is-size-5 has-text-danger">Are you sure?</h2>
+        <div class="field is-grouped is-grouped-right">
+            <button class="button is-link is-danger" @click="deleteKlass(currentKlassId)">
+                <span class="icon">
+                    <span class="icon-check"></span>
+                </span>
+                <span>Sure</span>
+            </button>
+            <button class="button ml-2 is-light" @click="tabIdx = 0;">
+                <span class="icon">
+                    <span class="icon-arrow-left"></span>
+                </span>
+                <span>Back</span>
+            </button>
+        </div>
+    </div>
+    <div v-if="tabIdx === 1">
+        <div class='column '>
+            <form @submit="createKlass(klassData,$event)">
+                <div class='panel'>
+                    <div class='panel-heading'>
+                        <span>New Class</span>
+                    </div>
+                    <h4 class="p-2 m-1 is-6 has-text-danger has-background-danger-light has-text-centered"
+                        v-show="errorMessage.length > 0">{{errorMessage}}</h4>
+                    <div class='panel-block'>
+                        <div class='container'>
+                            <div class=field>
+                                <label class='label'>Class Name</label>
+                                <div class='control'>
+                                    <input class='input' type='text' v-model="klassData.className" placeholder='Class Name'
+                                        @focus="errorMessage=''">
+                                </div>
+                            </div>
+                            <div class=field>
+                                <label class='label'>Category</label>
+                                <div class='control'>
+                                    <input class='input' type='text' v-model="klassData.category" placeholder='Category'
+                                        @focus="errorMessage=''">
+                                </div>
+                            </div>
+                            <div class='field is-grouped'>
+                                <div class='control'>
+                                    <button type="submit" class='button is-link'>
+                                        <span class="icon">
+                                            <span class="icon-check"></span>
+                                        </span>
+                                        <span>Submit</span>
+                                    </button>
+                                </div>
+                                <div class='control'>
+                                    <button class='button is-light' @click='tabIdx=0;'>
+                                        <span class="icon">
+                                            <span class="icon-arrow-left"></span>
+                                        </span>
+                                        <span>Back</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div v-if="tabIdx === 2">
+        <div class='column '>
+            <form @submit="editKlass(contentEdit,$event)">
+                <div class='panel'>
+                    <div class='panel-heading'>
+                        Edit Class
+                    </div>
+                    <h4 class="p-2 m-1 is-6 has-text-danger has-background-danger-light has-text-centered"
+                        v-show="errorMessage.length > 0">{{errorMessage}}</h4>
+                    <div class='panel-block'>
+                        <div class='container'>
+                            <div class=field>
+                                <div class=field>
+                                    <label class='label is-size-7 is-lightgray'>ID {{contentEdit.idKlass}}</label>
+                                </div>
+                            </div>
+                            <div class=field>
+                                <label class='label'>Class Name</label>
+                                <div class='control'>
+                                    <input class='input' type='text' v-model='contentEdit.className' @focus="errorMessage=''">
+                                </div>
+                            </div>
+                            <div class=field>
+                                <label class='label'>Category</label>
+                                <div class='control'>
+                                    <input class='input' type='text' v-model='contentEdit.category' @focus="errorMessage=''">
+                                </div>
+                            </div>
+                            <div class='field is-grouped'>
+                                <div class='control'>
+                                    <button class='button is-link'>
+                                        <span class="icon">
+                                            <span class="icon-check"></span>
+                                        </span>
+                                        <span>Submit</span>
+                                    </button>
+                                </div>
+                                <div class='control'>
+                                    <button class='button is-light' @click="tabIdx = 0;">
+                                        <span class="icon">
+                                            <span class="icon-arrow-left"></span>
+                                        </span>
+                                        <span>Back</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

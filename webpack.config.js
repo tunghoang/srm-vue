@@ -10,6 +10,7 @@ catch(e) {
   backend = {
     target: 'http://112.137.129.214:35280',
     secure: false,
+    logLevel: 'debug'
   }
 }
 module.exports = {

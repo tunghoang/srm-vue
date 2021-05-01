@@ -54,7 +54,7 @@
             </li>
           </ul>
           <p class="menu-label" style="padding: 0 0 0 1.5rem;">
-            Actions
+            Actionsss
           </p>
           <ul class='menu-list'>
             <li>
@@ -63,6 +63,14 @@
                   <span class="icon-home"></span>
                 </span>
                 <span>Home</span>
+              </router-link>
+            </li>
+            <li v-if='idGuestAdvisor'>
+              <router-link :to="`/changepassword/${idGuestAdvisor}`">
+                <span class='icon is-medium'>
+                  <span class="icon-lock"></span>
+                </span>
+                <span>Change Password</span>
               </router-link>
             </li>
           </ul>

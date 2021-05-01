@@ -1,4 +1,4 @@
-const baseUrl = "";
+const baseUrl = "/srm8000";
 export default {
   baseUrl,
   SEMESTERS_URL: baseUrl + '/semesters/',
@@ -22,5 +22,6 @@ export default {
   LOGOUT_URL: baseUrl + '/logout/',
   EXPORT_ADVISORS_URL: baseUrl + '/exportAdvisors/',
   EXPORT_STUDENT_SEMESTER_URL: baseUrl + '/exportStudentSemester/',
-  CONFIGS_URL: baseUrl + '/configs/'
+  CONFIGS_URL: baseUrl + '/configs/',
+  CHECKPOINT_URL: baseUrl + '/checkpoint/'
 }

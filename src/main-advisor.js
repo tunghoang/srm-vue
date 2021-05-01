@@ -21,7 +21,8 @@ new Vue({
   router,
   data: {
     username: "N/A",
-    idAdvisor: 20
+    idAdvisor: 20,
+    idGuestAdvisor: 0
   },
   computed: {
   },
@@ -61,6 +62,7 @@ new Vue({
         }
         else {
           this.idAdvisor = jwtData.idAdvisor;
+          this.idGuestAdvisor = jwtData.idGuestadvisor
         }
         this.username = jwtData.fullname;
       }

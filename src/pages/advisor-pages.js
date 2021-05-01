@@ -11,6 +11,7 @@ import Newadvisor from './newadvisor';
 import Newproject from './newproject';
 import Addadvisor from './newproject/addadvisor';
 import Manual from './manual';
+import GuestChangePassword from './guest-change-password';
 // redirect: '/project/unsupervised/0'
 export default [
   {path:'/', redirect: '/manual/advisors'}, 
@@ -20,7 +21,8 @@ export default [
   Newproject('/newproject/idProject/:idProject/idAdvisor/:idAdvisor', true),
   Newadvisor('/newadvisor'),
   Addadvisor('/newproject/addadvisor/idProject/:idProject', true),
-  Manual('/manual/:userClass', true)
+  Manual('/manual/:userClass', true),
+  GuestChangePassword('/changepassword/:idGuestAdvisor', true)
 ];
 
 

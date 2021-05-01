@@ -84,10 +84,6 @@ let component = {
       },{
         value: 'grade', 
         label: 'Grade'
-      }, {
-        value: 'confirmed',
-        label: 'Confirmed?',
-        fn: (v) =>  v === null ? "No": "Yes"
       }];
 
       this.projectActions = [{

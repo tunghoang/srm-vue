@@ -32,11 +32,22 @@ let component = {
         this.errorMessage = this.handleError(e);
       }
     },
-    toggle: function(content, idx) {
-      if (content.value.length > 0) 
+    toggle: async function(content, idx) {
+      let method = 'GET';
+      if (content.value.length > 0) {
         content.value = "";
-      else 
+        method = 'POST';
+      }
+      else {
         content.value = "allow";
+      }
+      try {
+        let response = await request(config.CHECKPOINT_URL, method);
+        console.log(response.data);
+      }
+      catch(e) {
+        this.errorMessage = this.handleError(e);
+      }
       request(config.CONFIGS_URL + content.idConfig, 'PUT', content).then(res => {
         content.value = res.data.value; 
       }).catch(e => {
@@ -48,6 +59,21 @@ let component = {
       request(config.CONFIGS_URL, 'POST', {key: "Allow edit project", value:""}).then(res => {
         this.loadData();
       }).catch(e => this.errorMessage = this.handleError(e));
+    },
+    checkpointCompare: function() {
+      request(config.CHECKPOINT_URL, 'PUT').then(res => {
+        const url = URL.createObjectURL(new Blob([res.data]));
+        const link = document.createElement('a');
+        link.href = url;
+        let filename = 'checkpoint-diff.csv';
+        console.log(filename);
+        link.setAttribute('download', filename);
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+      }).catch(e => {
+        this.errorMessage = this.handleError(e);
+      });
     }
   },
   template
